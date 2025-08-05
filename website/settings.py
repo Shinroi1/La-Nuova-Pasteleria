@@ -14,6 +14,8 @@ from pathlib import Path
 import dj_database_url
 import os
 
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -85,6 +87,8 @@ DATABASES = {
         default=os.environ.get("DATABASE_URL")
     )
 }
+
+
 
 
 # Password validation
@@ -166,5 +170,6 @@ SESSION_COOKIE_NAME_ADMIN = 'django_admin_session'
 
 # Enable or disable maintenance mode
 MAINTENANCE_MODE = False  # Change to False to disable
+
 
 
