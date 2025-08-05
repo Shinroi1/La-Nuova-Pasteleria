@@ -1,0 +1,315 @@
+{% extends "user_navbar.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/full_menu.css' %}">
+
+  </head>
+
+  <body>
+  
+    <div class="container-fluid p-0">
+      <div class="image-overlay">
+        <img src={% static '/images/Menu/Concorde.jpg' %} alt="Concorde" class="header-image">
+        <div class="overlay-text"><b>CAKE</b></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-margin">
+        <div class="row">
+          <!-- Left side with menu categories -->
+          <div class="col-lg-3 menu-sidebar d-none d-lg-block">
+            <a href="{% url 'Full Menu' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+              </div>
+            </a>
+            <a href="{% url 'Antipasti' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+              </div>
+            </a>
+            <a href="{% url 'Insalata' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                <i class="fas fa-leaf"></i> <b>INSALATA</b>
+              </div>
+            </a>
+            <a href="{% url 'Zuppa' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+              </div>
+            </a>
+            <a href="{% url 'Panini' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+              </div>
+            </a>
+            <a href="{% url 'Risotto' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+              </div>
+            </a>
+            <a href="{% url 'Pizza' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+              </div>
+            </a>
+            <a href="{% url 'Pasta' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                <i class="fas fa-utensils"></i> <b>PASTA</b>
+              </div>
+            </a>
+            <a href="{% url 'Secondi' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+              </div>
+            </a>
+            <a href="{% url 'Caffe' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                <i class="fas fa-coffee"></i> <b>CAFFE</b>
+              </div>
+            </a>
+            <a href="{% url 'Bevande' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+              </div>
+            </a>
+            <a href="{% url 'Birra' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                <i class="fas fa-beer"></i> <b>BIRRA</b>
+              </div>
+            </a>
+            <a href="{% url 'Ice Cream' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+              </div>
+            </a>
+            <a href="{% url 'Cake' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+              </div>
+            </a>
+            <a href="{% url 'Wine' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+              </div>
+            </a>                    
+          </div>
+
+          <div class="mobile-menu-scroll d-lg-none sticky-top bg-light shadow-sm py-2 px-2">
+            <div class="d-flex overflow-auto menu-scroll-container">
+                <a href="{% url 'Full Menu' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                  <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+                </div>
+              </a>
+              <a href="{% url 'Antipasti' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+                </div>
+              </a>
+              <a href="{% url 'Insalata' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                  <i class="fas fa-leaf"></i> <b>INSALATA</b>
+                </div>
+              </a>
+              <a href="{% url 'Zuppa' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                  <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+                </div>
+              </a>
+              <a href="{% url 'Panini' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+                </div>
+              </a>
+              <a href="{% url 'Risotto' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                  <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+                </div>
+              </a>
+              <a href="{% url 'Pizza' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                  <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+                </div>
+              </a>
+              <a href="{% url 'Pasta' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                  <i class="fas fa-utensils"></i> <b>PASTA</b>
+                </div>
+              </a>
+              <a href="{% url 'Secondi' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                  <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+                </div>
+              </a>
+              <a href="{% url 'Caffe' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                  <i class="fas fa-coffee"></i> <b>CAFFE</b>
+                </div>
+              </a>
+              <a href="{% url 'Bevande' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                  <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+                </div>
+              </a>
+              <a href="{% url 'Birra' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                  <i class="fas fa-beer"></i> <b>BIRRA</b>
+                </div>
+              </a>
+              <a href="{% url 'Ice Cream' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                  <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+                </div>
+              </a>
+              <a href="{% url 'Cake' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                  <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+                </div>
+              </a>
+              <a href="{% url 'Wine' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                  <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+                </div>
+              </a>
+            </div>
+          </div>
+        
+          <!-- Right side with full menu -->
+          <div class="col-lg-9 full-menu">
+
+            <div class="full-menu">
+
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                <div class="col">
+                  <div class="card h-100" style="border: none;">
+                    <img src={% static '/images/Menu/Concorde.jpg' %} class="card-img-top" alt="CONCORDE">
+                    <div class="card-body">
+                      <h5 class="card-title">CONCORDE</h5>
+                      <ul>
+                        <li>WHOLE &#8369; 2,200.00</li>
+                        <li>SLICE &#8369; 275.00</li>
+                      </ul>
+                      <p class="card-text small">
+                        Elegant layers of crisp chocolate meringue and smooth chocolate mousse, delicately finished with chocolate shards or sticks. A refined and texturally nuanced dessert—rich yet light—for lovers of classic chocolate indulgence.                      </p>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="col">
+                  <div class="card h-100" style="border: none;">
+                    <img src="" class="card-img-top" alt="BRAZO DE MERCEDEZ">
+                    <div class="card-body">
+                      <h5 class="card-title">BRAZO DE MERCEDEZ</h5>
+                      <ul>
+                        <li>WHOLE &#8369; 1,935.00</li>
+                        <li>SLICE &#8369; 225.00</li>
+                      </ul>
+                      <p class="card-text small">
+                        Soft, fluffy meringue rolled around a decadent egg‑yolk custard filling. Lightly sweet, melt‑in‑your‑mouth elegance in every slice.                      </p>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col">
+                  <div class="card h-100" style="border: none;">
+                    <img src="" class="card-img-top" alt="CANONIGO">
+                    <div class="card-body">
+                      <h5 class="card-title">CANONIGO</h5>
+                      <ul>
+                        <li>WHOLE &#8369; 1,935.00</li>
+                        <li>SLICE &#8369; 215.00</li>
+                      </ul>
+                      <p class="card-text small">
+                        Light and airy meringue floating on rich caramel custard sauce. A classic Filipino floating‑island dessert—airy, sweet, and beautifully presented                      </p>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col">
+                  <div class="card h-100" style="border: none;">
+                    <img src="" class="card-img-top" alt="CREME BRULEE">
+                    <div class="card-body">
+                      <h5 class="card-title">CREME BRULEE</h5>
+                      <ul>
+                        <li>WHOLE &#8369; 2,385.00</li>
+                        <li>SLICE &#8369; 265.00</li>
+                      </ul>
+                      <p class="card-text small">
+                        Silky vanilla custard beneath a crackling caramelized sugar crust. Creamy yet elegant, with a contrast of textures that delights every bite                      </p>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col">
+                  <div class="card h-100" style="border: none;">
+                    <img src="" class="card-img-top" alt="MOCHA SANSRIVAL">
+                    <div class="card-body">
+                      <h5 class="card-title">MOCHA SANSRIVAL </h5>
+                      <ul>
+                        <li>WHOLE &#8369; 2,120.00</li>
+                        <li>SLICE &#8369; 265.00</li>
+                      </ul>
+                      <p class="card-text small">Mocha Sansrival offers layers of crunchy meringue, buttery mocha buttercream, and roasted cashews. This decadent cake is both rich in flavor and texture, perfect for those who enjoy the combination of coffee and nuts.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card h-100" style="border: none;">
+                    <img src="" class="card-img-top" alt="STRAWBERRY SHORTCAKE">
+                    <div class="card-body">
+                      <h5 class="card-title">STRAWBERRY SHORTCAKE</h5>
+                      <ul>
+                        <li>WHOLE &#8369; 3,400.00</li>
+                        <li>SLICE &#8369; 340.00</li>
+                      </ul>
+                      <p class="card-text small">
+                        A classic summer dessert: soft buttery biscuits layered with juicy berries and airy whipped cream. Bright, refreshing, and effortlessly elegant.                      
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card h-100" style="border: none;">
+                    <img src="" class="card-img-top" alt="TIRAMISU">
+                    <div class="card-body">
+                      <h5 class="card-title">TIRAMISU</h5>
+                      <ul>
+                        <li>WHOLE &#8369; 2,120.00</li>
+                        <li>SLICE &#8369; 245.00</li>
+                      </ul>
+                      <p class="card-text small">
+                        Layers of coffee‑soaked ladyfingers and whipped mascarpone cream, dusted with cocoa. Smooth, indulgent, with a perfect balance of bitter espresso and sweet cream.                      </p>
+                    </div>
+                  </div>
+                </div>
+          
+              </div>
+
+            </div>
+        
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/scroll.js' %}"></script>
+
+
+  </body>
+</html>
+
+{% endblock %}

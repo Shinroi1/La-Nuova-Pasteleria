@@ -1,0 +1,1902 @@
+{% extends "user_navbar.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<html>
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{% static '/CSS/full_menu.css' %}">
+
+	</head>
+
+<body style="background-color: #D5CCAB;">
+
+<div class="container-fluid p-0">
+	<div class="image-overlay">
+		<img src={% static '/images/Menu/Molluschi.jpg' %} alt="..." class="header-image">
+		<div class="overlay-text"><b>All Foods</b></div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="content-margin">
+		<div class="row">
+			<!-- Left side with menu categories -->
+		 	<div class="col-lg-3 mb-4 menu-sidebar d-none d-lg-block">
+				<a href="{% url 'Full Menu' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+					<i class="fas fa-book-open"></i> <b>FULL MENU</b>
+				</div>
+				</a>
+				<a href="{% url 'Antipasti' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+					<i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+				</div>
+				</a>
+				<a href="{% url 'Insalata' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+					<i class="fas fa-leaf"></i> <b>INSALATA</b>
+				</div>
+				</a>
+				<a href="{% url 'Zuppa' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+					<i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+				</div>
+				</a>
+				<a href="{% url 'Panini' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+					<i class="fas fa-bread-slice"></i> <b>PANINI</b>
+				</div>
+				</a>
+				<a href="{% url 'Risotto' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+					<i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+				</div>
+				</a>
+				<a href="{% url 'Pizza' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+					<i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+				</div>
+				</a>
+				<a href="{% url 'Pasta' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+					<i class="fas fa-utensils"></i> <b>PASTA</b>
+				</div>
+				</a>
+				<a href="{% url 'Secondi' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+					<i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+				</div>
+				</a>
+				<a href="{% url 'Caffe' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+					<i class="fas fa-coffee"></i> <b>CAFFE</b>
+				</div>
+				</a>
+				<a href="{% url 'Bevande' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+					<i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+				</div>
+				</a>
+				<a href="{% url 'Birra' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+					<i class="fas fa-beer"></i> <b>BIRRA</b>
+				</div>
+				</a>
+				<a href="{% url 'Ice Cream' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+					<i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+				</div>
+				</a>
+				<a href="{% url 'Cake' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+					<i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+				</div>
+				</a>
+				<a href="{% url 'Wine' %}">
+				<div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+					<i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+				</div>
+				</a>
+      </div>
+
+                <!-- ✅ Mobile Horizontal Scroll Menu (Visible below lg) -->
+          <div class="mobile-menu-scroll d-lg-none sticky-top bg-light shadow-sm py-2 px-2">
+            <div class="d-flex overflow-auto menu-scroll-container">
+                <a href="{% url 'Full Menu' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                  <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+                </div>
+              </a>
+              <a href="{% url 'Antipasti' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+                </div>
+              </a>
+              <a href="{% url 'Insalata' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                  <i class="fas fa-leaf"></i> <b>INSALATA</b>
+                </div>
+              </a>
+              <a href="{% url 'Zuppa' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                  <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+                </div>
+              </a>
+              <a href="{% url 'Panini' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+                </div>
+              </a>
+              <a href="{% url 'Risotto' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                  <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+                </div>
+              </a>
+              <a href="{% url 'Pizza' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                  <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+                </div>
+              </a>
+              <a href="{% url 'Pasta' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                  <i class="fas fa-utensils"></i> <b>PASTA</b>
+                </div>
+              </a>
+              <a href="{% url 'Secondi' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                  <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+                </div>
+              </a>
+              <a href="{% url 'Caffe' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                  <i class="fas fa-coffee"></i> <b>CAFFE</b>
+                </div>
+              </a>
+              <a href="{% url 'Bevande' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                  <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+                </div>
+              </a>
+              <a href="{% url 'Birra' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                  <i class="fas fa-beer"></i> <b>BIRRA</b>
+                </div>
+              </a>
+              <a href="{% url 'Ice Cream' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                  <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+                </div>
+              </a>
+              <a href="{% url 'Cake' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                  <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+                </div>
+              </a>
+              <a href="{% url 'Wine' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                  <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+                </div>
+              </a>
+            </div>
+          </div>
+
+			<div class="col-lg-9">
+		    <div class="full-menu">
+
+          <div class="category">
+            <h2><b>ANTIPASTI/STARTER</b></h2>
+          </div>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                  <a href="{% url 'Spinach Trifolate' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Spinach Trifolate.jpg' %} class="card-img-top img-height" alt="SPINACH TRIFOLATE">
+                        <div class="card-body">
+                          <h5 class="card-title">SPINACH TRIFOLATE</h5>
+                          <h5>&#8369; 925.00</h5>
+                          <p class="card-text small">A rich and creamy dish featuring sautéed spinach, button mushrooms, and porcini mushrooms, enhanced with aromatic truffled cream.<p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Parmigiana Di Melanzane'  %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Parmigiana Di Melanzane.jpg' %} class="card-img-top img-height" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">PARMIGIANA DI MELANZANE</h5>
+                          <h5>&#8369; 595.00</h5>
+                          <p class="card-text small small">Layers of baked elegant, Grana Padano, and mozzarella, topped with a savory pomodore sauce.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Dita Di Pollo Caprese' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Dita di Pollo Caprese.jpg' %} class="card-img-top img-height" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">DITA DI POLLO CAPRESE</h5>
+                          <h5>&#8369; 525.00</h5>
+                          <p class="card-text small">Crispy fried chicken fingers paired with creamy brie and served with a zesty arrabbiata sauce.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+              
+                  <a href="{% url 'Molluschi' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Molluschi.jpg' %} class="card-img-top" alt="MOLLUSCHI">
+                        <div class="card-body">
+                          <h5 class="card-title">MOLLUSCHI</h5>
+                          <h5>&#8369; 465.00 </h5>
+                          <p class="card-text small">Baby clams sautéed in a light and fragrant white wine sauce.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Calamari Fritti' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Calamari Fritti.jpg' %} class="card-img-top img-height" alt="CALAMARI FRITTI">
+                        <div class="card-body">
+                          <h5 class="card-title">CALAMARI FRITTI</h5>
+                          <h5>&#8369; 850.00</h5>
+                          <p class="card-text small">Deep-fried squid served with house-made pomodore sauce for a crispy and tangy bite.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Bruschetta Di Parma' %}" >
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Bruschetta di Parma.jpg' %} class="card-img-top img-height" alt="BRUSCHETTA DI PARMA">
+                        <div class="card-body">
+                          <h5 class="card-title">BRUSCHETTA DI PARMA</h5>
+                          <h5>&#8369; 865.00</h5>
+                          <p class="card-text small">A savory mix of dry-cured Italian ham and wild mushrooms with a luxurious truffled cream.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                    <a href="{% url 'Bruschetta Al Fungo' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Bruschetta Al Fungo.jpg' %} class="card-img-top" alt="BRUSCHETTA AL FUNGO">
+                        <div class="card-body">
+                          <h5 class="card-title">BRUSCHETTA AL FUNGO</h5>
+                          <h5>&#8369; 745.00</h5>
+                          <p class="card-text small">A rich and earthy bruschetta featuring button mushrooms, porcini, and truffled cream.</p>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
+              
+                    <a href="{% url 'Funghi Ripieni' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Funghi Ripieni.jpg' %} class="card-img-top" alt="FUNGHI RIPIENI">
+                        <div class="card-body">
+                          <h5 class="card-title">FUNGHI RIPIENI</h5>
+                          <h5>&#8369; 825.00</h5>
+                          <p class="card-text small">Mushrooms stuffed with spinach, truffled cream, and manchego cheese, finished with crispy prosciutto bits.</p>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
+              
+                    <a href="{% url 'Cozze Ubriachi Bianco' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="COZZE UBRIACHI BIANCO">
+                        <div class="card-body">
+                          <h5 class="card-title">COZZE UBRIACHI BIANCO</h5>
+                          <h5>&#8369; 485.00</h5>
+                          <p class="card-text small">A delightful seafood mix of mussels, shrimp, and scallops, cooked in a flavorful white wine broth.</p>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
+              
+                    <a href="{% url 'Prosciutto Farcito' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src="" class="card-img-top" alt="PROSCIUTTO FARCITO">
+                          <div class="card-body">
+                            <h5 class="card-title">PROSCIUTTO FARCITO</h5>
+                            <h5>&#8369; 1,395.00</h5>
+                            <p class="card-text small">A gourmet creation of Jamon Serrano, shrimp, spinach, and gorgonzola, with a spicy arrabbiata sauce.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+              
+                    <a href= "{% url 'Prosciutto Di Parma Con Mango' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src="" class="card-img-top" alt="PROSCIUTTO DI PARMA CON MANGO">
+                          <div class="card-body">
+                            <h5 class="card-title">PROSCIUTTO DI PARMA CON MANGO</h5>
+                            <h5>&#8369; 725.00 </h5>
+                            <p class="card-text small">A fusion of savory and sweet with dry-cured Italian ham served alongside fresh mango slices.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+              
+                    <a href="{% url 'Gamberi Alla Griglia' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src="" class="card-img-top" alt="GAMBERI ALLA GRIGLIA">
+                          <div class="card-body">
+                            <h5 class="card-title">GAMBERI ALLA GRIGLIA</h5>
+                            <h5>&#8369; 745.00</h5>
+                            <p class="card-text small">Grilled shrimp paired with eggplant, zucchini, tomatoes, and a hint of lemon.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+              
+                    <a href="{% url 'Salmone Affucimato' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src="" class="card-img-top" alt="SALMONE AFFUCIMATO">
+                          <div class="card-body">
+                            <h5 class="card-title">SALMONE AFFUCIMATO</h5>
+                            <h5>&#8369; 925.00 </h5>
+                            <p class="card-text small">Smoked salmon fillet complemented by capers and Italian dressing for a balanced and refreshing flavor.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+              
+                    <a href="{% url 'Sicilian' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src="" class="card-img-top" alt="SICILIAN">
+                        <div class="card-body">
+                          <h5 class="card-title">SICILIAN</h5>
+                          <h5>&#8369; 855.00</h5>
+                          <p class="card-text small">A bold combination of shrimp, gorgonzola cheese, sun-dried tomatoes, and truffled cream on flatbread.</p>
+                        </div>
+                      </div>
+                    </div>
+                    </a>
+
+          </div>
+
+          <div class="category">
+            <h2><b>INSALATA/SALAD</h2></b>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                  <a href="{% url 'Caesar' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="{% static 'images/Menu/Caesar.jpg' %}" class="card-img-top" alt="CAESAR">
+                        <div class="card-body">
+                          <h5 class="card-title">CAESAR</h5>
+                          <h5>&#8369; 475.00</h5>
+                          <p class="card-text small">Crisp romaine lettuce, prosciutto bits, croutons, and parmesan dressed with house-made Caesar dressing.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Caprese' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="{% static 'images/Menu/Caprese.jpg' %}" class="card-img-top" alt="CAPRESE">
+                        <div class="card-body">
+                          <h5 class="card-title">CAPRESE</h5>
+                          <h5>&#8369; 495.00</h5>
+                          <p class="card-text small">Fresh mozzarella, ripe tomatoes, and basil drizzled with extra virgin olive oil.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Piccante' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="{% static 'images/Menu/Piccante.jpg' %}" class="card-img-top" alt="PICCANTE">
+                        <div class="card-body">
+                          <h5 class="card-title">PICCANTE</h5>
+                          <h5>&#8369; 495.00</h5>
+                          <p class="card-text small">Spicy grilled chicken with olives, bell peppers, lettuce, and tangy goat cheese.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Mista' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="{% static 'images/Menu/Mista.jpg' %}" class="card-img-top" alt="MISTA">
+                        <div class="card-body">
+                          <h5 class="card-title">MISTA</h5>
+                          <h5>&#8369; 425.00</h5>
+                          <p class="card-text small">A refreshing mix of lettuce, tomato, cucumber, and bell peppers, dressed in balsamic vinaigrette.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Greca' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="{% static 'images/Menu/Greca.jpg' %}" class="card-img-top" alt="GRECA">
+                        <div class="card-body">
+                          <h5 class="card-title">GRECA</h5>
+                          <h5>&#8369; 495.00</h5>
+                          <p class="card-text small">A Mediterranean salad with mixed lettuce, olives, cucumber, anchovies, and creamy goat cheese.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Mare' %}" target="_blank">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="{% static 'images/Menu/Mare.jpg' %}" class="card-img-top" alt="MARE">
+                        <div class="card-body">
+                          <h5 class="card-title">MARE</h5>
+                          <h5>&#8369; 945.00</h5>
+                          <p class="card-text small">A seafood lover’s delight with mixed seafood, bell peppers, carrots, cucumber, and lettuce.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+          </div>
+
+          <div class="category">
+            <h2><b>ZUPPA/SOUP</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <a href="{% url 'Vongole' %}">
+              <div class="col">
+                <div class="card h-100" style="border:none;">
+                  <img src={% static '/images/Menu/Vongole.jpg' %} class="card-img-top img-height" alt="VONGOLE">
+                  <div class="card-body">
+                    <h5 class="card-title">VONGOLE</h5>
+                    <h5>&#8369; 435.00</h5>
+                    <p class="card-text small">Baby clams and bell peppers in a rich, thick cream with tender potatoes.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'Brodetto Di Mare' %}">
+              <div class="col">
+                <div class="card h-100" style="border:none;">
+                  <img src={% static '/images/Menu/Brodetto di Mare.jpg' %} class="card-img-top img-height" alt="BRODETTO DI MARE">
+                  <div class="card-body">
+                    <h5 class="card-title">BRODETTO DI MARE</h5>
+                    <h5> &#8369; 465.00</h5>
+                    <p class="card-text small">A hearty seafood soup with clams, mussels, squid, and shrimp, simmered with tomatoes, zucchini, and carrots.</p>
+                  </div>
+                </div>
+              </div>
+            </a>                
+          
+            <a href="{% url 'Cippole' %}">
+              <div class="col">
+                <div class="card h-100" style="border:none;">
+                  <img src="" class="card-img-top" alt="CIPPOLE">
+                  <div class="card-body">
+                    <h5 class="card-title">CIPPOLE</h5>
+                    <h5>&#8369; 395.00</h5>
+                    <p class="card-text small">A comforting onion soup blended with cream and topped with parmesan.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'Funghi' %}">
+              <div class="col">
+                <div class="card h-100" style="border:none;">
+                  <img src="" class="card-img-top" alt="FUNGHI">
+                  <div class="card-body">
+                    <h5 class="card-title">FUNGHI</h5>
+                    <h5>&#8369; 485.00</h5>
+                    <p class="card-text small">A clear broth soup featuring button mushrooms and porcini for a light yet flavorful starter.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'Minestrone Di Verdure' %}">
+              <div class="col">
+                <div class="card h-100" style="border:none;">
+                  <img src="" class="card-img-top" alt="MINESTRONE DI VERDURE">
+                  <div class="card-body">
+                    <h5 class="card-title">MINESTRONE DI VERDURE</h5>
+                    <h5>&#8369; 395.00</h5>
+                    <p class="card-text small">A classic vegetable soup with carrots, potatoes, cauliflower, cabbage, green beans, and tomatoes.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+
+          <div class="category">
+            <h2><b>PANINI/SANDWICHES</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                  <a href="{% url 'Pollo' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Pollo.jpg' %} class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">POLLO</h5>
+                          <h5>&#8369; 395.00</h5>
+                          <p class="card-text small">Grilled chicken served with cucumber, tomato, and mixed lettuce in a light sandwich.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <a href="{% url 'Pesce Filetto' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Pesce Filetto.jpg' %} class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">PESCE FILETTO</h5>
+                          <h5>&#8369; 395.00</h5>
+                          <p class="card-text small">Pan-seared fish fillet with tomatoes and mixed lettuce for a refreshing and light bite.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>                
+
+                  <a href="{% url 'Rustica' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="RUSTICA">
+                        <div class="card-body">
+                          <h5 class="card-title">RUSTICA</h5>
+                          <h5>&#8369; 485.00</h5>
+                          <p class="card-text small">A rustic sandwich of prosciutto di Parma, mozzarella, and tomatoes served with romaine lettuce.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+            
+                  <a href="{% url 'Mortadella' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="MORTADELLA">
+                        <div class="card-body">
+                          <h5 class="card-title">MORTADELLA</h5>
+                          <h5>&#8369; 465.00</h5>
+                          <p class="card-text small">Mortadella with tomatoes, mozzarella, and fresh mixed lettuce in a soft sandwich.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+            
+                  <a href="{% url 'Al Tono' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src="" class="card-img-top" alt="AL TONO">
+                        <div class="card-body">
+                          <h5 class="card-title">AL TONO</h5>
+                          <h5>&#8369; 365.00</h5>
+                          <p class="card-text small">A tuna sandwich complemented by tomatoes and fresh mixed lettuce.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+          </div>
+
+          <div class="category">
+            <h2><b>RISOTTO</h2></b>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <a href="{% url 'Porcini' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src={% static '/images/Menu/Porcini.jpg' %} class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">PORCINI</h5>
+                    <h5>&#8369; 695.00</h5>
+                    <p class="card-text">Creamy risotto with button mushrooms and porcini, topped with Grana Padano cheese.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Marinara' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src={% static '/images/Menu/Marinara.jpg' %} class="card-img-top" alt="MARINARA">
+                  <div class="card-body">
+                    <h5 class="card-title">MARINARA</h5>
+                    <h5>&#8369; 765.00</h5>
+                    <p class="card-text">A seafood-packed risotto with baby clams, squid, shrimp, and mussels, cooked with white wine.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Colorata' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                  <img src={% static '/images/Menu/Colorata.jpg' %} alt="COLORATA">
+                  <div class="card-body">
+                    <h5 class="card-title">COLORATA</h5>
+                    <h5>&#8369; 695.00</h5>
+                    <p class="card-text">A vegetable lover's dream with carrots, broccoli, mushrooms, asparagus, and zucchini in creamy risotto.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+
+          <div class="category">
+            <h2><b>PIZZA</h2></b>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <a href="{% url 'Quattro Formaggi' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src={% static '/images/Menu/Quattro Formaggi.jpg' %} class="card-img-top" alt="QUATTRO FORMAGGI">
+                  <div class="card-body">
+                    <h5 class="card-title">QUATTRO FORMAGGI</h5>
+                    <h5>&#8369; 785.00</h5>
+                    <p class="card-text small">A cheesy delight with mozzarella, gorgonzola, parmesan, and ricotta on a crispy crust.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'Due Gusti' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src={% static '/images/Menu/Due Gusti.jpg' %} class="card-img-top" alt="DUE GUSTI">
+                  <div class="card-body">
+                    <h5 class="card-title">DUE GUSTI</h5>
+                    <h5>&#8369; 845.00</h5>
+                    <p class="card-text small">A flavorful pizza topped with spinach, chorizo Bilbao, and mushrooms.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Pepperoni' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src="{% static '/images/Menu/Pepperoni.jpg' %}" class="card-img-top" alt="PEPPERONI">
+                  <div class="card-body">
+                    <h5 class="card-title">PEPPERONI</h5>
+                    <h5>&#8369; 625.00</h5>
+                    <p class="card-text small">A traditional favorite with pepperoni salami and mozzarella cheese.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Frutti Di Mare' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src="{% static '/images/Menu/Frutti Di Mare.jpg' %}" class="card-img-top" alt="FRUTTI DI MARE">
+                  <div class="card-body">
+                    <h5 class="card-title">FRUTTI DI MARE</h5>
+                    <h5>&#8369; 925.00</h5>
+                    <p class="card-text small">A seafood pizza with squid, shrimp, mussels, and baby clams.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Cacciatora' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src={% static '/images/Menu/Cacciatora.jpg' %} class="card-img-top" alt="CACCIATORA">
+                  <div class="card-body">
+                    <h5 class="card-title">CACCIATORA</h5>
+                    <h5>&#8369; 675.00</h5>
+                    <p class="card-text small">A bold combination of capers, olives, anchovies, and pepperoni salami.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'Margherita' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                    <img src="" class="card-img-top" alt="MARGHERITA">
+                  <div class="card-body">
+                    <h5 class="card-title">MARGHERITA</h5>
+                    <h5>&#8369; 585.00</h5>
+                    <p class="card-text small">A classic pizza with tomato, fresh basil, and mozzarella for a simple yet delicious flavor.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'La Loca' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                  <img src="" class="card-img-top" alt="LA LOCA">
+                  <div class="card-body">
+                    <h5 class="card-title">LA LOCA</h5>
+                    <h5>&#8369; 725.00</h5>
+                    <p class="card-text small">A savory mix of Italian sausage, ham, onions, and bell peppers on a crispy pizza crust.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'La Nuova Pizza' %}">
+              <div class="col">
+                  <div class="card h-100" style="border: none;">
+                      <img src="{% static '/images/Menu/La Nuova Pizza.jpg' %}" class="card-img-top" alt="LA NUOVA">
+                      <div class="card-body">
+                          <h5 class="card-title">LA NUOVA</h5>
+                          <h5>&#8369; 725.00</h5>
+                          <p class="card-text small">A gourmet pizza with prosciutto di Parma, asparagus, and gorgonzola cheese.</p>
+                      </div>
+                  </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'Calzone Siciliana' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                  <img src="{% static '/images/Menu/Calzone Siciliana.jpg' %}" class="card-img-top" alt="CALZONE SICILIANA">
+                  <div class="card-body">
+                    <h5 class="card-title">CALZONE SICILIANA &#8369; 725.00</h5>
+                    <p class="card-text small">A half-rolled dough stuffed with mortadella, tomato, and ricotta cheese.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+      
+            <a href="{% url 'Tropicale' %}">
+              <div class="col">
+                <div class="card h-100" style="border: none;">
+                  <img src="{% static '/images/Menu/Tropicale.jpg' %}" class="card-img-top" alt="TROPICALE">
+                  <div class="card-body">
+                    <h5 class="card-title">TROPICALE &#8369; 675.00</h5>
+                    <p class="card-text small">A sweet and savory pizza with honey ham, pineapple, and mozzarella.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+
+          <div class="category">
+            <h2><b>OLIVE OIL PASTA</h2></b
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                    <a href ="{% url 'Vongole Al Vino Bianco' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Vongole al vino bianco.jpg' %} class="card-img-top" alt="VONGOLE AL VINO BIANCO">
+                          <div class="card-body">
+                            <h5 class="card-title">VONGOLE AL VINO BIANCO</h5>
+                            <h5>&#8369; 725.00</h5>
+                            <p class="card-text small">Baby clams in a garlic and white wine sauce with spaghetti.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+
+                    <a href ="{% url 'Nera' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Nera.jpg' %} class="card-img-top" alt="NERA">
+                          <div class="card-body">
+                            <h5 class="card-title">NERA</h5>
+                            <h5>&#8369; 945.00</h5>
+                            <p class="card-text small">Squid ink pasta with squid, shrimp, white wine, and lemon for a rich, seafood-inspired dish.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>                  
+                  
+                    <a href ="{% url 'Gamberi' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src="{% static '/images/Menu/Gamberi.jpg' %}" class="card-img-top" alt="GAMBERI">
+                          <div class="card-body">
+                            <h5 class="card-title">GAMBERI</h5>
+                            <h5>&#8369; 745.00</h5>
+                            <p class="card-text small">A light pasta dish with shrimp, sun-dried tomatoes, and garlic over capellini.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  
+                    <a href ="{% url 'Salsiccia' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Salsiccia.jpg' %} class="card-img-top" alt="SALSICCIA">
+                          <div class="card-body">
+                            <h5 class="card-title">SALSICCIA</h5>
+                            <h5>&#8369; 725.00</h5>
+                            <p class="card-text small">Italian sausage paired with sun-dried tomatoes and capellini for a robust flavor.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+
+                    <a href ="{% url 'Angulas' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Angulas.jpg' %} class="card-img-top" alt="ANGULAS">
+                          <div class="card-body">
+                            <h5 class="card-title">ANGULAS &#8369; 825.00</h5>
+                            <p class="card-text small">Linguine pasta with tender baby eels, sautéed in garlic and chili, then lightly tossed in olive oil to bring out a rich and flavorful dish.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    
+                    <a href ="{% url 'Misto De Pesce' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src="{% static '/images/Menu/Misto De Pesce.jpg' %}" class="card-img-top" alt="MISTO DE PESCE">
+                          <div class="card-body">
+                            <h5 class="card-title">MISTO DE PESCE</h5>
+                            <h5>&#8369; 845.00</h5>
+                            <p class="card-text small">A seafood lover's dream with baby clams, shrimp, squid, and mussels in a white wine sauce over spaghetti.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    
+                    <a href ="{% url 'Primavera' %}">
+                      <div class="col">
+                        <div class="card h-100" style="border: none;">
+                          <img src="{% static '/images/Menu/Primavera.jpg' %}" class="card-img-top" alt="PRIMAVERA">
+                          <div class="card-body">
+                            <h5 class="card-title">PRIMAVERA</h5>
+                            <h5>&#8369; 655.00</h5>
+                            <p class="card-text small">A vegetable-forward pasta with mushrooms, zucchini, carrots, bell peppers, and broccoli over linguine.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+          </div>
+
+          <div class="category">
+            <h2><b>CREAM PASTA</h2></b>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                <a href="{% url 'Profumo Di Tartufo' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Profumo Di Tartufo.jpg' %} class="card-img-top" alt="PROFUMO DI TARTUFO">
+                      <div class="card-body">
+                        <h5 class="card-title">PROFUMO DI TARTUFO</h5>
+                        <h5>&#8369; 945.00</h5>
+                        <p class="card-text small">A luxurious plate of tagliatelle pasta with mushrooms, prosciutto, and a rich truffled cream sauce for a decadent experience.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Salmone' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Salmone.jpg' %} class="card-img-top" alt="SALMONE">
+                      <div class="card-body">
+                        <h5 class="card-title">SALMONE</h5>
+                        <h5>&#8369; 865.00</h5>
+                        <p class="card-text small">Linguine served with a generous portion of smoked salmon and lumpfish roe, balanced in a cream sauce for a seafood delight.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Capesante' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Capesante.jpg' %} class="card-img-top" alt="CAPESANTE">
+                      <div class="card-body">
+                        <h5 class="card-title">CAPESANTE</h5>
+                        <h5>&#8369; 865.00</h5>
+                        <p class="card-text small">Creamy penne pasta paired with shrimp, scallops, and zucchini in a flavorful white wine sauce.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Ravioli Funghi' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Ravioli Funghi.jpg' %} class="card-img-top" alt="RAVIOLI FUNGHI">
+                      <div class="card-body">
+                        <h5 class="card-title">RAVIOLI FUNGHI</h5>
+                        <h5>&#8369; 945.00</h5>
+                        <p class="card-text small">House-made pasta stuffed with mushrooms and shrimp, complemented by ricotta cheese and finished in a creamy sauce.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                
+                <a href="{% url 'Carbonara' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Carbonara.jpg' %} class="card-img-top" alt="CARBONARA">
+                      <div class="card-body">
+                        <h5 class="card-title">CARBONARA</h5>
+                        <h5>&#8369; 725.00</h5>
+                        <p class="card-text small">A creamy and savory spaghetti dish with smoked bacon, Parmesan, and egg, blending traditional flavors in a velvety sauce.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a> 
+                
+                <a href="{% url 'Chicken Alfredo' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Chicken Alfredo.jpg' %} class="card-img-top" alt="CHICKEN ALFREDO">
+                      <div class="card-body">
+                        <h5 class="card-title">CHICKEN ALFREDO</h5>
+                        <h5>&#8369; 725.00</h5>
+                        <p class="card-text small">Penne pasta coated in house-made cheese sauce with grilled chicken breast, creating a classic comfort dish.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+        
+          </div>
+
+          <div class="category">
+            <h2><b>TOMATO PASTA</h2></b>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <a href="{% url 'Arrabiata' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Arrabiata.jpg' %} class="card-img-top" alt="ARRABIATA">
+                <div class="card-body">
+                <h5 class="card-title">ARRABIATA</h5>
+                <h5>&#8369; 645.00</h5>
+                <p class="card-text small">Penne pasta with a spicy red chili kick, balanced by Parmesan and fresh basil, all brought together with a vibrant tomato sauce.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+            
+            <a href="{% url 'Pescatora' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Pescatora.jpg' %} class="card-img-top" alt="PESCATORA">
+                <div class="card-body">
+                <h5 class="card-title">PESCATORA</h5>
+                <h5>&#8369; 895.00</h5>
+                <p class="card-text small">A seafood lover's delight, featuring spaghetti with baby clams, mussels, squid, and shrimp in a fresh tomato sauce.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+            
+            <a href="{% url 'Ravioli Verde' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Ravioli Verde.jpg' %} class="card-img-top" alt="RAVIOLI VERDE">
+                <div class="card-body">
+                <h5 class="card-title">RAVIOLI VERDE</h5>
+                <h5>&#8369; 795.00</h5>
+                <p class="card-text small">Delicate pasta filled with fresh spinach and ricotta, served in a bright tomato sauce for a wholesome, vegetarian option.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+
+                    <a href="{% url 'Bolognese' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Bolognese.jpg' %} class="card-img-top" alt="BOLOGNESE">
+                <div class="card-body">
+                <h5 class="card-title">BOLOGNESE</h5>
+                <h5>&#8369; 695.00</h5>
+                <p class="card-text small">A hearty plate of spaghetti topped with a rich house-made ragu and Parmesan cheese for a classic Italian meal.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+            
+            <a href="{% url 'Puttanesca' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Puttanesca.jpg' %} class="card-img-top" alt="PUTTANESCA">
+                <div class="card-body">
+                <h5 class="card-title">PUTTANESCA</h5>
+                <h5>&#8369; 695.00</h5>
+                <p class="card-text small">Fusilli pasta tossed with olives, capers, anchovies, and basil in a tangy tomato sauce, bursting with bold flavors.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+        
+          </div>
+
+          <div class="category">
+            <h2><b>PESTO PASTA</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <a href="{% url 'Chorizo' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Chorizo.jpg' %} class="card-img-top" alt="CHORIZO">
+                <div class="card-body">
+                <h5 class="card-title">CHORIZO</h5>
+                <h5>&#8369; 775.00</h5>
+                <p class="card-text small">Penne pasta paired with Chorizo Bilbao, artichokes, goat cheese, and cream for a savory and slightly tangy dish with bold flavors.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Nina' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Nina.jpg' %} class="card-img-top" alt="NINA">
+                <div class="card-body">
+                <h5 class="card-title">NINA</h5>
+                <h5>&#8369; 765.00</h5>
+                <p class="card-text small">Linguine pasta combined with sun-dried tomatoes, shrimp, zucchini, and a rich cream sauce for a flavorful blend of fresh and creamy.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Di Mare' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Di Mare.jpg' %} class="card-img-top" alt="DI MARE">
+                <div class="card-body">
+                <h5 class="card-title">DI MARE</h5>
+                <h5>&#8369; 965.00</h5>
+                <p class="card-text small">Tagliatelle pasta with a medley of baby clams, mussels, and squid in a decadent truffled cream sauce, perfect for seafood lovers.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+            
+            <a href="{% url 'La Nuova' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/La Nuova.jpg' %} class="card-img-top" alt="LA NUOVA">
+                <div class="card-body">
+                <h5 class="card-title">LA NUOVA</h5>
+                <h5>&#8369; 695.00</h5>
+                <p class="card-text small">Fusilli pasta in a smooth tomato cream sauce with ricotta and Parmesan, offering a rich and balanced taste.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+
+            <a href="{% url 'Conn Aglio Olio' %}">
+              <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src={% static '/images/Menu/Conn Aglio Olio.jpg' %} class="card-img-top" alt="CONN AGLIO OLIO">
+                <div class="card-body">
+                <h5 class="card-title">CONN AGLIO OLIO</h5>
+                <h5>&#8369; 645.00</h5>
+                <p class="card-text small">A simple yet flavorful dish of spaghetti tossed in house-made pesto, garlic, and extra virgin olive oil for a light and aromatic meal.</p>
+                </div>
+              </div>
+              </div>
+            </a>
+
+          </div>
+
+          <div class="category">
+            <div class="mt-5 mb-1">
+            <h2><b>SECONDI</b></h2>
+          </div>
+
+          <h2><b>PESCE/FISH</b></h2
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+              <a href="{% url 'Al Forno' %}">
+                  <div class="col">
+                  <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Al Forno.jpg' %} class="card-img-top" alt="AL FORNO">
+                      <div class="card-body">
+                      <h5 class="card-title">AL FORNO</h5>
+                      <h5>&#8369; 1,350.00</h5>
+                      <p class="card-text">A dish featuring halibut with mushrooms and lemon, served in a white wine sauce with a side of vegetables for a fresh and satisfying entrée.</p>
+                      </div>
+                  </div>
+                  </div>
+              </a>
+
+              <a href="{% url 'Grigilia Di Pesce' %}">
+                  <div class="col">
+                  <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Grigilia Di Pesce.jpg' %} class="card-img-top" alt="GRIGILIA DI PESCE">
+                      <div class="card-body">
+                          <h5 class="card-title">GRIGILIA DI PESCE</h5>
+                          <h5>&#8369; 1,125.00</h5>
+                          <p class="card-text">Grilled fish paired with sautéed spinach and topped with a house-made Pomodoro sauce, offering a perfect blend of freshness and heartiness.</p>
+                      </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href="{% url 'Cacciuco Alla Livornese' %}">
+                  <div class="col">
+                  <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Cacciuco Alla Livornese.jpg' %} class="card-img-top" alt="CACCIUCO ALLA LIVORNESE">
+                      <div class="card-body">
+                          <h5 class="card-title">CACCIUCO ALLA LIVORNESE</h5>
+                          <h5>&#8369; 1,395.00</h5>
+                          <p class="card-text">A rich seafood stew featuring squid, shrimp, fish, mussels, and scallops, simmered with tomatoes and served alongside vegetable sides.</p>
+                      </div>
+                      </div>
+                  </div>
+              </a>
+
+              <a href="{% url 'Filetto Mugnaia' %}">
+                  <div class="col">
+                  <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Filetto Mugnaia.jpg' %} class="card-img-top" alt="FILETTO MUGNAIA">
+                      <div class="card-body">
+                      <h5 class="card-title">FILETTO MUGNAIA</h5>
+                      <h5>&#8369; 1,125.00</h5>
+                      <p class="card-text">A delicate fish fillet prepared with sage butter sauce and accompanied by fresh vegetable sides, perfect for a light and flavorful meal.</p>
+                      </div>
+                  </div>
+                  </div>
+              </a>
+              
+              <a href="{% url 'Filetto Di Salmon' %}">
+                  <div class="col">
+                  <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Filetto Di Salmon.jpg' %} class="card-img-top" alt="FILETTO DI SALMON">
+                      <div class="card-body">
+                      <h5 class="card-title">FILETTO DI SALMON</h5>
+                      <h5>&#8369; 1,395.00</h5>
+                      <p class="card-text">Salmon fillet bathed in a sparkling white wine sauce, complemented by vegetable sides for a refreshing and savory seafood experience.</p>
+                      </div>
+                  </div>
+                  </div>
+              </a>
+
+              <a href="{% url 'Filetto Spumante' %}">
+                  <div class="col">
+                  <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Filetto Spumante.jpg' %} class="card-img-top" alt="CACCIUCO ALLA LIVORNESE">
+                      <div class="card-body">
+                          <h5 class="card-title">fILETTO SPUMANTE</h5>
+                          <h5>&#8369; 1,350.00</h5>
+                          <p class="card-text">A rich seafood stew featuring squid, shrimp, fish, mussels, and scallops, simmered with tomatoes and served alongside vegetable sides.</p>
+                      </div>
+                      </div>
+                  </div>
+              </a>
+        
+          </div>
+
+            <div class="category">
+              <h2><b>POLLO/CHICKEN</b></h2
+            </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+              <a href ="{% url 'Petto Funghi' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Petto Funghi.jpg' %} class="card-img-top" alt="PETTO FUNGHI">
+                          <div class="card-body">
+                              <h5 class="card-title">PETTO FUNGHI</h5>
+                              <h5>&#8369; 1,265.00</h5>
+                              <p class="card-text">Pan-seared chicken breast with wild mushrooms, finished in a creamy sauce, served with vegetable sides for a satisfying and earthy flavor.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href ="{% url 'Petto Asparagi' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Petto Asparagi.jpg' %} class="card-img-top" alt="PETTO ASPARAGI">
+                          <div class="card-body">
+                              <h5 class="card-title">PETTO ASPARAGI</h5>
+                              <h5>&#8369; 1,125.00</h5>
+                              <p class="card-text">Pan-fried chicken breast stuffed with asparagus, bacon, and mozzarella, paired with vegetable sides for a delicious and wholesome entrée.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+
+              <a href ="{% url 'Accrotolato' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Accrotolato.jpg' %} class="card-img-top" alt="ACCROTOLATO">
+                          <div class="card-body">
+                              <h5 class="card-title">ACCROTOLATO</h5>
+                              <h5>&#8369; 1,265.00</h5>
+                              <p class="card-text"> Succulent chicken breast stuffed with spinach and smothered in a rich white wine and gorgonzola cream sauce, served with a side of vegetables for a comforting yet indulgent dish.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href ="{% url 'Petto Diavola' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Petto Diavola.jpg' %} class="card-img-top" alt="PETTO DIAVOLA">
+                          <div class="card-body">
+                              <h5 class="card-title">PETTO DIAVOLA</h5>
+                              <h5>&#8369; 1,125.00</h5>
+                              <p class="card-text">
+                                    Grilled chicken breast seasoned with a fiery blend of Italian herbs, accompanied by a side of fresh vegetables, offering a robust and spicy flavor profile.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </a>                    
+              
+              <a href ="{% url 'Petto Alexi' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Petto Alexi.jpg' %} class="card-img-top" alt="PETTO ALEXI">
+                          <div class="card-body">
+                              <h5 class="card-title">PETTO ALEXI</h5>
+                              <h5>&#8369; 1,265.00</h5>
+                              <p class="card-text">Grilled chicken breast stuffed with savory prosciutto, creamy gouda, and bell peppers, served alongside a rich fettucine pasta. </p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+
+              <a href ="{% url 'Cacciatore' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Cacciatore.jpg' %} class="card-img-top" alt="CACCIATORE">
+                          <div class="card-body">
+                              <h5 class="card-title">CACCIATORE</h5>
+                              <h5>&#8369; 1,125.00</h5>
+                              <p class="card-text"> 
+                                  A rustic Italian‑inspired medley: tender zucchini and sweet bell peppers slow‑simmered in a rich tomato sauce, uplifted by smoky bacon and fresh basil, served with vibrant seasonal vegetable sides. Bold, savory, and satisfying.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+
+          </div>
+
+            <div class="category">
+              <h2><b>MANZO/BEEF</b></h2>
+
+            </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+              <a href ="{% url 'Filetto Di Manzo Ai Funghi' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Filetto Di Manzo Ai Funghi.jpg' %} class="card-img-top" alt="FILETTO DI MANZO AI FUNGHI">
+                          <div class="card-body">
+                              <h5 class="card-title">FILETTO DI MANZO AI FUNGHI</h5>
+                              <h5>&#8369; 1,650.00</h5>
+                              <p class="card-text">Grilled beef tenderloin draped in a creamy mushroom sauce, served alongside a selection of fresh vegetables, making for a rich and elegant main course.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href ="{% url 'Agnello Alla Scottadito' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Agnello Alla Scottadito.jpg' %} class="card-img-top" alt="AGNELLO ALLA SCOTTADITO">
+                          <div class="card-body">
+                              <h5 class="card-title">AGNELLO ALLA SCOTTADITO</h5>
+                              <h5>&#8369; 2,250.00</h5>
+                              <p class="card-text">Tender grilled lamb chops garnished with a zesty gremolata and served with mint jelly and roasted vegetables, offering a blend of savory and refreshing flavors.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href ="{% url 'La Bistecca' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/La Bistecca.jpg' %} class="card-img-top" alt="LA BISTECCA">
+                          <div class="card-body">
+                              <h5 class="card-title">LA BISTECCA</h5>
+                              <h5>&#8369; 3,250.00</h5>
+                              <p class="card-text">A generous cut of U.S. Angus rib-eye steak, grilled to perfection and served with a luxurious red wine sauce and a side of roasted vegetables for a truly decadent experience.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href ="{% url 'Vitello Alla Milanese' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Vitello Alla Milanese.jpg' %} class="card-img-top" alt="VITELLO ALLA MILANESE">
+                          <div class="card-body">
+                              <h5 class="card-title">VITELLO ALLA MILANESE</h5>
+                              <h5>&#8369; 1,450.00</h5>
+                              <p class="card-text">Breaded veal scaloppine, pan-fried until golden and crisp, served with spinach, a side of mint jelly, and a lemon wedge for a classic Italian dish with a refreshing twist.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href ="{% url 'Vitello Al Marsala' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Vitello Al Marsala.jpg' %} class="card-img-top" alt="VITELLO AL MARSALA">
+                          <div class="card-body">
+                              <h5 class="card-title">VITELLO AL MARSALA</h5>
+                              <h5>&#8369; 1,650.00</h5>
+                              <p class="card-text">Pan-seared veal topped with mushrooms and a rich Marsala wine sauce, accompanied by a side of vegetables, offering a delicate balance of sweet and savory flavors.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+              
+              <a href ="{% url 'Vitello Ai Funghi' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src={% static '/images/Menu/Vitello Ai Funghi.jpg' %} class="card-img-top" alt="VITELLO AI FUNGHI">
+                          <div class="card-body">
+                              <h5 class="card-title">VITELLO AI FUNGHI</h5>
+                              <h5>&#8369; 1,650.00</h5>
+                              <p class="card-text">Breaded veal scaloppine topped with spinach and a rich mushroom cream sauce, served with fresh vegetables for a hearty and flavorful main course.</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+
+          </div>
+
+          <div class="category">
+            <h2><b>CAFFE</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="BREWED">
+                <div class="card-body">
+                  <h5 class="card-title">BREWED</h5>
+                  <h5>&#8369; 175.00</h5>
+                  <p class="card-text small" >A classic brewed coffee, smooth and rich in flavor, perfect for a morning boost.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="ESPRESSO">
+                <div class="card-body">
+                  <h5 class="card-title">ESPRESSO</h5>
+                  <h5>&#8369; 175.00</h5>
+                  <p class="card-text small" >A bold and intense shot of coffee, ideal for a quick, energizing pick-me-up.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="DOPIO">
+                <div class="card-body">
+                  <h5 class="card-title">DOPIO</h5>
+                  <h5>&#8369; 245.00</h5>
+                  <p class="card-text small" >A double shot of espresso, offering twice the strength for coffee lovers.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="LATTE">
+                <div class="card-body">
+                  <h5 class="card-title">LATTE</h5>
+                  <h5>&#8369; 185.00</h5>
+                  <p class="card-text small" >A creamy blend of espresso and steamed milk, smooth and comforting with a touch of foam.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="CAPPUCINO">
+                <div class="card-body">
+                  <h5 class="card-title">CAPPUCINO</h5>
+                  <h5>&#8369; 185.00</h5>
+                  <p class="card-text small" >A balanced mix of espresso, steamed milk, and frothy foam, delivering a rich and velvety experience.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="MARROCHINO">
+                <div class="card-body">
+                  <h5 class="card-title">MARROCHINO</h5>
+                  <h5>&#8369; 195.00</h5>
+                  <p class="card-text small" >A delightful mix of espresso, milk foam, and a hint of chocolate, offering a sweet yet robust flavor.</p>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="category">
+            <h2><b>BEVERAGES/BEVANDE</b></h2
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="SODA">
+              <div class="card-body">
+              <h5 class="card-title">CANNED SODA</h5>
+              <h5>&#8369; 125.00</h5>
+              <p class="card-text small">Available Flavors:<br>
+              Coke, Coke Light, Coke Zero Royal, Sarsi, Sprite, Root Beer</p>
+              </div>
+            </div>
+            </div>
+        
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="FRESH FRUIT SHAKE IN SEASON">
+              <div class="card-body">
+              <h5 class="card-title">FRESH FRUIT SHAKE</h5>
+              <h5>&#8369; 245.00</h5>
+              <p class="card-text small">Available Flavors:<br>
+                Orange, Mango, Apple, Calamansi</p>
+              </div>
+            </div>
+            </div>
+        
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="HOUSE MADE ICED TEA">
+              <div class="card-body">
+              <h5 class="card-title">HOUSE MADE ICED TEA</h5>
+              <h5>&#8369; 165.00</h5>
+              <p class="card-text small">It is our hand crafted signature blend!</p>
+              </div>
+            </div>
+            </div>
+
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="WILKINS DISTILLED / 500 ML">
+              <div class="card-body">
+              <h5 class="card-title">WILKINS DISTILLED / 500 ML</h5>
+              <h5>&#8369; 65.00</h5>
+              <p class="card-text small"></p>
+              </div>
+            </div>
+            </div>
+        
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="SAN PELLEGRINO">
+              <div class="card-body">
+              <h5 class="card-title">SPARKLING WATER</h5>
+                <ul>
+                  <li>San Pellegrino / 500 ML  &#8369; 295.00</li>
+                  <li>San Pellegrino / 250 ML &#8369; 155.00</li>
+                  <li>Perrier / 250 ML &#8369; 155.00</li>
+                </ul>                    
+              </div>
+            </div>
+            </div>
+        
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="GINGER ALE">
+              <div class="card-body">
+              <h5 class="card-title">GINGER ALE</h5>
+              <h5>&#8369; 165.00</h5>
+              <p class="card-text small">Candian Dry</p>
+              </div>
+            </div>
+            </div>
+
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="CANNED JUICE">
+              <div class="card-body">
+              <h5 class="card-title">CANNED JUICE</h5>
+              <h5>&#8369; 125.00</h5>
+              <p class="card-text small">Available Flavors:<br>
+                Ripe Mango, Dalandan, Pomelo, Pink Guava, Guyabano, Calamansi</p>
+              </div>
+            </div>
+            </div>
+
+            <div class="col">
+            <div class="card h-100" style="border: none;">
+              <img src="" class="card-img-top" alt="TEA">
+              <div class="card-body">
+              <h5 class="card-title">TEA SELECTION</h5>
+              <h5>&#8369; 125.00</h5>
+              <p class="card-text small">Available Flavors:<br>
+                Chamomile, Early Grey, English Breakfast, Lemon Green Tea, Pure Green Tea, Peppermint</p>
+              </div>
+            </div>
+            </div>
+
+          </div>
+
+          <div class="category">
+            <h2><b>ICE CREAM</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="CARMEN'S BEST">
+                <div class="card-body">
+                  <h5 class="card-title">CARMEN'S BEST</h5>
+                                        <ul>
+                                          <li>1 PINT &#8369; 588.00</li>
+                                          <li>2 SCOOPS &#8369; 200.00</li>
+                                          <li>3 SCOOPS &#8369; 280.00</li>
+                                        </ul>
+                  <p class="card-text">Brazilian Coffee/ Butter Pecan/ Dark Chocolate/ Malted Milk/ Salted Caramel</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="category">
+            <h2><b>CAKE</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Concorde.jpg' %} class="card-img-top" alt="CONCORDE">
+                      <div class="card-body">
+                        <h5 class="card-title">CONCORDE</h5>
+                        <ul>
+                          <li>WHOLE &#8369; 2,200.00</li>
+                          <li>SLICE &#8369; 275.00</li>
+                        </ul>
+                        <p class="card-text small">
+                          Elegant layers of crisp chocolate meringue and smooth chocolate mousse, delicately finished with chocolate shards or sticks. A refined and texturally nuanced dessert—rich yet light—for lovers of classic chocolate indulgence.                      </p>
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="BRAZO DE MERCEDEZ">
+                      <div class="card-body">
+                        <h5 class="card-title">BRAZO DE MERCEDEZ</h5>
+                        <ul>
+                          <li>WHOLE &#8369; 1,935.00</li>
+                          <li>SLICE &#8369; 225.00</li>
+                        </ul>
+                        <p class="card-text small">
+                          Soft, fluffy meringue rolled around a decadent egg‑yolk custard filling. Lightly sweet, melt‑in‑your‑mouth elegance in every slice.                      </p>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="CANONIGO">
+                      <div class="card-body">
+                        <h5 class="card-title">CANONIGO</h5>
+                        <ul>
+                          <li>WHOLE &#8369; 1,935.00</li>
+                          <li>SLICE &#8369; 215.00</li>
+                        </ul>
+                        <p class="card-text small">
+                          Light and airy meringue floating on rich caramel custard sauce. A classic Filipino floating‑island dessert—airy, sweet, and beautifully presented                      </p>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="CREME BRULEE">
+                      <div class="card-body">
+                        <h5 class="card-title">CREME BRULEE</h5>
+                        <ul>
+                          <li>WHOLE &#8369; 2,385.00</li>
+                          <li>SLICE &#8369; 265.00</li>
+                        </ul>
+                        <p class="card-text small">
+                          Silky vanilla custard beneath a crackling caramelized sugar crust. Creamy yet elegant, with a contrast of textures that delights every bite                      </p>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="MOCHA SANSRIVAL">
+                      <div class="card-body">
+                        <h5 class="card-title">MOCHA SANSRIVAL </h5>
+                        <ul>
+                          <li>WHOLE &#8369; 2,120.00</li>
+                          <li>SLICE &#8369; 265.00</li>
+                        </ul>
+                        <p class="card-text small">Mocha Sansrival offers layers of crunchy meringue, buttery mocha buttercream, and roasted cashews. This decadent cake is both rich in flavor and texture, perfect for those who enjoy the combination of coffee and nuts.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="STRAWBERRY SHORTCAKE">
+                      <div class="card-body">
+                        <h5 class="card-title">STRAWBERRY SHORTCAKE</h5>
+                        <ul>
+                          <li>WHOLE &#8369; 3,400.00</li>
+                          <li>SLICE &#8369; 340.00</li>
+                        </ul>
+                        <p class="card-text small">
+                          A classic summer dessert: soft buttery biscuits layered with juicy berries and airy whipped cream. Bright, refreshing, and effortlessly elegant.                      
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="TIRAMISU">
+                      <div class="card-body">
+                        <h5 class="card-title">TIRAMISU</h5>
+                        <ul>
+                          <li>WHOLE &#8369; 2,120.00</li>
+                          <li>SLICE &#8369; 245.00</li>
+                        </ul>
+                        <p class="card-text small">
+                          Layers of coffee‑soaked ladyfingers and whipped mascarpone cream, dusted with cocoa. Smooth, indulgent, with a perfect balance of bitter espresso and sweet cream.                      </p>
+                      </div>
+                    </div>
+                  </div>
+
+          </div>
+
+          <div class="category">
+
+            <div class="mt-5 mb-5">
+              <h2><b>WINE</b></h2>
+            </div>
+
+
+            <h2><b>WHITE WINE</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="ANNA SPINATO PINOT GRIGIO">
+                <div class="card-body">
+                  <h5 class="card-title">ANNA SPINATO PINOT GRIGIO</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,500.00</li>
+                    <li>GLASS &#8369; 380.00</li>
+                  </ul>
+                  <p class="card-text">A refreshing and crisp white wine with notes of citrus and green apple. This light-bodied wine is perfect for pairing with seafood, salads, and light pasta dishes.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="FINCA LAS MORAS SAUVIGNON BLANC">
+                <div class="card-body">
+                  <h5 class="card-title">FINCA LAS MORAS SAUVIGNON BLANC</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,500.00</li>
+                    <li>GLASS &#8369; 380.00</li>
+                  </ul>
+                  <p class="card-text">A bright and zesty white wine, offering flavors of tropical fruits, citrus, and a hint of green herbs. Its refreshing acidity makes it a great match for seafood and fresh vegetable dishes.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="VILLA GIRARDI PINOT GRIGIO DELLE VENEZIE">
+                <div class="card-body">
+                  <h5 class="card-title">VILLA GIRARDI PINOT GRIGIO DELLE VENEZIE</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,500.00</li>
+                    <li>GLASS &#8369; 380.00</li>
+                  </ul>
+                  <p class="card-text">light, crisp, and delicately fruity. Its subtle flavors of pear and apple are balanced by a clean, mineral finish, making it an excellent accompaniment to light meals.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="WILD ROCK CHARDONNAY">
+                <div class="card-body">
+                  <h5 class="card-title">WILD ROCK CHARDONNAY</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,500.00</li>
+                    <li>GLASS &#8369; 380.00</li>
+                  </ul>
+                  <p class="card-text">A well-balanced Chardonnay with flavors of ripe stone fruits and a hint of oak. It has a creamy texture with a fresh, lively finish, making it a versatile wine for a range of dishes.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="CRAGGY RANGE CHARDONNAY">
+                <div class="card-body">
+                  <h5 class="card-title">CRAGGY RANGE CHARDONNAY</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,950.00</li>
+                  </ul>
+                  <p class="card-text">A rich and elegant Chardonnay with a blend of tropical fruit flavors and a touch of vanilla from oak aging. Its smooth texture and refined finish make it a luxurious choice for any occasion.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="CRAGGY RANGE SAUVIGNON BLANC">
+                <div class="card-body">
+                  <h5 class="card-title">CRAGGY RANGE SAUVIGNON BLANC</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,950.00</li>
+                  </ul>
+                  <p class="card-text">A vibrant and aromatic Sauvignon Blanc with flavors of passionfruit, lime, and a hint of green bell pepper. This wine offers a crisp, refreshing finish, perfect for a warm day.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="category">
+            <h2><b>RED WINE</b></h2>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="FINCA LAS MORAS MALBEC ">
+                <div class="card-body">
+                  <h5 class="card-title">FINCA LAS MORAS MALBEC </h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,500.00</li>
+                    <li>GLASS &#8369; 380.00</li>
+                  </ul>
+                  <p class="card-text">A bold and juicy red wine, with ripe flavors of blackberries, plums, and a touch of spice. Its full body and smooth tannins make it an excellent choice for grilled meats and hearty dishes.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="VILLA GIRARDI VALPOLICELLA CLASSICO">
+                <div class="card-body">
+                  <h5 class="card-title">VILLA GIRARDI VALPOLICELLA CLASSICO</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,500.00</li>
+                    <li>GLASS &#8369; 380.00</li>
+                  </ul>
+                  <p class="card-text">A light and fruity red wine from Italy, featuring flavors of cherry, red berries, and a hint of spice. Its balanced acidity and soft tannins make it a great pairing for pasta and pizza.</p>
+                </div>
+              </div>
+            </div>
+
+                  <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="WILD ROCK MERLOT">
+                <div class="card-body">
+                  <h5 class="card-title">WILD ROCK MERLOT</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,500.00</li>
+                    <li>GLASS &#8369; 380.00</li>
+                  </ul>
+                  <p class="card-text">A smooth and medium-bodied red wine with flavors of ripe plums, cherries, and a touch of chocolate. Its soft tannins and rich fruit profile make it an easy-drinking choice for any occasion.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="PRESTIGE CHIANTI CLASSICO">
+                <div class="card-body">
+                  <h5 class="card-title">PRESTIGE CHIANTI CLASSICO</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,950.00</li>
+                  </ul>
+                  <p class="card-text">A classic Italian red wine with bright cherry flavors, earthy undertones, and firm tannins. Its balanced acidity makes it a great match for tomato-based dishes and roasted meats.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="BERONIA CRIANZA RIOJA">
+                <div class="card-body">
+                  <h5 class="card-title">BERONIA CRIANZA RIOJA</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,950.00</li>
+                  </ul>
+                  <p class="card-text">A Spanish red wine with vibrant red fruit flavors and a hint of spice from oak aging. Its structured body and smooth finish make it a great pairing for grilled meats and rich stews.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100" style="border: none;">
+                <img src="" class="card-img-top" alt="BERONIA TEMPRANILL">
+                <div class="card-body">
+                  <h5 class="card-title">BERONIA TEMPRANILL</h5>
+                  <ul>
+                    <li>BOTTLE &#8369; 1,950.00</li>
+                  </ul>
+                  <p class="card-text">A full-bodied red wine with flavors of ripe dark fruits, vanilla, and a touch of oak. Its bold structure and long finish make it perfect for enjoying with hearty meat dishes.</p>
+                </div>
+              </div>
+            </div>
+
+                </div>
+              </div>  
+          </div>
+          
+    </div>
+  </div>
+</div>
+
+  <script src="{% static 'js/scroll.js' %}"></script>
+
+</body>
+</html>
+{% endblock %}

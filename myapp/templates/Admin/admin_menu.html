@@ -1,0 +1,79 @@
+{% extends 'Admin/admin_main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="text-center mb-4">
+  <h1>MENU</h1>
+</div>
+
+<!-- DESKTOP TABLE -->
+<div class="table-responsive d-none d-md-block">
+  <table class="table table-striped table-bordered text-center">
+    <thead>
+      <tr>
+        <th>Menu ID</th>
+        <th>Image</th>
+        <th>Menu Item</th>
+        <th>Category</th>
+        <th>Sub Category</th>
+        <th>Ingredients</th>
+        <th>Price</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in menu %}
+      <tr>
+        <td><a href="{% url 'menu_record' item.id %}">{{ item.id }}</a></td>
+        <td>
+          {% if item.image %}
+            <img src="{% static item.image %}" alt="{{ item.dish_name }}" width="50" height="50">
+          {% else %}
+            No Image
+          {% endif %}
+        </td>
+        <td>{{ item.dish_name }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.sub_category }}</td>
+        <td>{{ item.ingredients }}</td>
+        <td>{{ item.price }}</td>
+        <td>
+          <a href="{% url 'update_menu' item.id %}" class="btn btn-success btn-sm">Update</a>
+        </td>
+        <td>
+          <a href="{% url 'delete_menu' item.id %}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- MOBILE CARDS -->
+<div class="d-md-none">
+  {% for item in menu %}
+  <div class="card mb-3 shadow-sm text-center">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.dish_name }}</h5>
+      <div class="mb-2">
+        {% if item.image %}
+          <img src="{% static item.image %}" alt="{{ item.dish_name }}" class="img-fluid" style="max-height: 150px;">
+        {% else %}
+          <small class="text-muted">No Image</small>
+        {% endif %}
+      </div>
+      <p><strong>Menu ID:</strong> {{ item.id }}</p>
+      <p><strong>Category:</strong> {{ item.category }}</p>
+      <p><strong>Sub Category:</strong> {{ item.sub_category }}</p>
+      <p><strong>Ingredients:</strong> <br> {{ item.ingredients }}</p>
+      <p><strong>Price:</strong> {{ item.price }}</p>
+      <div class="d-flex gap-2">
+        <a href="{% url 'update_menu' item.id %}" class="btn btn-success btn-sm flex-fill">Update</a>
+        <a href="{% url 'delete_menu' item.id %}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-sm flex-fill">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

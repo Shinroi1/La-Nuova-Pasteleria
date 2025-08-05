@@ -1,0 +1,47 @@
+{% extends 'Admin/admin_main.html' %}
+{% block content %}
+
+<style>
+  .error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .error-box {
+    max-width: 600px;
+    padding: 40px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .error-code {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #dc3545;
+  }
+  .error-message {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  .error-hint {
+    color: #6c757d;
+    font-size: 1rem;
+  }
+</style>
+
+<div class="error-page bg-light">
+  <div class="error-box">
+    <div class="error-code">403</div>
+    <div class="error-message">Unauthorized Access</div>
+    <div class="error-hint">You do not have permission to perform this action. Staff can only view pages.</div>
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-primary mt-4">
+      <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+    </a>
+  </div>
+</div>
+
+{% endblock %}

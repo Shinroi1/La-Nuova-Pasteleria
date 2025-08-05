@@ -1,0 +1,27 @@
+{% extends 'user_navbar.html' %}
+
+{% load humanize %}
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'CSS/dishes.css' %}">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 d-flex justify-content-center my-3 mt-5">
+      <img src="{% static dish.image %}" class="img-fluid" alt="{{ dish.dish_name }}">
+    </div>
+    <div class="col-md-6 text-margin-top">
+      <h1><b>{{ dish.dish_name|upper }}</b></h1>
+        {% if dish.ingredients and dish.ingredients != "None" %}
+          <p class="fs-4 mt-5"><b>INGREDIENTS:</b></p>
+          <p class="fs-4">{{ dish.ingredients|title }}</p>
+        {% endif %}
+      <p class="fs-2">&#8369; {{ dish.price|floatformat:2|intcomma }}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

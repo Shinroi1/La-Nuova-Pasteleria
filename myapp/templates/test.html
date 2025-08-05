@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Botpress Chatbot</title>
+
+  <!-- Botpress Webchat SDK (v1) -->
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+</head>
+<body>
+  <!-- Webchat container -->
+  <div id="webchat" style="width: 400px; height: 500px;"></div>
+
+  <script>
+    window.addEventListener('BPWebChatLoaded', function () {
+      // Now safe to access botpress
+
+      window.botpressWebChat = {
+        storage: window.sessionStorage
+      };
+
+      window.botpress.on("webchat:ready", () => {
+        window.botpress.open(); // Auto open chat
+      });
+
+      window.botpress.init({
+        botId: "631c4460-2ee2-4262-b9db-c09c91de5114",     // ✅ Your bot ID
+        clientId: "4059ee86-35bb-4ff8-9334-87cf08ab958b", // ✅ Your client ID
+        selector: "#webchat",
+        disablePersistedState: true, // ✅ Clears session on reload
+        configuration: {
+          botName: "La Nouva Chatbot",
+          botDescription: "Hi! I will answer your FAQs",
+          themeMode: "light",
+          headerVariant: "solid",
+          variant: "solid",
+          fontFamily: "fira",
+          feedbackEnabled: false,
+          allowFileUpload: false
+        }
+      });
+    });
+  </script>
+</body>
+</html>

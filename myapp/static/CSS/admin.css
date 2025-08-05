@@ -1,0 +1,49 @@
+.category-btn, .subcategory-btn {
+    margin: 5px; /* Add spacing between buttons */
+}
+
+.subcategory-btn {
+  margin-top: 25px; /* Add spacing between buttons */
+}
+
+.dish-quantity{
+  margin-top:15px;
+}
+
+#dishesContainer{
+  height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;
+  margin-top: 15px; /* Optional styling */
+  border: 1px solid #ddd; /* Optional: add a border for clarity */
+  padding: 10px; /* Optional: add padding */
+}
+
+
+.scrollable-table {
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto;  /* Enables vertical scrolling */
+    }
+
+    /* Ensure the table headers remain sticky when scrolling */
+.scrollable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #fff; /* Optional: background for visibility */
+    z-index: 1;
+    }
+
+ .modal-body {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .quantity-controls {
+    min-width: 100px;
+    justify-content: end;
+  }
+
+  .quantity-value {
+    min-width: 24px;
+    text-align: center;
+    display: inline-block;
+  }

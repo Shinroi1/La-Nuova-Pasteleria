@@ -1,0 +1,13 @@
+<h3>Reservation Confirmed!</h3>
+<p>Name: {{ reservation.fullname }}</p>
+<p>Phone: {{ reservation.phone }}</p>
+<p>Date: {{ reservation.date }}</p>
+
+<h4>Ordered Dishes:</h4>
+<ul>
+  {% for dish in selected_dishes %}
+    <li>{{ dish.name }} - Quantity: {{ dish.quantity }}</li>
+  {% endfor %}
+</ul>
+<p>Total Price: &#8369;{{ reservation.total_price }}</p>
+<p>Thank you for your reservation!</p>

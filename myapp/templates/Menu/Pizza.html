@@ -1,0 +1,340 @@
+{% extends "user_navbar.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/full_menu.css' %}">
+
+  </head>
+
+  <body>
+  
+    <div class="container-fluid p-0">
+      <div class="image-overlay">
+        <img src={% static '/images/Menu/Cacciatora.jpg' %} alt="Cacciatora" class="header-image">
+        <div class="overlay-text"><b>PIZZA</b></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-margin">
+        <div class="row">
+          <!-- Left side with menu categories -->
+          <div class="col-lg-3 menu-sidebar d-none d-lg-block">
+            <a href="{% url 'Full Menu' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+              </div>
+            </a>
+            <a href="{% url 'Antipasti' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+              </div>
+            </a>
+            <a href="{% url 'Insalata' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                <i class="fas fa-leaf"></i> <b>INSALATA</b>
+              </div>
+            </a>
+            <a href="{% url 'Zuppa' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+              </div>
+            </a>
+            <a href="{% url 'Panini' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+              </div>
+            </a>
+            <a href="{% url 'Risotto' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+              </div>
+            </a>
+            <a href="{% url 'Pizza' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+              </div>
+            </a>
+            <a href="{% url 'Pasta' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                <i class="fas fa-utensils"></i> <b>PASTA</b>
+              </div>
+            </a>
+            <a href="{% url 'Secondi' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+              </div>
+            </a>
+            <a href="{% url 'Caffe' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                <i class="fas fa-coffee"></i> <b>CAFFE</b>
+              </div>
+            </a>
+            <a href="{% url 'Bevande' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+              </div>
+            </a>
+            <a href="{% url 'Birra' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                <i class="fas fa-beer"></i> <b>BIRRA</b>
+              </div>
+            </a>
+            <a href="{% url 'Ice Cream' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+              </div>
+            </a>
+            <a href="{% url 'Cake' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+              </div>
+            </a>
+            <a href="{% url 'Wine' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+              </div>
+            </a>          
+          </div>
+
+          <!-- Mobile Horizontal Scroll Menu (Visible below lg) -->
+          <div class="mobile-menu-scroll d-lg-none sticky-top bg-light shadow-sm py-2 px-2">
+            <div class="d-flex overflow-auto menu-scroll-container">
+                <a href="{% url 'Full Menu' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                  <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+                </div>
+              </a>
+              <a href="{% url 'Antipasti' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+                </div>
+              </a>
+              <a href="{% url 'Insalata' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                  <i class="fas fa-leaf"></i> <b>INSALATA</b>
+                </div>
+              </a>
+              <a href="{% url 'Zuppa' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                  <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+                </div>
+              </a>
+              <a href="{% url 'Panini' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+                </div>
+              </a>
+              <a href="{% url 'Risotto' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                  <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+                </div>
+              </a>
+              <a href="{% url 'Pizza' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                  <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+                </div>
+              </a>
+              <a href="{% url 'Pasta' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                  <i class="fas fa-utensils"></i> <b>PASTA</b>
+                </div>
+              </a>
+              <a href="{% url 'Secondi' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                  <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+                </div>
+              </a>
+              <a href="{% url 'Caffe' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                  <i class="fas fa-coffee"></i> <b>CAFFE</b>
+                </div>
+              </a>
+              <a href="{% url 'Bevande' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                  <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+                </div>
+              </a>
+              <a href="{% url 'Birra' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                  <i class="fas fa-beer"></i> <b>BIRRA</b>
+                </div>
+              </a>
+              <a href="{% url 'Ice Cream' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                  <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+                </div>
+              </a>
+              <a href="{% url 'Cake' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                  <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+                </div>
+              </a>
+              <a href="{% url 'Wine' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                  <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+                </div>
+              </a>
+            </div>
+          </div>
+        
+          <!-- Right side with full menu -->
+          <div class="col-lg-9">
+
+            <div class="full-menu">
+
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+              
+                <a href="{% url 'Quattro Formaggi' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Quattro Formaggi.jpg' %} class="card-img-top" alt="QUATTRO FORMAGGI">
+                      <div class="card-body">
+                        <h5 class="card-title">QUATTRO FORMAGGI</h5>
+                        <h5>&#8369; 785.00</h5>
+                        <p class="card-text small">A cheesy delight with mozzarella, gorgonzola, parmesan, and ricotta on a crispy crust.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+          
+                <a href="{% url 'Due Gusti' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Due Gusti.jpg' %} class="card-img-top" alt="DUE GUSTI">
+                      <div class="card-body">
+                        <h5 class="card-title">DUE GUSTI</h5>
+                        <h5>&#8369; 845.00</h5>
+                        <p class="card-text small">A flavorful pizza topped with spinach, chorizo Bilbao, and mushrooms.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Pepperoni' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src="{% static '/images/Menu/Pepperoni.jpg' %}" class="card-img-top" alt="PEPPERONI">
+                      <div class="card-body">
+                        <h5 class="card-title">PEPPERONI</h5>
+                        <h5>&#8369; 625.00</h5>
+                        <p class="card-text small">A traditional favorite with pepperoni salami and mozzarella cheese.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Frutti Di Mare' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src="{% static '/images/Menu/Frutti Di Mare.jpg' %}" class="card-img-top" alt="FRUTTI DI MARE">
+                      <div class="card-body">
+                        <h5 class="card-title">FRUTTI DI MARE</h5>
+                        <h5>&#8369; 925.00</h5>
+                        <p class="card-text small">A seafood pizza with squid, shrimp, mussels, and baby clams.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Cacciatora' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Cacciatora.jpg' %} class="card-img-top" alt="CACCIATORA">
+                      <div class="card-body">
+                        <h5 class="card-title">CACCIATORA</h5>
+                        <h5>&#8369; 675.00</h5>
+                        <p class="card-text small">A bold combination of capers, olives, anchovies, and pepperoni salami.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+          
+                <a href="{% url 'Margherita' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="MARGHERITA">
+                      <div class="card-body">
+                        <h5 class="card-title">MARGHERITA</h5>
+                        <h5>&#8369; 585.00</h5>
+                        <p class="card-text small">A classic pizza with tomato, fresh basil, and mozzarella for a simple yet delicious flavor.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+          
+                <a href="{% url 'La Loca' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="LA LOCA">
+                      <div class="card-body">
+                        <h5 class="card-title">LA LOCA</h5>
+                        <h5>&#8369; 725.00</h5>
+                        <p class="card-text small">A savory mix of Italian sausage, ham, onions, and bell peppers on a crispy pizza crust.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+          
+                <a href="{% url 'La Nuova Pizza' %}">
+                  <div class="col">
+                      <div class="card h-100" style="border: none;">
+                          <img src="{% static '/images/Menu/La Nuova Pizza.jpg' %}" class="card-img-top" alt="LA NUOVA">
+                          <div class="card-body">
+                              <h5 class="card-title">LA NUOVA</h5>
+                              <h5>&#8369; 725.00</h5>
+                              <p class="card-text small">A gourmet pizza with prosciutto di Parma, asparagus, and gorgonzola cheese.</p>
+                          </div>
+                      </div>
+                  </div>
+                </a>
+          
+                <a href="{% url 'Calzone Siciliana' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="{% static '/images/Menu/Calzone Siciliana.jpg' %}" class="card-img-top" alt="CALZONE SICILIANA">
+                      <div class="card-body">
+                        <h5 class="card-title">CALZONE SICILIANA &#8369; 725.00</h5>
+                        <p class="card-text small">A half-rolled dough stuffed with mortadella, tomato, and ricotta cheese.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+          
+                <a href="{% url 'Tropicale' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="{% static '/images/Menu/Tropicale.jpg' %}" class="card-img-top" alt="TROPICALE">
+                      <div class="card-body">
+                        <h5 class="card-title">TROPICALE &#8369; 675.00</h5>
+                        <p class="card-text small">A sweet and savory pizza with honey ham, pineapple, and mozzarella.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+          
+              </div>
+
+            </div>
+        
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/scroll.js' %}"></script>
+
+
+  </body>
+</html>
+
+{% endblock %}

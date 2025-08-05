@@ -1,0 +1,41 @@
+{% extends "Admin/admin_main.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="col-md-8 offset-md-2">
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Reservation #{{ reservation_record.id }}</h5>
+      </div>
+      <div class="card-body">
+        <p><strong>Full Name:</strong> {{ reservation_record.fullname }}</p>
+        <p><strong>Phone:</strong> {{ reservation_record.phone }}</p>
+        <p><strong>Party Size:</strong> {{ reservation_record.party_size }}</p>
+        <p><strong>Dishes Ordered:</strong><br>
+          <ul class="mb-2">
+            {% for dish in reservation_record.normalreservationorder_set.all %}
+              <li>{{ dish.dish.dish_name }} <small>(x{{ dish.quantity }})</small></li>
+            {% endfor %}
+          </ul>
+        </p>
+        <p><strong>Total Price:</strong> &#8369;{{ reservation_record.total_price }}</p>
+        <p><strong>Table Status:</strong> 
+          {% if reservation_record.table_status == "Confirmed" %}
+            <span class="badge bg-success">{{ reservation_record.table_status }}</span>
+          {% elif reservation_record.table_status == "Pending" %}
+            <span class="badge bg-warning text-dark">{{ reservation_record.table_status }}</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ reservation_record.table_status }}</span>
+          {% endif %}
+        </p>
+        <p><strong>Reservation Date:</strong> {{ reservation_record.date }}</p>
+        <p><strong>Date Created:</strong> {{ reservation_record.date_created }}</p>
+      </div>
+      <div class="card-footer text-center d-flex justify-content-around flex-wrap">
+        <a href="{% url 'admin_reservation' %}" class="btn btn-secondary mb-2">← Back</a>
+        <a href="{% url 'update_reservation' reservation_record.id %}" class="btn btn-warning mb-2">✏️ Update</a>
+        <a href="{% url 'delete_reservation' reservation_record.id %}" class="btn btn-danger mb-2" onclick="return confirm('Are you sure?')" class="btn btn-outline-danger">🗑 Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

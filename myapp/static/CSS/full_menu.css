@@ -1,0 +1,226 @@
+body {
+  background: #D5CCAB;
+}
+
+/* * {
+  border: 1px solid red; /* sets border width, style, and color
+} */
+
+
+/* Ensures the image takes the full width of its container */
+.header-image {
+    width: 100%; /* Takes the full width of the container */
+    height: 50vh; /* Height is 50% of the viewport height */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+  }
+
+  a{
+    text-decoration: none;
+    color: inherit;
+    display: block ;
+  }
+
+  .image-overlay{
+    position: relative; /* Allows absolute positioning of child elements */
+    text-align: center; /* Center-aligns the text overlay */
+    color: white; /* Text color */
+    font-size: 50;
+  }  
+    
+  .overlay-text {
+      position: absolute; /* Positions the text absolutely within the parent */
+      top: 50%; /* Positions the text vertically at the center */
+      left: 50%; /* Positions the text horizontally at the center */
+      transform: translate(-50%, -50%); /* Centers the text */
+      padding: 10px; /* Padding for some space around the text */
+      font-size: 1.5em; /* Adjust font size as needed */
+      font-family: 'Times New Roman', Times, serif;
+
+  }
+
+  /* Custom styling for menu categories */
+.menu-category {
+  font-size: 1rem;
+  letter-spacing: 1px;
+  padding: 12px 20px;
+  margin-bottom: 15px;
+  background-color: #f8f4e3;
+  border-radius: 20px;
+  border: 1px solid #c0b283;
+  cursor: pointer;
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+
+.menu-category:hover {
+  background-color: #c0b283;
+  color: white;
+  transform: scale(1.03);
+}
+
+.menu-category.active {
+  background-color: #a68a64;
+  color: white;
+  font-weight: bold;
+}
+
+.menu-sidebar {
+  position: sticky;
+  top: 20px;
+}
+
+  .col-lg-3{
+    /* border: 1px solid; */
+    margin-bottom: 30px;
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+  }
+
+  .content-margin{
+    margin-top: 50px;
+    margin-bottom: 50px; /* Pushes down the content of the menu.html */
+  }
+
+  .centered-heading {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;  
+  }
+
+  .full-menu {
+    padding: 25px;
+    max-width: 110%;
+    min-height: 400px; 
+  }
+
+  /* * {
+  outline: 1px solid red;
+} */
+
+/* Mobile scroll menu */
+.mobile-menu-scroll {
+  z-index: 1000;
+  background-color: #D5CCAB !important;
+}
+
+.menu-scroll-container {
+  gap: 0.5rem;
+}
+
+.menu-scroll-container .menu-category {
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background-color: #f8f9fa;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  
+}
+
+.menu-scroll-container .menu-category.active {
+  background-color: #b89e6d; /* your highlight color */
+  color: #fff;
+}
+
+.menu-scroll-container a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+  /* FOR THE MENU (right side) */
+
+  .category{
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  li,
+  .card-title,
+  ul,
+  .card-text{
+    text-align: center;
+    font-size: 16px; /* Adjust font size as needed but affects the navbar somehow */
+    font-family: Austin ,Georgia, 'Times New Roman', Times, serif;
+  }
+
+  .card{
+    background-color: transparent;
+  }
+
+
+  ul{
+    list-style-type: none;
+  }
+
+  h5,
+  h6{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+  }
+
+  .margin{
+    margin-bottom: 20px;
+    padding: 0 1em;
+  }    
+
+  .menu-background {
+    background-image: url("{% static 'images/menubackground (1).png' %}");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+   }      
+
+   .img-height{
+    max-height: 400px;
+   }
+
+
+/* Disable sticky sidebar on smaller screens */
+@media (max-width: 991.98px) {
+  .menu-sidebar {
+    position: static !important;
+    top: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
+/* Tablet view */
+@media (max-width: 768px) {
+  .header-image {
+    height: 35vh; /* Slightly reduced height for tablets */
+  }
+
+  .overlay-text {
+    font-size: 1.2em; /* Smaller text for tablets */
+    padding: 8px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 425px) {
+  .header-image {
+    height: 30vh; /* Smaller image height for mobile */
+  }
+
+  .overlay-text {
+    font-size: 1em; /* Smaller text for phones */
+    padding: 6px;
+    font-family: 'Times New Roman', Times, serif;
+
+  }
+
+  .centered-heading {
+    margin-top: 20px;
+  }
+
+}

@@ -1,0 +1,38 @@
+/* ✅ Hide the dropdown toggle button */
+.bpMessageBlocksDropdownButtonContainer {
+  display: none !important;
+}
+
+/* ✅ Force the actual choices to show as visible blocks */
+.bpMessageBlocksDropdownContentContainer {
+  display: flex !important;
+  flex-direction: column;
+  position: relative !important;
+  transform: none !important;
+  max-height: none !important;
+  min-width: auto !important;
+  gap: 10px;
+  margin-top: 10px;
+  z-index: 9999;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 2px dashed red !important;
+}
+
+/* ✅ Style each item like a real button */
+.bpMessageBlocksDropdownContentItem {
+  display: block !important;
+  padding: 12px 20px;
+  border-radius: 20px;
+  background-color: #0056b3;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+.bpMessageBlocksDropdownContentItem:hover {
+  background-color: #003f7f;
+}

@@ -1,0 +1,79 @@
+{% extends "Admin/admin_main.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="col-md-8 offset-md-2 bg-light p-4 rounded shadow-sm">
+    <h1 class="text-center mb-4">Update Menu Record</h1>
+
+    {% if messages %}
+      <div class="alert alert-info">
+        <ul class="list-unstyled mb-0">
+          {% for message in messages %}
+            <li class="text-center">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="POST" action="" autocomplete="off" novalidate>
+      {% csrf_token %}
+
+      <!-- Dish Name -->
+      <div class="form-group mb-3">
+        <label for="dish_name" class="form-label">Dish Name</label>
+        <input type="text" name="dish_name" id="dish_name" class="form-control"
+               value="{{ form.initial.dish_name }}" placeholder="Enter dish name" required>
+      </div>
+
+      <!-- Category -->
+      <div class="form-group mb-3">
+        <label for="category" class="form-label">Category</label>
+        <input type="text" name="category" id="category" class="form-control"
+               value="{{ form.initial.category }}" placeholder="Enter category" required>
+      </div>
+
+      <!-- Sub-Category -->
+      <div class="form-group mb-3">
+        <label for="sub_category" class="form-label">Sub-Category</label>
+        <input type="text" name="sub_category" id="sub_category" class="form-control"
+               value="{{ form.initial.sub_category }}" placeholder="Enter sub-category">
+      </div>
+
+      <!-- Ingredients -->
+      <div class="form-group mb-3">
+        <label for="ingredients" class="form-label">Ingredients</label>
+        <input type="text" name="ingredients" id="ingredients" class="form-control"
+               value="{{ form.initial.ingredients }}" placeholder="List ingredients" required>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" name="price" id="price" class="form-control"
+               value="{{ form.initial.price }}" step="0.01" placeholder="Enter price" required>
+      </div>
+
+      <!-- Image -->
+      <div class="form-group mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input type="text" name="image" id="image" class="form-control"
+               value="{{ form.initial.image }}" placeholder="Paste image URL (optional)">
+      </div>
+
+      <!-- Slug -->
+      <div class="form-group mb-3">
+        <label for="slug" class="form-label">Slug</label>
+        <input type="text" name="slug" id="slug" class="form-control"
+               value="{{ form.initial.slug }}" placeholder="Enter URL slug" required>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Update Record</button>
+        <a href="{% url 'admin_menu' %}" class="btn btn-secondary">Back</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

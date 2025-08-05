@@ -1,0 +1,89 @@
+{% extends 'user_navbar.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            .map-responsive {
+                position: relative;
+                width: 100%;
+                padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+                height: 0;
+                overflow: hidden;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            }
+
+            .map-responsive iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+
+            .contact-container {
+                display: flex;
+                flex-direction: column; /* Stack on small screens */
+                gap: 20px;
+                padding: 20px;
+                font-family: 'Austin', Georgia, Times New Roman, Times, serif;
+                font-size: larger;
+            }
+
+            body {
+                background-color: #D5CCAB;
+            }
+
+            @media (min-width: 768px) {
+                .contact-container {
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+            }
+        </style>
+
+    </head>
+    
+<body>
+
+<section id ="contact">
+    <div class="container">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Telephone:</h2>
+                <p>8-817-8568</p>
+                <h2>Phone:</h2>
+                <p>0927 220 7898</p>
+                <h2>Address:</h2>
+                <p>La Nuova Pasteleria, San Antonio Plaza,<br>
+                15 McKinley Rd, Fobres Park, Makati, <br>
+                1220 Metro Manila</p>
+            </div>
+        </div>
+    </div>
+
+<div class="container map-container">
+  <div class="map-responsive">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7723.819372758862!2d121.034906!3d14.547157!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c8e26ab3a0b9%3A0xa24e3fbe7def4861!2sLa%20Nuova%20Pasteleria!5e0!3m2!1sen!2sph!4v1713253699857!5m2!1sen!2sph"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</div>
+
+</section>
+
+</body>
+</html>
+{% endblock %}
+
+

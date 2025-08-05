@@ -1,0 +1,238 @@
+{% extends "user_navbar.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/full_menu.css' %}">
+
+  </head>
+
+  <body>
+  
+    <div class="container-fluid p-0">
+      <div class="image-overlay">
+        <img src={% static '' %} alt="" class="header-image">
+        <div class="overlay-text"><b>ICE CREAM</b></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-margin">
+        <div class="row">
+          <!-- Left side with menu categories -->
+          <div class="col-lg-3 menu-sidebar d-none d-lg-block">
+            <a href="{% url 'Full Menu' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+              </div>
+            </a>
+            <a href="{% url 'Antipasti' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+              </div>
+            </a>
+            <a href="{% url 'Insalata' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                <i class="fas fa-leaf"></i> <b>INSALATA</b>
+              </div>
+            </a>
+            <a href="{% url 'Zuppa' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+              </div>
+            </a>
+            <a href="{% url 'Panini' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+              </div>
+            </a>
+            <a href="{% url 'Risotto' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+              </div>
+            </a>
+            <a href="{% url 'Pizza' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+              </div>
+            </a>
+            <a href="{% url 'Pasta' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                <i class="fas fa-utensils"></i> <b>PASTA</b>
+              </div>
+            </a>
+            <a href="{% url 'Secondi' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+              </div>
+            </a>
+            <a href="{% url 'Caffe' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                <i class="fas fa-coffee"></i> <b>CAFFE</b>
+              </div>
+            </a>
+            <a href="{% url 'Bevande' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+              </div>
+            </a>
+            <a href="{% url 'Birra' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                <i class="fas fa-beer"></i> <b>BIRRA</b>
+              </div>
+            </a>
+            <a href="{% url 'Ice Cream' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+              </div>
+            </a>
+            <a href="{% url 'Cake' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+              </div>
+            </a>
+            <a href="{% url 'Wine' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+              </div>
+            </a>
+          </div>
+
+                    <!-- Mobile Horizontal Scroll Menu (Visible below lg) -->
+          <div class="mobile-menu-scroll d-lg-none sticky-top bg-light shadow-sm py-2 px-2">
+            <div class="d-flex overflow-auto menu-scroll-container">
+                <a href="{% url 'Full Menu' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                  <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+                </div>
+              </a>
+              <a href="{% url 'Antipasti' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+                </div>
+              </a>
+              <a href="{% url 'Insalata' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                  <i class="fas fa-leaf"></i> <b>INSALATA</b>
+                </div>
+              </a>
+              <a href="{% url 'Zuppa' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                  <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+                </div>
+              </a>
+              <a href="{% url 'Panini' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+                </div>
+              </a>
+              <a href="{% url 'Risotto' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                  <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+                </div>
+              </a>
+              <a href="{% url 'Pizza' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                  <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+                </div>
+              </a>
+              <a href="{% url 'Pasta' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                  <i class="fas fa-utensils"></i> <b>PASTA</b>
+                </div>
+              </a>
+              <a href="{% url 'Secondi' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                  <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+                </div>
+              </a>
+              <a href="{% url 'Caffe' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                  <i class="fas fa-coffee"></i> <b>CAFFE</b>
+                </div>
+              </a>
+              <a href="{% url 'Bevande' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                  <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+                </div>
+              </a>
+              <a href="{% url 'Birra' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                  <i class="fas fa-beer"></i> <b>BIRRA</b>
+                </div>
+              </a>
+              <a href="{% url 'Ice Cream' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                  <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+                </div>
+              </a>
+              <a href="{% url 'Cake' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                  <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+                </div>
+              </a>
+              <a href="{% url 'Wine' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                  <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+                </div>
+              </a>
+            </div>
+          </div>
+        
+          <!-- Right side with full menu -->
+          <div class="col-lg-9">
+
+            <div class="full-menu">
+
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+              
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Carmens Best.jpg' %} class="card-img-top" alt="CARMENS(CLASSIC)">
+                        <div class="card-body">
+                        <h5 class="card-title">CARMEN'S BEST(CLASSIC)</h5>
+                        <h5>&#8369; 200.00</h5>
+                          <p class="card-text small">Available Flavors:<br>
+                            Brazilian Coffee, Butter Pecan, Dark Chocolate, Malted Milk, Salted Caramel
+                          </p>                            
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src={% static '/images/Menu/Carmens Best.jpg' %} class="card-img-top" alt="CARMEN'S BEST(SUGAR FREE)">
+                        <div class="card-body">
+                        <h5 class="card-title">CARMEN'S BEST(SUGAR FREE)</h5>
+                        <h5>&#8369; 225.00</h5>
+                          <p class="card-text small">Available Flavors:<br>
+                            Mango, Strawberry, Mixed Berry
+                          </p>                            
+                        </div>
+                    </div>
+                  </div>
+         
+              </div>
+
+            </div>
+        
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/scroll.js' %}"></script>
+
+
+  </body>
+</html>
+
+{% endblock %}

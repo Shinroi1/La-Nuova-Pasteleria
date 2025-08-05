@@ -1,0 +1,41 @@
+{% extends 'user_navbar.html' %}
+
+{% load static %}
+
+{% block content %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/menu.css' %}">
+    <link rel="stylesheet" href="{% static '/CSS/about.css' %}">
+    <title>About Us</title>
+</head>
+<body>
+
+<section id ="about">
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-6 d-flex justify-content-center my-3"> 
+                <!-- Using Bootstrap class 'd-flex' with 'justify-content-center' for centering -->
+                <img src="/static/images/Tatler Dining.jpg" class="img-fluid"> 
+                <!-- 'img-fluid' class ensures responsiveness -->
+            </div>
+                <div class="col-md-6 text-margin-top">
+                    <p class="fs-2" style="text-align: center;"><b>An intimate Italian restaurant that continues to delight loyal patrons with consistent, high‑quality pasta and pastries</b></p>
+                        <div class="text-container">
+                            <p class="about-text">
+                                Established in 1978 as a pasteleria and expanded into a full Italian restaurant by the mid‑1990s, La Nuova Pasteleria remains a beloved Forbes Park gem. Savor signature dishes like Tagliatelle Tartufo (truffle‑cream pasta with mushrooms & prosciutto) and Ravioli Funghi (mushroom‑ricotta ravioli in truffle cream), or indulge in their famed Concorde Cake—layers of chocolate mousse and crisp meringue. Known for its warm service, loyal staff, and relaxed ambiance. Open daily from 10 AM–9 PM. Reservations, take‑out, delivery, and credit cards accepted.
+                            </p>
+                        </div>
+                </div>
+
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
+
+{% endblock %}
+

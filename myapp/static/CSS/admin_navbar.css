@@ -1,0 +1,162 @@
+/* Sidebar styling */
+#sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #343a40;
+  transition: margin-left 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+#sidebar.collapsed {
+  margin-left: -250px;
+}
+
+#sidebar .nav-link {
+  color: #fff;
+}
+
+#sidebar .nav-link:hover {
+  background-color: #495057;
+}
+
+/* Collapse submenu */
+#sidebar .collapse ul {
+  padding-left: 0;
+  margin: 0;
+}
+
+#sidebar .collapse ul li a {
+  padding-left: 1.5rem;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+#sidebar .collapse ul li a:hover {
+  background-color: #495057;
+}
+
+/* Main content pushes aside the fixed sidebar */
+#main-content {
+  margin-left: 250px;
+  padding: 1.5rem;
+  transition: margin-left 0.3s ease;
+}
+
+#main-content.collapsed {
+  margin-left: 0;
+}
+
+/* Toggle button styles */
+.toggle-btn {
+  position: fixed;
+  top: 5px;
+  left: 260px;
+  z-index: 1100;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  transition: left 0.3s ease;
+}
+
+.toggle-btn:focus {
+  outline: none;
+}
+
+.toggle-btn.collapsed {
+  left: 10px;
+}
+
+/* Sidebar header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Dropdown chevron animation */
+.nav-link[aria-expanded="true"] .fa-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+/* Tablet and below */
+@media (max-width: 991.98px) {
+  #sidebar {
+    position: fixed;
+    margin-left: -250px;
+  }
+
+  #sidebar.show {
+    margin-left: 0;
+  }
+
+  #main-content {
+    margin-left: 0 !important;
+  }
+
+  .toggle-btn {
+    top: 5px;
+    left: 15px;
+    font-size: 1.8rem;
+    z-index: 1101;
+  }
+
+  #sidebar .sidebar-header {
+    padding-top: 2.5rem;
+  }
+}
+
+
+
+/* Mobile specific enhancements */
+@media (max-width: 575.98px) {
+  #sidebar {
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+    margin-left: -100%;
+    transition: margin-left 0.3s ease;
+  }
+
+  #sidebar.show {
+    margin-left: 0;
+  }
+
+  .toggle-btn {
+    font-size: 2rem;
+    top: 5px;
+    left: 15px;
+    z-index: 1101;
+    color: white;
+  }
+
+  #sidebar .sidebar-header {
+    padding-top: 2.5rem; /* push admin text lower */
+  }
+
+  #main-content {
+    margin-left: 0 !important;
+  }
+
+  #sidebar .nav-link {
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  #sidebar .sidebar-header span.fs-4 {
+  padding-left: 5px;
+}
+
+#notifDropdown {
+    left: 70% !important;
+    transform: translateX(-50%) !important;
+    min-width: 90vw !important;
+  }
+
+}

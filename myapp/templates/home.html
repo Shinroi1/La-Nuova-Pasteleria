@@ -1,0 +1,109 @@
+{% extends "user_navbar.html" %}
+
+{% load humanize %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/menu.css' %}">
+    
+    <title>{% block title %} Home Page {% endblock %}</title>
+</head>
+
+<body style="background-color: #D5CCAB;">
+
+
+
+
+<div style="text-align: center;">
+<h2 class="menu-title" id="recommendation-heading">
+  {% if personalized %}
+    Based on your previous orders, we think you'll love these dishes!
+  {% else %}
+    Check out our bestsellers!
+  {% endif %}
+</h2>
+
+  <div class="container mt-4">
+    <div class="row" id="dish-list" data-url-template="{% url 'dish_detail' slug='__slug__' %}">
+      {% for dish in dishes %}
+        <div class="col-md-4 mb-4">
+          <a href="{% url 'dish_detail' slug=dish.slug %}" class="text-decoration-none text-dark">
+            <div class="card h-80 shadow-sm">
+              <img src="{% if dish.image %}{% static dish.image %}{% else %}{% static 'images/default_dish.jpg' %}{% endif %}" class="card-img-top" alt="{{ dish.dish_name }}" style="max-height: 250px; object-fit: cover;">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ dish.dish_name }} - {{ dish.category }}</h5>
+                <h6>&#8369; {{ dish.price|floatformat:2|intcomma }}</h6>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% empty %}
+        <p>No dishes to show.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+<button id="recommend-more" onclick="getAlternativeRecommendations()"> Suprise Me! </button>
+<button id="show-bestsellers" onclick="showBestsellers()">Show Bestsellers</button>
+
+</div>
+
+{% include "cookies consent.html" %}
+
+<p class="title-menu"><b>Our Menu</b></p>
+{% include "menu_category.html" %}
+
+  <div class="container d-flex justify-content-center mt-5">
+  <div id="carouselExample" class="carousel slide position-relative">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/static/images/Background Front.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/background.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/background2.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/background3.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/background4.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/Lorna Tolentino.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/KC Conception.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/John Estrada.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/images/Manny Pacquiao.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev position-absolute" style="left: 5px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next position-absolute" style="right: 5px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>  
+</div>
+
+<script src="{% static 'js/collaborative.js' %}"></script>
+
+</body>
+</html>
+{% endblock %}

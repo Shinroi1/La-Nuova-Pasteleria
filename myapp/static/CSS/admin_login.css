@@ -1,0 +1,60 @@
+    body {
+      /* background: linear-gradient(to right, #f8f9fa, #e9ecef); */
+      font-family: 'Times New Roman', Times, serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: wheat;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 450px;
+      background-color: wheat;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-card h2 {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      width: 100%;
+    }
+
+    .btn-outline-primary {
+      width: 100%;
+    }
+
+    .flash-message {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .flash-message.error {
+      background-color: #f8d7da;
+      color: #842029;
+      border: 1px solid #f5c2c7;
+    }
+
+    .flash-message.success {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      border: 1px solid #badbcc;
+    }
+
+    .flash-message .close {
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    form input {
+      padding: 10px;
+    }

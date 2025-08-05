@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>We’ll be back soon</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        text-align: center;
+        padding: 50px;
+        color: #333;
+        background-color: #D5CCAB;
+    }
+    .container {
+        max-width: 500px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        background-color: #D5CCAB;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    img {
+        width: 100px;
+        margin-bottom: 20px;
+    }
+    h1 {
+        font-size: 26px;
+        color: #c0392b;
+    }
+    p {
+        font-size: 16px;
+        color: #666;
+    }
+    .loader {
+        border: 6px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 6px solid #c0392b;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        {% comment %} <img src="/static/logo.png" alt="Logo"> {% endcomment %}
+        <h1>We’re Under Maintenance</h1>
+        <p>We’re making some updates to improve your experience.<br>
+        Please check back soon.</p>
+        <div class="loader"></div>
+        {% comment %} <p><small>Estimated return: 2:00 PM</small></p> {% endcomment %}
+    </div>
+</body>
+</html>

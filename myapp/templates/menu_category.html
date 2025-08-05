@@ -1,0 +1,132 @@
+{% load static %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/menu_category.css' %}">
+</head>
+
+<body>
+
+<section id="menu_category">
+    <div class ="container">
+        <div class="menu-container">
+        <a href="{% url 'Full Menu' %}" target="_blank">
+            <div class="menu-category">
+                <div class="image-overlay">
+                    <img src="{% static '/images/Menu/Molluschi.jpg' %}" alt="FULL MENU" class="header-image">
+                    <div class="overlay-text"><b>FULL MENU</b></div>
+                </div>
+            </div>
+        </a>
+        <a href="{% url 'Antipasti' %}">
+            <div class="menu-category">
+                <div class="image-overlay">
+                    <img src="{% static '/images/Menu/Parmigiana Di Melanzane.jpg' %}" alt="Antipasti" class="header-image">
+                    <div class="overlay-text"><b>ANTIPASTI</b></div>
+                </div>
+            </div>
+        </a>
+        <a href="{% url 'Insalata' %}">
+            <div class="menu-category">
+                <div class="image-overlay">
+                    <img src="{% static '/images/Menu/Caprese.jpg' %}" alt="Insalata" class="header-image">
+                    <div class="overlay-text"><b>INSALATA</b></div>
+                </div>
+            </div>
+        </a>
+        <a href="{% url 'Zuppa' %}">
+            <div class="menu-category">
+                <div class="image-overlay">
+                    <img src="{% static '/images/Menu/Brodetto di Mare.jpg' %}" alt="Zuppa" class="header-image">
+                    <div class="overlay-text"><b>ZUPPA</b></div>
+                </div>
+            </div>
+            </a>
+            <a href="{% url 'Panini' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Pollo.jpg' %}" alt="Panini" class="header-image">
+                        <div class="overlay-text"><b>PANINI</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Risotto' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Colorata.jpg' %}" alt="Risotto" class="header-image">
+                        <div class="overlay-text"><b>RISOTTO</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Pizza' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Cacciatora.jpg' %}" alt="Pizza" class="header-image">
+                        <div class="overlay-text"><b>PIZZA</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Pasta' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Nera.jpg' %}" alt="Pasta" class="header-image">
+                        <div class="overlay-text"><b>PASTA</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Secondi' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Grigilia Di Pesce.jpg' %}" alt="Secondi" class="header-image">
+                        <div class="overlay-text"><b>SECONDI</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Caffe' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/cappuccino.jpg' %}" alt="Caffe" class="header-image">
+                        <div class="overlay-text"><b>CAFFE</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Bevande' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Mango.jpg' %}" alt="Bevande" class="header-image">
+                        <div class="overlay-text"><b>BEVANDE</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Ice Cream' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Carmens best.jpg' %}" alt="Ice Cream" class="header-image">
+                        <div class="overlay-text"><b>ICE CREAM</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Cake' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Concorde.jpg' %}" alt="Cake" class="header-image">
+                        <div class="overlay-text"><b>CAKE</b></div>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'Wine' %}">
+                <div class="menu-category">
+                    <div class="image-overlay">
+                        <img src="{% static '/images/Menu/Anna Spinato Pinot Grigio.jpg' %}" alt="Wine" class="header-image">
+                        <div class="overlay-text"><b>WINE</b></div>
+                    </div>
+                </div>
+            </a>    
+        </div>
+    </div>
+</section>
+
+</body>
+</html> 

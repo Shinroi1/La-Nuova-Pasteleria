@@ -1,0 +1,57 @@
+{% extends 'Admin/admin_main.html' %}
+{% block content %}
+
+{% if form.errors %}
+<div class="alert alert-danger">
+  <strong>Form submission failed:</strong>
+  <ul>
+    {% for field in form %}
+      {% for error in field.errors %}
+        <li>{{ field.label }}: {{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="container mt-4">
+  <h2>{{ is_update|yesno:"Update Unavailable Date & Time,Add Unavailable Date & Time" }}</h2>
+
+  <form method="post" class="card p-4 mt-3 shadow-lg rounded-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-success">
+      {{ is_update|yesno:"Update,Add" }}
+    </button>
+    <br>
+    <a href="{% url 'unavailable_list' %}" class="btn btn-secondary mt-2">Cancel</a>
+  </form>
+</div>
+
+<script>
+function toggleCustomTime(value) {
+    const show = value === "custom";
+    const startField = document.getElementById("start_time_field");
+    const endField = document.getElementById("end_time_field");
+
+    if (startField && endField) {
+        startField.parentElement.style.display = show ? "block" : "none";
+        endField.parentElement.style.display = show ? "block" : "none";
+        startField.required = show;
+        endField.required = show;
+    }
+}
+
+window.onload = function () {
+    const select = document.querySelector('select[name="predefined_slot"]');
+    if (select) {
+        toggleCustomTime(select.value);
+        select.addEventListener("change", function () {
+            toggleCustomTime(this.value);
+        });
+    }
+};
+</script>
+
+{% endblock %}

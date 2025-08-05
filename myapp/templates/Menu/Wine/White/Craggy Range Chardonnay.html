@@ -1,0 +1,39 @@
+{% extends 'user_navbar.html' %}
+
+{% load static%}
+
+{% block content %}
+<html>
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/dishes.css' %}">
+    
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-center my-3 mt-5">
+            <!-- Using Bootstrap class 'd-flex' with 'justify-content-center' for centering -->
+            <img src={% static '/images/Menu/Craggy Range Chardonnay' %} class="img-fluid">
+            <!-- 'img-fluid' class ensures responsiveness -->
+        </div>
+        <div class="col-md-6 text-margin-top">
+        <h1><b>CRAGGY RANGE CHARDONNAY</b></h1>
+
+            <p class="fs-4 mt-5"><b>WINE NOTES:</b></p>
+            <p class="fs-4">
+                A rich and elegant Chardonnay with a blend of tropical fruit flavors and a touch of vanilla from oak aging. Its smooth texture and refined finish make it a luxurious choice for any occasion.
+            </p>
+            <p class="fs-2">&#8369; 1,350.00</p>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

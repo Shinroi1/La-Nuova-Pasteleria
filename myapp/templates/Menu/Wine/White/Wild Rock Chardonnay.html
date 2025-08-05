@@ -1,0 +1,42 @@
+{% extends 'user_navbar.html' %}
+
+{% load static%}
+
+{% block content %}
+<html>
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/dishes.css' %}">
+    
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-center my-3 mt-5">
+            <!-- Using Bootstrap class 'd-flex' with 'justify-content-center' for centering -->
+            <img src={% static '/images/Menu/Wild Rock Chardonnay' %} class="img-fluid">
+            <!-- 'img-fluid' class ensures responsiveness -->
+        </div>
+        <div class="col-md-6 text-margin-top">
+        <h1><b>WILD ROCK CHARDONNAY</b></h1>
+
+            <p class="fs-4 mt-5"><b>WINE NOTES:</b></p>
+            <p class="fs-4">
+                A well-balanced Chardonnay with flavors of ripe stone fruits and a hint of oak. It has a creamy texture with a fresh, lively finish, making it a versatile wine for a range of dishes.
+            </p>
+
+            <ul class="fs-4">
+                <li><b>Bottle:</b> &#8369; 1,500.00</li>
+                <li><b>Glass:</b> &#8369; 380.00</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

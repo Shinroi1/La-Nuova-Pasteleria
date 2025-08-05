@@ -1,0 +1,96 @@
+<style>
+#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #2c2c2c;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    font-family: sans-serif;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+}
+
+#cookie-banner p {
+    margin: 0 0 10px;
+}
+
+#cookie-banner button {
+    margin: 0 10px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#cookie-banner button:last-child:not(.close-btn) {
+    background-color: #f44336; /* red for reject */
+}
+
+#cookie-banner .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 100px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+    #cookie-banner .close-btn{
+        right: auto;
+        left: -15px;
+        top: 0px;
+    }
+    #cookie-banner .confirm-button {
+        position: relative;
+        left: -30px;
+    }
+    
+}
+
+</style>
+
+<div id="cookie-banner" style="display: none; position: fixed;">
+    <button class="close-btn" onclick="closeBanner()">X</button>
+    <p>
+        This site uses cookies to personalize your menu.
+        Do you accept?
+    <a href="{% url 'cookie_policy' %}" style="text-decoration: underline; color: #4CAF50;">Learn more</a>
+
+    </p>
+    <div class="confirm-button">
+        <button onclick="acceptCookies()">Accept</button>
+        <button onclick="rejectCookies()">Reject</button>
+    </div>
+</div>
+
+<script>
+function acceptCookies() {
+    document.cookie = "cookie_consent=true; path=/";
+    document.getElementById("cookie-banner").style.display = "none";
+    location.reload();
+}
+
+function rejectCookies() {
+    document.cookie = "cookie_consent=false; path=/";
+    document.getElementById("cookie-banner").style.display = "none";
+    location.reload();
+}
+
+function closeBanner() {
+    document.getElementById("cookie-banner").style.display = "none";
+}
+
+// Show banner only if cookie_consent is not yet set
+window.onload = function() {
+    if (!document.cookie.includes("cookie_consent=")) {
+        document.getElementById("cookie-banner").style.display = "block";
+    }
+};
+</script>

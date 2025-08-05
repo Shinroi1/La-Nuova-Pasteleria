@@ -1,0 +1,466 @@
+{% extends "user_navbar.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/full_menu.css' %}">
+
+  </head>
+
+  <body>
+  
+    <div class="container-fluid p-0">
+      <div class="image-overlay">
+        <img src={% static '/images/Menu/Grigilia Di Pesce.jpg' %} alt="Grigilia Di Pesce" class="header-image">
+        <div class="overlay-text"><b>SECONDI</b></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-margin">
+        <di class="row">
+          <!-- Left side with menu categories -->
+          <div class="col-lg-3 menu-sidebar d-none d-lg-block">
+            <a href="{% url 'Full Menu' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+              </div>
+            </a>
+            <a href="{% url 'Antipasti' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+              </div>
+            </a>
+            <a href="{% url 'Insalata' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                <i class="fas fa-leaf"></i> <b>INSALATA</b>
+              </div>
+            </a>
+            <a href="{% url 'Zuppa' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+              </div>
+            </a>
+            <a href="{% url 'Panini' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+              </div>
+            </a>
+            <a href="{% url 'Risotto' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+              </div>
+            </a>
+            <a href="{% url 'Pizza' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+              </div>
+            </a>
+            <a href="{% url 'Pasta' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                <i class="fas fa-utensils"></i> <b>PASTA</b>
+              </div>
+            </a>
+            <a href="{% url 'Secondi' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+              </div>
+            </a>
+            <a href="{% url 'Caffe' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                <i class="fas fa-coffee"></i> <b>CAFFE</b>
+              </div>
+            </a>
+            <a href="{% url 'Bevande' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+              </div>
+            </a>
+            <a href="{% url 'Birra' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                <i class="fas fa-beer"></i> <b>BIRRA</b>
+              </div>
+            </a>
+            <a href="{% url 'Ice Cream' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+              </div>
+            </a>
+            <a href="{% url 'Cake' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+              </div>
+            </a>
+            <a href="{% url 'Wine' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+              </div>
+            </a>          
+          </div>
+
+                    <!-- Mobile Horizontal Scroll Menu (Visible below lg) -->
+          <div class="mobile-menu-scroll d-lg-none sticky-top bg-light shadow-sm py-2 px-2">
+            <div class="d-flex overflow-auto menu-scroll-container">
+                <a href="{% url 'Full Menu' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                  <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+                </div>
+              </a>
+              <a href="{% url 'Antipasti' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+                </div>
+              </a>
+              <a href="{% url 'Insalata' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                  <i class="fas fa-leaf"></i> <b>INSALATA</b>
+                </div>
+              </a>
+              <a href="{% url 'Zuppa' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                  <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+                </div>
+              </a>
+              <a href="{% url 'Panini' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+                </div>
+              </a>
+              <a href="{% url 'Risotto' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                  <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+                </div>
+              </a>
+              <a href="{% url 'Pizza' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                  <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+                </div>
+              </a>
+              <a href="{% url 'Pasta' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                  <i class="fas fa-utensils"></i> <b>PASTA</b>
+                </div>
+              </a>
+              <a href="{% url 'Secondi' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                  <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+                </div>
+              </a>
+              <a href="{% url 'Caffe' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                  <i class="fas fa-coffee"></i> <b>CAFFE</b>
+                </div>
+              </a>
+              <a href="{% url 'Bevande' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                  <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+                </div>
+              </a>
+              <a href="{% url 'Birra' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                  <i class="fas fa-beer"></i> <b>BIRRA</b>
+                </div>
+              </a>
+              <a href="{% url 'Ice Cream' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                  <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+                </div>
+              </a>
+              <a href="{% url 'Cake' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                  <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+                </div>
+              </a>
+              <a href="{% url 'Wine' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                  <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+                </div>
+              </a>
+            </div>
+          </div>
+        
+          <!-- Right side with full menu -->
+          <div class="col-lg-9">
+            <div class="centered-heading">
+              <h2><b>PESCE/FISH</b></h2>
+            </div>
+
+            <div class="full-menu">
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                
+                    <a href="{% url 'Al Forno' %}">
+                        <div class="col">
+                        <div class="card h-100" style="border: none;">
+                            <img src={% static '/images/Menu/Al Forno.jpg' %} class="card-img-top" alt="AL FORNO">
+                            <div class="card-body">
+                            <h5 class="card-title">AL FORNO</h5>
+                            <h5>&#8369; 1,350.00</h5>
+                            <p class="card-text">A dish featuring halibut with mushrooms and lemon, served in a white wine sauce with a side of vegetables for a fresh and satisfying entrée.</p>
+                            </div>
+                        </div>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'Grigilia Di Pesce' %}">
+                        <div class="col">
+                        <div class="card h-100" style="border: none;">
+                            <img src={% static '/images/Menu/Grigilia Di Pesce.jpg' %} class="card-img-top" alt="GRIGILIA DI PESCE">
+                            <div class="card-body">
+                                <h5 class="card-title">GRIGILIA DI PESCE</h5>
+                                <h5>&#8369; 1,125.00</h5>
+                                <p class="card-text">Grilled fish paired with sautéed spinach and topped with a house-made Pomodoro sauce, offering a perfect blend of freshness and heartiness.</p>
+                            </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="{% url 'Cacciuco Alla Livornese' %}">
+                        <div class="col">
+                        <div class="card h-100" style="border: none;">
+                            <img src={% static '/images/Menu/Cacciuco Alla Livornese.jpg' %} class="card-img-top" alt="CACCIUCO ALLA LIVORNESE">
+                            <div class="card-body">
+                                <h5 class="card-title">CACCIUCO ALLA LIVORNESE</h5>
+                                <h5>&#8369; 1,395.00</h5>
+                                <p class="card-text">A rich seafood stew featuring squid, shrimp, fish, mussels, and scallops, simmered with tomatoes and served alongside vegetable sides.</p>
+                            </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'Filetto Mugnaia' %}">
+                        <div class="col">
+                        <div class="card h-100" style="border: none;">
+                            <img src={% static '/images/Menu/Filetto Mugnaia.jpg' %} class="card-img-top" alt="FILETTO MUGNAIA">
+                            <div class="card-body">
+                            <h5 class="card-title">FILETTO MUGNAIA</h5>
+                            <h5>&#8369; 1,125.00</h5>
+                            <p class="card-text">A delicate fish fillet prepared with sage butter sauce and accompanied by fresh vegetable sides, perfect for a light and flavorful meal.</p>
+                            </div>
+                        </div>
+                        </div>
+                    </a>
+                    
+                    <a href="{% url 'Filetto Di Salmon' %}">
+                        <div class="col">
+                        <div class="card h-100" style="border: none;">
+                            <img src={% static '/images/Menu/Filetto Di Salmon.jpg' %} class="card-img-top" alt="FILETTO DI SALMON">
+                            <div class="card-body">
+                            <h5 class="card-title">FILETTO DI SALMON</h5>
+                            <h5>&#8369; 1,395.00</h5>
+                            <p class="card-text">Salmon fillet bathed in a sparkling white wine sauce, complemented by vegetable sides for a refreshing and savory seafood experience.</p>
+                            </div>
+                        </div>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'Filetto Spumante' %}">
+                        <div class="col">
+                        <div class="card h-100" style="border: none;">
+                            <img src={% static '/images/Menu/Filetto Spumante.jpg' %} class="card-img-top" alt="CACCIUCO ALLA LIVORNESE">
+                            <div class="card-body">
+                                <h5 class="card-title">fILETTO SPUMANTE</h5>
+                                <h5>&#8369; 1,350.00</h5>
+                                <p class="card-text">A rich seafood stew featuring squid, shrimp, fish, mussels, and scallops, simmered with tomatoes and served alongside vegetable sides.</p>
+                            </div>
+                            </div>
+                        </div>
+                    </a>
+            
+                </div>
+
+                <div class="centered-heading mt-5"><h2><b>POLLO/CHICKEN</b></h2></div>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                    <a href ="{% url 'Petto Funghi' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Petto Funghi.jpg' %} class="card-img-top" alt="PETTO FUNGHI">
+                                <div class="card-body">
+                                    <h5 class="card-title">PETTO FUNGHI</h5>
+                                    <h5>&#8369; 1,265.00</h5>
+                                    <p class="card-text">Pan-seared chicken breast with wild mushrooms, finished in a creamy sauce, served with vegetable sides for a satisfying and earthy flavor.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href ="{% url 'Petto Asparagi' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Petto Asparagi.jpg' %} class="card-img-top" alt="PETTO ASPARAGI">
+                                <div class="card-body">
+                                    <h5 class="card-title">PETTO ASPARAGI</h5>
+                                    <h5>&#8369; 1,125.00</h5>
+                                    <p class="card-text">Pan-fried chicken breast stuffed with asparagus, bacon, and mozzarella, paired with vegetable sides for a delicious and wholesome entrée.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href ="{% url 'Accrotolato' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Accrotolato.jpg' %} class="card-img-top" alt="ACCROTOLATO">
+                                <div class="card-body">
+                                    <h5 class="card-title">ACCROTOLATO</h5>
+                                    <h5>&#8369; 1,265.00</h5>
+                                    <p class="card-text"> Succulent chicken breast stuffed with spinach and smothered in a rich white wine and gorgonzola cream sauce, served with a side of vegetables for a comforting yet indulgent dish.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href ="{% url 'Petto Diavola' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Petto Diavola.jpg' %} class="card-img-top" alt="PETTO DIAVOLA">
+                                <div class="card-body">
+                                    <h5 class="card-title">PETTO DIAVOLA</h5>
+                                    <h5>&#8369; 1,125.00</h5>
+                                    <p class="card-text">
+                                         Grilled chicken breast seasoned with a fiery blend of Italian herbs, accompanied by a side of fresh vegetables, offering a robust and spicy flavor profile.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>                    
+                    
+                    <a href ="{% url 'Petto Alexi' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Petto Alexi.jpg' %} class="card-img-top" alt="PETTO ALEXI">
+                                <div class="card-body">
+                                    <h5 class="card-title">PETTO ALEXI</h5>
+                                    <h5>&#8369; 1,265.00</h5>
+                                    <p class="card-text">Grilled chicken breast stuffed with savory prosciutto, creamy gouda, and bell peppers, served alongside a rich fettucine pasta. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href ="{% url 'Cacciatore' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Cacciatore.jpg' %} class="card-img-top" alt="CACCIATORE">
+                                <div class="card-body">
+                                    <h5 class="card-title">CACCIATORE</h5>
+                                    <h5>&#8369; 1,125.00</h5>
+                                    <p class="card-text"> 
+                                        A rustic Italian‑inspired medley: tender zucchini and sweet bell peppers slow‑simmered in a rich tomato sauce, uplifted by smoky bacon and fresh basil, served with vibrant seasonal vegetable sides. Bold, savory, and satisfying.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="centered-heading mt-5">
+                <h2><b>MANZO/BEEF</b></h2>
+                </div>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                    <a href ="{% url 'Filetto Di Manzo Ai Funghi' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Filetto Di Manzo Ai Funghi.jpg' %} class="card-img-top" alt="FILETTO DI MANZO AI FUNGHI">
+                                <div class="card-body">
+                                    <h5 class="card-title">FILETTO DI MANZO AI FUNGHI</h5>
+                                    <h5>&#8369; 1,650.00</h5>
+                                    <p class="card-text">Grilled beef tenderloin draped in a creamy mushroom sauce, served alongside a selection of fresh vegetables, making for a rich and elegant main course.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href ="{% url 'Agnello Alla Scottadito' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Agnello Alla Scottadito.jpg' %} class="card-img-top" alt="AGNELLO ALLA SCOTTADITO">
+                                <div class="card-body">
+                                    <h5 class="card-title">AGNELLO ALLA SCOTTADITO</h5>
+                                    <h5>&#8369; 2,250.00</h5>
+                                    <p class="card-text">Tender grilled lamb chops garnished with a zesty gremolata and served with mint jelly and roasted vegetables, offering a blend of savory and refreshing flavors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href ="{% url 'La Bistecca' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/La Bistecca.jpg' %} class="card-img-top" alt="LA BISTECCA">
+                                <div class="card-body">
+                                    <h5 class="card-title">LA BISTECCA</h5>
+                                    <h5>&#8369; 3,250.00</h5>
+                                    <p class="card-text">A generous cut of U.S. Angus rib-eye steak, grilled to perfection and served with a luxurious red wine sauce and a side of roasted vegetables for a truly decadent experience.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href ="{% url 'Vitello Alla Milanese' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Vitello Alla Milanese.jpg' %} class="card-img-top" alt="VITELLO ALLA MILANESE">
+                                <div class="card-body">
+                                    <h5 class="card-title">VITELLO ALLA MILANESE</h5>
+                                    <h5>&#8369; 1,450.00</h5>
+                                    <p class="card-text">Breaded veal scaloppine, pan-fried until golden and crisp, served with spinach, a side of mint jelly, and a lemon wedge for a classic Italian dish with a refreshing twist.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href ="{% url 'Vitello Al Marsala' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Vitello Al Marsala.jpg' %} class="card-img-top" alt="VITELLO AL MARSALA">
+                                <div class="card-body">
+                                    <h5 class="card-title">VITELLO AL MARSALA</h5>
+                                    <h5>&#8369; 1,650.00</h5>
+                                    <p class="card-text">Pan-seared veal topped with mushrooms and a rich Marsala wine sauce, accompanied by a side of vegetables, offering a delicate balance of sweet and savory flavors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href ="{% url 'Vitello Ai Funghi' %}">
+                        <div class="col">
+                            <div class="card h-100" style="border: none;">
+                                <img src={% static '/images/Menu/Vitello Ai Funghi.jpg' %} class="card-img-top" alt="VITELLO AI FUNGHI">
+                                <div class="card-body">
+                                    <h5 class="card-title">VITELLO AI FUNGHI</h5>
+                                    <h5>&#8369; 1,650.00</h5>
+                                    <p class="card-text">Breaded veal scaloppine topped with spinach and a rich mushroom cream sauce, served with fresh vegetables for a hearty and flavorful main course.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+        
+                </div>
+
+            </div>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/scroll.js' %}"></script>
+
+
+  </body>
+</html>
+
+{% endblock %}

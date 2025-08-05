@@ -1,0 +1,72 @@
+{% extends "Admin/admin_main.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="col-md-8 offset-md-2 bg-light p-4 rounded shadow-sm">
+    <h1 class="text-center mb-4">Add Menu Record</h1>
+
+    {% if messages %}
+      <div class="alert alert-info">
+        <ul class="list-unstyled mb-0">
+          {% for message in messages %}
+            <li class="text-center">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'add_menu' %}" autocomplete="off" novalidate>
+      {% csrf_token %}
+
+      <!-- Dish Name -->
+      <div class="form-group mb-3">
+        <label for="dish_name" class="form-label">Dish Name</label>
+        <input type="text" name="dish_name" id="dish_name" class="form-control" placeholder="Enter dish name" required>
+      </div>
+
+      <!-- Category -->
+      <div class="form-group mb-3">
+        <label for="category" class="form-label">Category</label>
+        <input type="text" name="category" id="category" class="form-control" placeholder="Enter category" required>
+      </div>
+
+      <!-- Sub-Category -->
+      <div class="form-group mb-3">
+        <label for="sub_category" class="form-label">Sub-Category</label>
+        <input type="text" name="sub_category" id="sub_category" class="form-control" placeholder="Enter sub-category or type 'None'">
+      </div>
+
+      <!-- Ingredients -->
+      <div class="form-group mb-3">
+        <label for="ingredients" class="form-label">Ingredients</label>
+        <input type="text" name="ingredients" id="ingredients" class="form-control" placeholder="List ingredients or type 'None' " required>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" name="price" id="price" class="form-control" placeholder="Enter price" step="0.01" required>
+      </div>
+
+      <!-- Image -->
+      <div class="form-group mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input type="text" name="image" id="image" class="form-control" placeholder="Paste image URL (optional)">
+      </div>
+
+      <!-- Slug -->
+      <div class="form-group mb-3">
+        <label for="slug" class="form-label">Slug</label>
+        <input type="text" name="slug" id="slug" class="form-control" placeholder="Enter URL slug" required>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">Add Record</button>
+        <a href="{% url 'admin_menu' %}" class="btn btn-secondary">Back</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

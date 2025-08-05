@@ -1,0 +1,39 @@
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.text-margin-top{
+    margin-top: 60px;
+}
+
+h1,
+p{
+    font-family: Austin, Georgia, 'Times New Roman', Times, serif;
+}
+
+body{
+    background-color: #D5CCAB;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+    .text-margin-top {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .fs-2 {
+        font-size: 1.5rem;
+    }
+
+    .fs-4 {
+        font-size: 1rem;
+    }
+}

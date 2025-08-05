@@ -1,0 +1,393 @@
+{% extends "user_navbar.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/CSS/full_menu.css' %}">
+
+  </head>
+
+  <body style="background-color: #D5CCAB;">
+
+    <div class="container-fluid p-0">
+      <div class="image-overlay">
+        <img src={% static '/images/Menu/Parmigiana Di Melanzane.jpg' %} alt="Spinach Trifolate" class="header-image">
+        <div class="overlay-text"><b>ANTIPASTI</b></div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="content-margin">
+        <div class="row">
+          <!-- Left side with menu categories -->
+          <div class="col-lg-3 mb-4 menu-sidebar d-none d-lg-block">
+            <a href="{% url 'Full Menu' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+              </div>
+            </a>
+            <a href="{% url 'Antipasti' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+              </div>
+            </a>
+            <a href="{% url 'Insalata' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                <i class="fas fa-leaf"></i> <b>INSALATA</b>
+              </div>
+            </a>
+            <a href="{% url 'Zuppa' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+              </div>
+            </a>
+            <a href="{% url 'Panini' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+              </div>
+            </a>
+            <a href="{% url 'Risotto' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+              </div>
+            </a>
+            <a href="{% url 'Pizza' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+              </div>
+            </a>
+            <a href="{% url 'Pasta' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                <i class="fas fa-utensils"></i> <b>PASTA</b>
+              </div>
+            </a>
+            <a href="{% url 'Secondi' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+              </div>
+            </a>
+            <a href="{% url 'Caffe' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                <i class="fas fa-coffee"></i> <b>CAFFE</b>
+              </div>
+            </a>
+            <a href="{% url 'Bevande' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+              </div>
+            </a>
+            <a href="{% url 'Birra' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                <i class="fas fa-beer"></i> <b>BIRRA</b>
+              </div>
+            </a>
+            <a href="{% url 'Ice Cream' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+              </div>
+            </a>
+            <a href="{% url 'Cake' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+              </div>
+            </a>
+            <a href="{% url 'Wine' %}">
+              <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+              </div>
+            </a>
+          </div>
+
+          <!-- ✅ Mobile Horizontal Scroll Menu (Visible below lg) -->
+          <div class="mobile-menu-scroll d-lg-none sticky-top bg-light shadow-sm py-2 px-2">
+            <div class="d-flex overflow-auto menu-scroll-container">
+                <a href="{% url 'Full Menu' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Full Menu' %}active{% endif %}">
+                  <i class="fas fa-book-open"></i> <b>FULL MENU</b>
+                </div>
+              </a>
+              <a href="{% url 'Antipasti' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Antipasti' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>ANTIPASTI</b>
+                </div>
+              </a>
+              <a href="{% url 'Insalata' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Insalata' %}active{% endif %}">
+                  <i class="fas fa-leaf"></i> <b>INSALATA</b>
+                </div>
+              </a>
+              <a href="{% url 'Zuppa' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Zuppa' %}active{% endif %}">
+                  <i class="fas fa-mug-hot"></i> <b>ZUPPA</b>
+                </div>
+              </a>
+              <a href="{% url 'Panini' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Panini' %}active{% endif %}">
+                  <i class="fas fa-bread-slice"></i> <b>PANINI</b>
+                </div>
+              </a>
+              <a href="{% url 'Risotto' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Risotto' %}active{% endif %}">
+                  <i class="fas fa-bowl-rice"></i> <b>RISOTTO</b>
+                </div>
+              </a>
+              <a href="{% url 'Pizza' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pizza' %}active{% endif %}">
+                  <i class="fas fa-pizza-slice"></i> <b>PIZZA</b>
+                </div>
+              </a>
+              <a href="{% url 'Pasta' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Pasta' %}active{% endif %}">
+                  <i class="fas fa-utensils"></i> <b>PASTA</b>
+                </div>
+              </a>
+              <a href="{% url 'Secondi' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Secondi' %}active{% endif %}">
+                  <i class="fas fa-drumstick-bite"></i> <b>SECONDI</b>
+                </div>
+              </a>
+              <a href="{% url 'Caffe' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Caffe' %}active{% endif %}">
+                  <i class="fas fa-coffee"></i> <b>CAFFE</b>
+                </div>
+              </a>
+              <a href="{% url 'Bevande' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Bevande' %}active{% endif %}">
+                  <i class="fas fa-glass-water"></i> <b>BEVANDE</b>
+                </div>
+              </a>
+              <a href="{% url 'Birra' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Birra' %}active{% endif %}">
+                  <i class="fas fa-beer"></i> <b>BIRRA</b>
+                </div>
+              </a>
+              <a href="{% url 'Ice Cream' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Ice Cream' %}active{% endif %}">
+                  <i class="fas fa-ice-cream"></i> <b>ICE CREAM</b>
+                </div>
+              </a>
+              <a href="{% url 'Cake' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Cake' %}active{% endif %}">
+                  <i class="fas fa-birthday-cake"></i> <b>CAKE</b>
+                </div>
+              </a>
+              <a href="{% url 'Wine' %}">
+                <div class="menu-category {% if request.resolver_match.url_name == 'Wine' %}active{% endif %}">
+                  <i class="fas fa-wine-glass-alt"></i> <b>WINE</b>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        
+          <!-- Right side with full menu -->
+          <div class="col-lg-9">
+            <div class= "full-menu">
+
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+              
+                <a href="{% url 'Spinach Trifolate' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Spinach Trifolate.jpg' %} class="card-img-top img-height" alt="SPINACH TRIFOLATE">
+                      <div class="card-body">
+                        <h5 class="card-title">SPINACH TRIFOLATE</h5>
+                        <h5>&#8369; 925.00</h5>
+                        <p class="card-text small">A rich and creamy dish featuring sautéed spinach, button mushrooms, and porcini mushrooms, enhanced with aromatic truffled cream.<p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Parmigiana Di Melanzane'  %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Parmigiana Di Melanzane.jpg' %} class="card-img-top img-height" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">PARMIGIANA DI MELANZANE</h5>
+                        <h5>&#8369; 595.00</h5>
+                        <p class="card-text small small">Layers of baked elegant, Grana Padano, and mozzarella, topped with a savory pomodore sauce.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Dita Di Pollo Caprese' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Dita di Pollo Caprese.jpg' %} class="card-img-top img-height" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">DITA DI POLLO CAPRESE</h5>
+                        <h5>&#8369; 525.00</h5>
+                        <p class="card-text small">Crispy fried chicken fingers paired with creamy brie and served with a zesty arrabbiata sauce.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+            
+                <a href="{% url 'Molluschi' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Molluschi.jpg' %} class="card-img-top" alt="MOLLUSCHI">
+                      <div class="card-body">
+                        <h5 class="card-title">MOLLUSCHI</h5>
+                        <h5>&#8369; 465.00 </h5>
+                        <p class="card-text small">Baby clams sautéed in a light and fragrant white wine sauce.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Calamari Fritti' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Calamari Fritti.jpg' %} class="card-img-top img-height" alt="CALAMARI FRITTI">
+                      <div class="card-body">
+                        <h5 class="card-title">CALAMARI FRITTI</h5>
+                        <h5>&#8369; 850.00</h5>
+                        <p class="card-text small">Deep-fried squid served with house-made pomodore sauce for a crispy and tangy bite.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="{% url 'Bruschetta Di Parma' %}" >
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Bruschetta di Parma.jpg' %} class="card-img-top img-height" alt="BRUSCHETTA DI PARMA">
+                      <div class="card-body">
+                        <h5 class="card-title">BRUSCHETTA DI PARMA</h5>
+                        <h5>&#8369; 865.00</h5>
+                        <p class="card-text small">A savory mix of dry-cured Italian ham and wild mushrooms with a luxurious truffled cream.</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                  <a href="{% url 'Bruschetta Al Fungo' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Bruschetta Al Fungo.jpg' %} class="card-img-top" alt="BRUSCHETTA AL FUNGO">
+                      <div class="card-body">
+                        <h5 class="card-title">BRUSCHETTA AL FUNGO</h5>
+                        <h5>&#8369; 745.00</h5>
+                        <p class="card-text small">A rich and earthy bruschetta featuring button mushrooms, porcini, and truffled cream.</p>
+                      </div>
+                    </div>
+                  </div>
+                  </a>
+            
+                  <a href="{% url 'Funghi Ripieni' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src={% static '/images/Menu/Funghi Ripieni.jpg' %} class="card-img-top" alt="FUNGHI RIPIENI">
+                      <div class="card-body">
+                        <h5 class="card-title">FUNGHI RIPIENI</h5>
+                        <h5>&#8369; 825.00</h5>
+                        <p class="card-text small">Mushrooms stuffed with spinach, truffled cream, and manchego cheese, finished with crispy prosciutto bits.</p>
+                      </div>
+                    </div>
+                  </div>
+                  </a>
+            
+                  <a href="{% url 'Cozze Ubriachi Bianco' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                      <img src="" class="card-img-top" alt="COZZE UBRIACHI BIANCO">
+                      <div class="card-body">
+                        <h5 class="card-title">COZZE UBRIACHI BIANCO</h5>
+                        <h5>&#8369; 485.00</h5>
+                        <p class="card-text small">A delightful seafood mix of mussels, shrimp, and scallops, cooked in a flavorful white wine broth.</p>
+                      </div>
+                    </div>
+                  </div>
+                  </a>
+            
+                  <a href="{% url 'Prosciutto Farcito' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="PROSCIUTTO FARCITO">
+                        <div class="card-body">
+                          <h5 class="card-title">PROSCIUTTO FARCITO</h5>
+                          <h5>&#8369; 1,395.00</h5>
+                          <p class="card-text small">A gourmet creation of Jamon Serrano, shrimp, spinach, and gorgonzola, with a spicy arrabbiata sauce.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+            
+                  <a href= "{% url 'Prosciutto Di Parma Con Mango' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="PROSCIUTTO DI PARMA CON MANGO">
+                        <div class="card-body">
+                          <h5 class="card-title">PROSCIUTTO DI PARMA CON MANGO</h5>
+                          <h5>&#8369; 725.00 </h5>
+                          <p class="card-text small">A fusion of savory and sweet with dry-cured Italian ham served alongside fresh mango slices.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+            
+                  <a href="{% url 'Gamberi Alla Griglia' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="GAMBERI ALLA GRIGLIA">
+                        <div class="card-body">
+                          <h5 class="card-title">GAMBERI ALLA GRIGLIA</h5>
+                          <h5>&#8369; 745.00</h5>
+                          <p class="card-text small">Grilled shrimp paired with eggplant, zucchini, tomatoes, and a hint of lemon.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+            
+                  <a href="{% url 'Salmone Affucimato' %}">
+                    <div class="col">
+                      <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="SALMONE AFFUCIMATO">
+                        <div class="card-body">
+                          <h5 class="card-title">SALMONE AFFUCIMATO</h5>
+                          <h5>&#8369; 925.00 </h5>
+                          <p class="card-text small">Smoked salmon fillet complemented by capers and Italian dressing for a balanced and refreshing flavor.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+            
+                  <a href="{% url 'Sicilian' %}">
+                  <div class="col">
+                    <div class="card h-100" style="border: none;">
+                        <img src="" class="card-img-top" alt="SICILIAN">
+                      <div class="card-body">
+                        <h5 class="card-title">SICILIAN</h5>
+                        <h5>&#8369; 855.00</h5>
+                        <p class="card-text small">A bold combination of shrimp, gorgonzola cheese, sun-dried tomatoes, and truffled cream on flatbread.</p>
+                      </div>
+                    </div>
+                  </div>
+                  </a>
+          
+              </div>
+          
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/scroll.js' %}"></script>
+
+  </body>
+</html>
+
+{% endblock %}
