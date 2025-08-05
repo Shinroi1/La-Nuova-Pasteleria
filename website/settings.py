@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(7i@i@69j%ks7u=sh7a66ef&vj!u%94bvv54511+0_(mvue5$1'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,14 +81,8 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'La Nuova',
-        'USER': 'postgres',
-        'PASSWORD': '206619',
-        'HOST': 'localhost',    # Or your database host
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
 }
 
 
@@ -108,14 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your provider's SMTP server if not using Gmail
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'altoverossam@gmail.com'  # Company's email address
-EMAIL_HOST_PASSWORD = 'fqsf fzun phwg mnmc'    # App-specific password if 2FA is enabled
-DEFAULT_FROM_EMAIL = 'altoverossam@gmail.com'
 
 # Optional setting if you want to handle additional two-factor logic
 TWO_FACTOR_ENABLED = True
@@ -178,3 +165,4 @@ SESSION_COOKIE_NAME_ADMIN = 'django_admin_session'
 
 # Enable or disable maintenance mode
 MAINTENANCE_MODE = False  # Change to False to disable
+
