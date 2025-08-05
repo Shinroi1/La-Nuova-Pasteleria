@@ -83,6 +83,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get("DATABASE_URL")
+    )
 }
 
 
@@ -165,4 +166,5 @@ SESSION_COOKIE_NAME_ADMIN = 'django_admin_session'
 
 # Enable or disable maintenance mode
 MAINTENANCE_MODE = False  # Change to False to disable
+
 
