@@ -1360,21 +1360,4 @@ def check_new_reservations(request):
 
     return JsonResponse({'notifications': notifications})
 
-# def check_new_reservations(request):
-    # Force a fake notification response
-    # notifications = [
-    #     {
-    #         'type': 'new',
-    #         'message': 'Test notification: New reservation by John Doe'
-    #     },
-    #     {
-    #         'type': 'update',
-    #         'message': 'Reservation for Jane Smith was updated'
-    #     },
-    #     {
-    #         'type': 'cancel',
-    #         'message': 'Reservation for Mark Lee was canceled'
-    #     }
-    # ]
-
-    # return JsonResponse({'notifications': notifications})
+# redeploy trigger
