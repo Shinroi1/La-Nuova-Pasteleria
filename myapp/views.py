@@ -81,15 +81,15 @@ def check_cookie_consent(request):
 # This function retrieves dishes that similar users have ordered, excluding the user's own history.
 def get_collaborative_recommendations(request):
     session_key = request.session.session_key
-    
+
     if not session_key:
         print("[Collaborative] No session key, returning random dishes.")
-        return Menu.objects.order_by('?')[:6]  # fallback to random/bestsellers
+        return Menu.objects.order_by('?')[:6], True  # True = is_random
 
     user_dish_ids = SessionDishHistory.objects.filter(session_key=session_key).values_list('dish_id', flat=True)
     if not user_dish_ids.exists():
-        print ("[Collaborative] No user dish history found, returning random dishes.")
-        return Menu.objects.order_by('?')[:6]  # fallback to random/bestsellers
+        print("[Collaborative] No user dish history found, returning random dishes.")
+        return Menu.objects.order_by('?')[:6], True
 
     similar_sessions = SessionDishHistory.objects.filter(
         dish_id__in=user_dish_ids
@@ -102,35 +102,38 @@ def get_collaborative_recommendations(request):
 
     recommended_ids = [d['dish_id'] for d in recommended_dish_ids]
     if not recommended_ids:
-        print("[Collaborative] No recommendations found, returning global bestsellers.")
-        return Menu.objects.order_by('?')[:6]  # fallback to random/bestsellers
-    
+        print("[Collaborative] No recommendations found, returning random dishes.")
+        return Menu.objects.order_by('?')[:6], True
+
     print(f"[Collaborative] Recommended Dish IDs: {recommended_ids}")
-    return Menu.objects.filter(id__in=recommended_ids)
+    return Menu.objects.filter(id__in=recommended_ids), False  # False = not random
+
 
 # View to recommend alternatives based on collaborative filtering
 # This view will be called when the user clicks on the "Recommend Alternatives" button.
 def recommend_alternatives(request):
-    recommended_dishes = get_collaborative_recommendations(request)
+    recommended_dishes, is_random = get_collaborative_recommendations(request)
 
-    if recommended_dishes.count() < 6:
-        print("[Fallback] Not enough collaborative recommendations, showing random instead.")
-        recommended_dishes = Menu.objects.order_by('?')[:6]
+    if is_random:
+        heading = "HWe couldn't find your usual favorites — but no worries! Here's something to spark your appetite:"
+    else:
+        heading = "Other customers also ordered these:"
 
     data = [
-        {'name': dish.dish_name, 
-         'category': dish.category,
-         'slug': dish.slug,
-         'image_url': static(dish.image) if dish.image else static("images/default.jpg"),
-         'description': dish.ingredients,
-         'price': float(dish.price)
+        {
+            'name': dish.dish_name,
+            'category': dish.category,
+            'slug': dish.slug,
+            'image_url': static(dish.image) if dish.image else static("images/default.jpg"),
+            'description': dish.ingredients,
+            'price': float(dish.price)
         }
         for dish in recommended_dishes
     ]
 
-    print(f"Recommended Dishes (collaborative): {data}")  # Debugging output
-    return JsonResponse({'dishes': data})
-    
+    print(f"Recommended Dishes (collaborative): {data}")
+    return JsonResponse({'dishes': data, 'heading': heading})
+ 
 # Function to store user's dish history in session
 # This function will be called when the user selects dishes.
 def store_user_dish_history(request, selected_dishes):
@@ -258,7 +261,6 @@ def validate_reservation_data(date, party_size):
     if date < now + timedelta(days=MIN_ADVANCE_DAY):
         return False, f"Reservations must be made at least {MIN_ADVANCE_DAY} day(s) in advance."
 
-
     if date.hour < OPEN_HOUR or date.hour >= CLOSE_HOUR:
         return False, "Reservation must be within operating hours (10 AM to 9 PM)."
 
@@ -293,10 +295,12 @@ def slot_blocked(reservation_datetime):
 
 
 def reservation_form(request):
-
     if request.method == 'POST':
+        form = NormalReservationForm(request.POST)
+        selected_dishes_json = request.POST.get('selected_dishes', '{}')  # Preserve selected dishes
+
         print("Received POST request:", request.POST)
-        
+
         fullname = request.POST.get('fullname')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
@@ -304,17 +308,21 @@ def reservation_form(request):
         total_price = request.POST.get('total_price')
         date_str = request.POST.get('date')
 
-        # Convert the date string to a timezone-aware datetime
         try:
             date = make_aware(datetime.strptime(date_str, "%Y-%m-%dT%H:%M"))
         except Exception as e:
-            return render(request, 'reservation_form.html', {'error': 'Invalid date format.'})
-        
+            return render(request, 'reservation_form.html', {
+                'error': 'Invalid date format.',
+                'form_data': request.POST,
+                'selected_dishes_json': selected_dishes_json,
+            })
+
         is_valid, message = validate_reservation_data(date, party_size)
         if not is_valid:
             return render(request, 'reservation_form.html', {
                 'error': message,
-                'form_data': request.POST
+                'form_data': request.POST,
+                'selected_dishes_json': selected_dishes_json,
             })
 
         reservation = NormalReservationTable.objects.create(
@@ -322,11 +330,11 @@ def reservation_form(request):
             email=email,
             phone=phone,
             party_size=party_size,
-            total_price=total_price,    
+            total_price=total_price,
             date=date
         )
 
-        selected_dishes_json = request.POST.get('selected_dishes')
+        # Save selected dishes to reservation order table
         if selected_dishes_json:
             try:
                 selected_dishes = json.loads(selected_dishes_json)
@@ -334,13 +342,17 @@ def reservation_form(request):
                     try:
                         dish = Menu.objects.get(id=int(dish_id_str))
                         quantity = int(dish_info.get('quantity', 1))
-                        NormalReservationOrder.objects.create(reservation=reservation, dish=dish, quantity=quantity)
+                        NormalReservationOrder.objects.create(
+                            reservation=reservation,
+                            dish=dish,
+                            quantity=quantity
+                        )
                     except Menu.DoesNotExist:
                         continue
             except json.JSONDecodeError:
-                selected_dishes = {}
+                pass
 
-        # Cookie handling
+        # Store user dish history if cookies allowed
         cookie_consent = request.COOKIES.get('cookie_consent')
         if cookie_consent == 'true' and selected_dishes_json:
             try:
@@ -349,15 +361,15 @@ def reservation_form(request):
             except json.JSONDecodeError:
                 pass
 
-        # ✅ Set success flag and redirect
         request.session['reservation_success'] = True
         return redirect('reservation_form')
-    
+
     success = request.session.pop('reservation_success', False)
-    # Show success message on GET if it was set
+
     return render(request, 'reservation_form.html', {
         'success': success
     })
+
 
 
 # FOR THE MODAL ON THE RESERVATION FORM PAGE
@@ -844,6 +856,8 @@ def admin_dashboard(request):
     if request.user.is_authenticated:
         search_query = request.GET.get('search', '')
         date_filter = request.GET.get('date', '')
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
 
         # --- Start with base queryset ---
         normal_reservations = NormalReservationTable.objects.all()
@@ -870,15 +884,19 @@ def admin_dashboard(request):
         normal_reservations = normal_reservations.annotate(
             lead_time=ExpressionWrapper(F('date') - F('date_created'), output_field=DurationField())
         )
-        
-        lead_time_filter = request.GET.get('lead_time', '')
-        if lead_time_filter == 'short':
-            normal_reservations = normal_reservations.filter(lead_time__lte=timedelta(days=1))
-        elif lead_time_filter == 'medium':
-            normal_reservations = normal_reservations.filter(lead_time__gt=timedelta(days=1), lead_time__lte=timedelta(days=7))
-        elif lead_time_filter == 'long':
-            normal_reservations = normal_reservations.filter(lead_time__gt=timedelta(days=7))
 
+        # Custom Start/End date filter (overrides quick range if used)
+        if start_date:
+            try:
+                start = datetime.strptime(start_date, "%Y-%m-%d").date()
+                if end_date:
+                    end = datetime.strptime(end_date, "%Y-%m-%d").date()
+                    normal_reservations = normal_reservations.filter(date__range=(start, end))
+                else:
+                    normal_reservations = normal_reservations.filter(date=start)
+            except ValueError:
+                pass
+        
         # --- Order & paginate ---
         normal_reservations = normal_reservations.order_by('date')
         paginator = Paginator(normal_reservations, 5)
@@ -1028,45 +1046,67 @@ def get_dishes(request, category, subcategory=None):
 
 
 @allowed_users(allowed_roles=['Admin', 'Staff'])
-# View to render admin reservation page
 def admin_reservation(request):
-    if request.user.is_authenticated:
-        search_query = request.GET.get('search', '')
-        date_filter = request.GET.get('date', '')
-
-        reservations = NormalReservationTable.objects.all()
-
-        if search_query:
-            reservations = reservations.filter(
-                Q(fullname__icontains=search_query) |
-                Q(normalreservationorder__dish__dish_name__icontains=search_query)
-            ).distinct()
-
-        if date_filter:
-            try:
-                filter_date = datetime.strptime(date_filter, '%Y-%m-%d').date()
-                reservations = reservations.filter(date__date=filter_date)
-            except ValueError:
-                pass
-
-        # Order based on filters
-        if search_query or date_filter:
-            reservations = reservations.order_by('date')  # Earliest reservation first
-        else:
-            reservations = reservations.order_by('-date_created')  # Latest created first
-
-        paginator = Paginator(reservations, 10)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-
-        return render(request, "Admin/admin_reservation.html", {
-            'page_obj': page_obj,
-            'search_query': search_query,
-            'date_filter': date_filter,
-        })
-    else:
+    if not request.user.is_authenticated:
         messages.error(request, "You are not logged in!")
         return redirect("admin_login")
+
+    search_query = request.GET.get('search', '')
+    range_filter = request.GET.get('range', '')
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
+    today = timezone.localdate()
+    week_start = today - timedelta(days=today.weekday())
+    week_end = week_start + timedelta(days=6)
+
+    reservations = NormalReservationTable.objects.all()
+
+    # Search filter
+    if search_query:
+        reservations = reservations.filter(
+            Q(name__icontains=search_query) |
+            Q(time__icontains=search_query) |
+            Q(date__icontains=search_query) |
+            Q(dish_ordered__order__dish__name__icontains=search_query)
+        ).distinct()
+
+    # Quick Range filter
+    if range_filter == 'today':
+        reservations = reservations.filter(date=today)
+    elif range_filter == 'week':
+        reservations = reservations.filter(date__range=(week_start, week_end))
+    elif range_filter == 'month':
+        reservations = reservations.filter(date__year=today.year, date__month=today.month)
+
+    # Custom Start/End date filter (overrides quick range if used)
+    if start_date:
+        try:
+            start = datetime.strptime(start_date, "%Y-%m-%d").date()
+            if end_date:
+                end = datetime.strptime(end_date, "%Y-%m-%d").date()
+                reservations = reservations.filter(date__range=(start, end))
+            else:
+                reservations = reservations.filter(date=start)
+        except ValueError:
+            pass
+
+    # Fallback if no results and no specific filters
+    if not reservations.exists() and not (search_query or start_date or range_filter):
+        reservations = NormalReservationTable.objects.all().order_by('-date')
+
+    reservations = reservations.order_by('-date')
+
+    paginator = Paginator(reservations, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "Admin/admin_reservation.html", {
+        'page_obj': page_obj,
+        'search_query': search_query,
+        'range_filter': range_filter,
+    })
+
 
 
 @allowed_users(allowed_roles=['Admin', 'Staff'])
