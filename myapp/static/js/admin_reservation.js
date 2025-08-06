@@ -146,7 +146,12 @@ document.addEventListener("DOMContentLoaded", function() {
         for (const dishId in selectedDishes) {
             const { name, quantity, price } = selectedDishes[dishId];
             total += quantity * price;
-            modalHtml += `<div>${name} - Quantity: ${quantity}</div>`;
+            modalHtml += `
+            <div class="d-flex justify-content-between align-items-center mb-2 selected-dish-entry" data-dish-id="${dishId}">
+                <span>${name} - Quantity: ${quantity}</span> 
+                <button type="button" class="btn btn-sm btn-danger remove-dish-btn" data-dish-id="${dishId}">Remove</button>
+            </div>
+            `;
             formHtml += `<div>${name} - Quantity: ${quantity}</div>`;
         }
 
