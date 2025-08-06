@@ -7,23 +7,54 @@
 <div class="container mt-4">
   <h2 class="text-center mb-4">Normal Reservations</h2>
 
-  <!-- Filters -->
-  <form method="get" class="row g-2 justify-content-center mb-3">
-    <div class="col-md-4">
-      <input type="text" name="search" class="form-control" placeholder="Search by name or dish" value="{{ search_query }}">
-    </div>
-    <div class="col-md-3">
-      <input type="date" name="date" class="form-control" value="{{ date_filter }}">
-    </div>
-    <div class="col-md-2">
-      <button type="submit" class="btn btn-primary w-100">Filter</button>
-    </div>
-    <div class="col-md-2">
-      <a href="{% url 'admin_reservation' %}" class="btn btn-secondary w-100">Clear</a>
-    </div>
-  </form>
+<form method="get" class="row g-2 align-items-end mb-3">
 
-  <!-- Desktop Table View -->
+  <!-- Search -->
+  <div class="col-md-3">
+    <label for="search" class="form-label">Search by name, time, dish...</label>
+    <input type="text" class="form-control" name="search" id="search" placeholder="Search" value="{{ search_query }}">
+  </div>
+
+  <!-- Quick Range -->
+  <div class="col-md-2">
+    <label for="range" class="form-label">Quick Date Range</label>
+    <select class="form-select" name="range" id="range">
+      <option value="">-- Choose --</option>
+      <option value="today" {% if range_filter == 'today' %}selected{% endif %}>Today</option>
+      <option value="week" {% if range_filter == 'week' %}selected{% endif %}>This Week</option>
+      <option value="month" {% if range_filter == 'month' %}selected{% endif %}>This Month</option>
+    </select>
+  </div>
+
+  <!-- Manual Start Date -->
+  <div class="col-md-2">
+    <label for="start-date" class="form-label">Start Date</label>
+    <input type="date" class="form-control" name="start_date" id="start-date" value="{{ request.GET.start_date }}">
+  </div>
+
+  <!-- Manual End Date -->
+  <div class="col-md-2">
+    <label for="end-date" class="form-label">End Date <small class="text-muted">(optional)</small></label>
+    <input type="date" class="form-control" name="end_date" id="end-date" value="{{ request.GET.end_date }}">
+  </div>
+
+  <!-- Filter and Clear Buttons -->
+  <div class="col-md-3 d-flex gap-2">
+    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+    <a href="{% url 'admin_reservation' %}" class="btn btn-secondary w-100">Clear</a>
+  </div>
+
+  <div class="col-12">
+    <small class="text-muted">
+      You can filter using name/time/dish, a quick date range, or a custom start/end date — or combine them.
+    </small>
+  </div>
+
+</form>
+
+
+
+  <!-- Table View (Desktop) -->
   <div class="table-responsive d-none d-md-block">
     <table class="table table-striped table-bordered text-center">
       <thead class="table-dark">
@@ -68,7 +99,7 @@
     </table>
   </div>
 
-  <!-- Mobile Card View -->
+  <!-- Card View (Mobile) -->
   <div class="d-md-none">
     {% for info in page_obj %}
     <div class="card mb-3 shadow-sm text-center">
@@ -103,22 +134,53 @@
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&date={{ date_filter }}">Previous</a>
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&date={{ date_filter }}&range={{ range_filter }}">Previous</a>
       </li>
       {% endif %}
+
       {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
           <li class="page-item active"><span class="page-link">{{ num }}</span></li>
         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          <li class="page-item"><a class="page-link" href="?page={{ num }}&search={{ search_query }}&date={{ date_filter }}">{{ num }}</a></li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ num }}&search={{ search_query }}&date={{ date_filter }}&range={{ range_filter }}">{{ num }}</a>
+          </li>
         {% endif %}
       {% endfor %}
+
       {% if page_obj.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&date={{ date_filter }}">Next</a>
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&date={{ date_filter }}&range={{ range_filter }}">Next</a>
       </li>
       {% endif %}
     </ul>
   </nav>
+
+  {% if not page_obj.object_list %}
+  <div class="alert alert-warning text-center">
+    No reservations found for the selected filters.
+  </div>
+  {% endif %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const start = document.getElementById('start_date');
+    const end = document.getElementById('end_date');
+    const rangeSelect = document.getElementById('rangeSelect');
+
+    function toggleRange() {
+      if (start.value && end.value) {
+        rangeSelect.disabled = true;
+      } else {
+        rangeSelect.disabled = false;
+      }
+    }
+
+    start.addEventListener('change', toggleRange);
+    end.addEventListener('change', toggleRange);
+    toggleRange();
+  });
+</script>
+
 {% endblock %}
