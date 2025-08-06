@@ -83,17 +83,10 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=os.environ.get("DATABASE_URL")
-#     )
-# }
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.config()
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -174,6 +167,7 @@ SESSION_COOKIE_NAME_ADMIN = 'django_admin_session'
 
 # Enable or disable maintenance mode
 MAINTENANCE_MODE = False  # Change to False to disable
+
 
 
 
