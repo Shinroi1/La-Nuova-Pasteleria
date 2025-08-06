@@ -57,6 +57,14 @@
   </div>
 </div>
 
+{% if success %}
+    <div class="alert alert-success mt-3">
+        <strong>Success!</strong> Your reservation was submitted successfully!
+        Please arrive on time. We hold tables for 15 minutes after your scheduled time.
+        If you're running late, kindly call the restaurant.
+    </div>
+{% endif %}
+
     <!-- FORM SECTION -->
     <div class="col-md-6">
       <section id="form">
@@ -86,15 +94,15 @@
 
             <div class="form-group">
               <label for="party_size">Party Size</label>
-              <input class="form-control" type="number" id="party_size" name="party_size" min="1" max="12" value="1" value="{{ form_data.party_size|default:'1' }}" required>
+              <input class="form-control" type="number" id="party_size" name="party_size" min="1" max="12" value="{{ form_data.party_size|default:'1' }}" required>
             </div>
 
             <div class="form-group row">
               <div class="col-md-9">
                 <label for="SelectedDishesDisplay">Selected Dishes</label>
                 <div id="selectedDishesListForm" class="form-control" readonly></div>
-                <input type="hidden" id="selectedDishesInput" name="selected_dishes">
-              </div>
+                <input type="hidden" id="selectedDishesInput" name="selected_dishes" value='{{ selected_dishes_json|default:"{}"|safe }}'>
+              </div> 
               <div class="col-md-3 d-flex align-items-end">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dishModalNormal">
                   Select Dishes
@@ -127,8 +135,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    {% comment %} <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> {% endcomment %}
-                    {% comment %} <button type="button" class="btn btn-primary" id="saveSelection">Save</button> {% endcomment %}
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveSelection">Save</button>
                   </div>
                 </div>
               </div>
@@ -142,7 +150,7 @@
 
             <div class="form-group">
               <label for="date">Date & Time Reservation</label>
-              <input class="form-control" id="date" name="date" type="datetime-local" required>
+              <input class="form-control" id="date" name="date" type="datetime-local" value="{{ form_data.date }}" required>
             </div>
 
             <br>
@@ -175,20 +183,6 @@
       {% if error %}
         <div class="alert alert-danger mt-3">{{ error }}</div>
       {% endif %}
-
-{% if error %}
-    <div class="alert alert-danger mt-3">{{ error }}</div>
-{% endif %}
-
-{% if success %}
-    <div class="alert alert-success mt-3">
-        <strong>Success!</strong> Your reservation was submitted successfully!
-        Please arrive on time. We hold tables for 15 minutes after your scheduled time.
-        If you're running late, kindly call the restaurant.
-    </div>
-{% endif %}
-
-
 
         </div>
       </section>
