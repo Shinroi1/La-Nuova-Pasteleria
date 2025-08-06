@@ -35,42 +35,53 @@
     </div>
   </div>
 
-  <!-- Search & Filter Controls -->
-  <form method="get" class="row g-2 mb-3">
-    <!-- Search input -->
-    <div class="col-md-3">
-      <input type="text" name="search" class="form-control" placeholder="Search by customer or dish"
-             value="{{ request.GET.search }}">
-    </div>
+<!-- Search & Filter Controls -->
+<form method="get" class="row g-3 mb-4 align-items-end">
 
-    <!-- Date filter dropdown -->
-    <div class="col-md-3">
-      <select name="date" class="form-select">
-        <option value="">-- Filter by Date --</option>
-        <option value="today" {% if request.GET.date == 'today' %}selected{% endif %}>Today</option>
-        <option value="this_week" {% if request.GET.date == 'this_week' %}selected{% endif %}>This Week</option>
-        <option value="this_month" {% if request.GET.date == 'this_month' %}selected{% endif %}>This Month</option>
-      </select>
-    </div>
+  <!-- Search -->
+  <div class="col-md-4">
+    <label for="search" class="form-label">Search</label>
+    <input type="text" name="search" id="search" class="form-control"
+      placeholder="By customer or dish" value="{{ request.GET.search }}">
+  </div>
 
-    <!-- Lead time filter -->
-    <div class="col-md-3">
-      <select name="lead_time" class="form-select">
-        <option value="">-- Filter by Lead Time --</option>
-        <option value="short" {% if request.GET.lead_time == 'short' %}selected{% endif %}>Short (&lt; 1 day)</option>
-        <option value="medium" {% if request.GET.lead_time == 'medium' %}selected{% endif %}>Medium (1–7 days)</option>
-        <option value="long" {% if request.GET.lead_time == 'long' %}selected{% endif %}>Long (&gt; 7 days)</option>
-      </select>
-    </div>
+  <!-- Date Range: Start and End -->
+  <div class="col-md-2">
+    <label for="start-date" class="form-label">Start Date</label>
+    <input type="date" class="form-control" name="start_date" id="start-date" value="{{ request.GET.start_date }}">
+  </div>
 
-    <!-- Buttons -->
-    <div class="col-md-2 d-grid">
-      <button type="submit" class="btn btn-primary">Filter</button>
-    </div>
-    <div class="col-md-1 d-grid">
-      <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Clear</a>
-    </div>
-  </form>
+  <div class="col-md-2">
+    <label for="end-date" class="form-label">End Date</label>
+    <input type="date" class="form-control" name="end_date" id="end-date" value="{{ request.GET.end_date }}">
+  </div>
+
+  <!-- Quick Date Filter -->
+  <div class="col-md-2">
+    <label for="date" class="form-label">Quick Range</label>
+    <select name="date" id="date" class="form-select">
+      <option value="">-- Choose --</option>
+      <option value="today" {% if request.GET.date == 'today' %}selected{% endif %}>Today</option>
+      <option value="this_week" {% if request.GET.date == 'this_week' %}selected{% endif %}>This Week</option>
+      <option value="this_month" {% if request.GET.date == 'this_month' %}selected{% endif %}>This Month</option>
+    </select>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="col-md-2 d-flex gap-2">
+    <button type="submit" class="btn btn-primary w-100">Filter</button>
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary w-100">Clear</a>
+  </div>
+
+  <!-- Hint -->
+  <div class="col-12">
+    <small class="text-muted">
+      You can filter by a date range, quick range, or search (or combine them). Leave blank to view all.
+    </small>
+  </div>
+</form>
+
+
 
   <!-- Recent Reservations Table -->
   <div class="card mb-5">
