@@ -1,0 +1,66 @@
+.img-fluid {
+  width: 100%;             /* Take full width of parent container */
+  max-width: 500px;        /* Never go beyond 500px on large screens */
+  height: auto;            /* Maintain aspect ratio */
+  display: block;
+}
+
+
+.text-margin-top{
+    margin-top: 10px;
+}
+
+p{
+    font-family: 'Austin', Georgia, Times New Roman, Times, serif;
+    margin-top: 0;
+}
+
+
+.text-container {
+  max-width: 66ch;            /* ~ideal line length: 50–75 chars/line */
+  margin: 2rem auto;          /* centered block with top/bottom space */
+  padding: 1rem;
+}
+
+.about-text {
+  font-size: 1.125rem;        /* ~18px base size */
+  line-height: 1.5;           /* generous spacing for readability */
+  text-align: left;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .img-fluid {
+    max-width: 90%;        /* Shrink image on tablets and below */
+    margin: 0 auto;        /* Center image */
+  }
+
+  .about-text {
+    font-size: 1rem;       /* Slightly smaller text on smaller screens */
+    text-align: justify;   /* Optional: improve readability */
+  }
+
+  .text-margin-top {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col-md-6 {
+    width: 100%;
+  }
+
+  .text-container {
+    padding: 0 1rem;
+  }
+}
+
+
+/* .about-text strong {
+  font-weight: 600;
+  color: #222;
+} */

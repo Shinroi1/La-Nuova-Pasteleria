@@ -1,0 +1,154 @@
+body{
+    background-color: wheat;
+}
+
+
+.own-container {
+    max-width: 500px;
+    margin: 3% auto;
+    background-color: wheat;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="datetime-local"],
+select,
+textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.808);
+}
+
+input[type="submit"],
+input[type="reset"] 
+{
+    font-size: 125%;
+}
+
+input, button {
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  background-color: #198754;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.submit-btn:hover {
+  background-color: #157347;
+}
+
+
+/* Make the layout responsive and clean */
+/* .rules-box {
+  border-right: 1px solid #ddd;
+  text-align: center;
+} */
+
+/* .rule-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.rule-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  position: relative;
+  color: #333;
+  line-height: 1.6;
+}
+
+.rule-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #000;
+  font-size: 1rem;
+  line-height: 1;
+} */
+
+.rules-box {
+  background-color: #f9f7f1;
+  border-left: 4px solid #8a7f5a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  border-radius: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+}
+
+.rule-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.rule-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  position: relative;
+  color: #333;
+  line-height: 1.6;
+}
+
+.rule-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #8a7f5a;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+
+@media (max-width: 767.98px) {
+  .rules-box {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+/* Optional: More visual polish
+.format h1, .format h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.format p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+} */

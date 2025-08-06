@@ -1,0 +1,41 @@
+@media (max-width: 767.98px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    border: none;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-basis: 45%;
+    text-align: left;
+  }
+
+  .table td:last-child {
+    border-bottom: none;
+  }
+
+  .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

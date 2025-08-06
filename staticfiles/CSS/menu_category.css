@@ -1,0 +1,60 @@
+.menu-title {
+    text-align: center; /* Center-align the text */
+    font-size: 20x; /* Adjust the font size for larger letters */
+    font-family: 'Times New Roman', Times, serif; /* Use a cursive or curvy font */
+    font-weight: bold; /* Make the letters bold */
+    line-height: 1.5; /* Adjust the line height if needed */
+    letter-spacing: 8px; /* Add spacing between letters for a stylish look */
+    color: #333; /* Choose a color for the text */
+    margin: 20px 0; /* Add spacing above and below */
+    text-transform: uppercase; 
+    margin: 20px 0; /* Add spacing above and below */}
+
+.menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between items */
+    justify-content: center; /* Center the categories */
+}
+
+.menu-category {
+    width: 300px; /* Adjust the size */
+    text-align: center;
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+.image-overlay {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px; /* Optional rounded corners */
+    width: 100%;
+    height: 200px; /* Adjust height */
+}
+
+.header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Add a zoom effect on hover */
+}
+
+.image-overlay:hover .header-image {
+    transform: scale(1.1); /* Slight zoom */
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center text both horizontally and vertically */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center; /* Center text inside the div */
+}
+
