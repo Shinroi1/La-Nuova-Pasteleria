@@ -168,7 +168,7 @@ def get_similar_dishes(request, limit=6):
     user_dish_ids = set(user_dishes)
 
     if not user_dish_ids:
-        return get_global_bestsellers()
+        return get_global_bestsellers(limit=limit)
 
     # Gather all other sessions
     others = SessionDishHistory.objects.exclude(session_key=session_key)
@@ -196,7 +196,7 @@ def get_similar_dishes(request, limit=6):
 
 
 # SHOW UP FOR FIRST TIME VISITORS
-def get_global_bestsellers(limit=20):
+def get_global_bestsellers(limit=6):
     from .models import NormalReservationOrder
 
     dish_counter = Counter()
