@@ -57,20 +57,19 @@
   </div>
 </div>
 
-{% if success %}
-    <div class="alert alert-success mt-3">
-        <strong>Success!</strong> Your reservation was submitted successfully!
-        Please arrive on time. We hold tables for 15 minutes after your scheduled time.
-        If you're running late, kindly call the restaurant.
-    </div>
-{% endif %}
-
     <!-- FORM SECTION -->
     <div class="col-md-6">
       <section id="form">
         <div class="container own-container">
           <div class="form-header text-center mb-4">
-            <h2 class="fw-bold text-primary">Make Your Reservation</h2>
+            {% if success %}
+                <div class="alert alert-success mt-3">
+                    <strong>Success!</strong> Your reservation was submitted successfully!
+                    Please arrive on time. We hold tables for 15 minutes after your scheduled time.
+                    If you're running late, kindly call the restaurant.
+                </div>
+            {% endif %}
+            <h2 class="fw-bold text-primary">Make Your Normal Reservation</h2>
             <p class="text-muted">Please complete the form below</p>
           </div>
           <form method="POST" action="{% url 'reservation_form' %}">
@@ -89,7 +88,7 @@
 
             <div class="form-group group">
               <label for="phone">Phone Number</label>
-              <input class="form-control" type="tel" id="phone" name="phone" placeholder="Enter your phone number" value="{{ form_data.phone }}" required>
+              <input class="form-control" type="tel" id="phone" name="phone" placeholder="Enter your phone number" maxlength="11" pattern="[0-9]{10,11}" value="{{ form_data.phone }}" required>
             </div>
 
             <div class="form-group">
