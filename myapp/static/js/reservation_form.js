@@ -1,24 +1,57 @@
 let selectedDishes = {};
 
+// ✅ First define this function early to avoid ReferenceError
+function updateSelectedDishesDisplay() {
+    let total = 0;
+    let modalHtml = '';
+    let formHtml = '';
+
+    for (const dishId in selectedDishes) {
+        const { name, quantity, price } = selectedDishes[dishId];
+        total += quantity * price;
+        modalHtml += `
+            <div class="d-flex justify-content-between align-items-center mb-2 selected-dish-entry" data-dish-id="${dishId}">
+                <span>${name} - Quantity: ${quantity}</span> 
+                <button type="button" class="btn btn-sm btn-danger remove-dish-btn" data-dish-id="${dishId}">Remove</button>
+            </div>
+        `;
+        formHtml += `<div>${name} - Quantity: ${quantity}</div>`;
+    }
+
+    $('#total-price').val(total.toFixed(2));
+    $('#selectedDishesListModal').html(modalHtml).attr('readonly', true);
+    $('#selectedDishesListForm').html(formHtml).attr('readonly', true);
+    $('#selectedDishesInput').val(JSON.stringify(selectedDishes));
+
+    if ($('#dishModalExclusive').hasClass('show')) {
+        $('#selectedDishesInputExclusive').val(JSON.stringify(selectedDishes));
+    }
+}
+
+// ✅ Safely initialize selectedDishes from hidden input
+const initialSelected = document.getElementById('selectedDishesInput')?.value;
+if (initialSelected) {
+    try {
+        selectedDishes = JSON.parse(initialSelected);
+        document.addEventListener("DOMContentLoaded", updateSelectedDishesDisplay);
+    } catch (e) {
+        console.error("Invalid JSON in selectedDishesInput", e);
+    }
+}
+
+// Debug: check jQuery
 if (window.jQuery) {
     console.log("jQuery is loaded");
 } else {
     console.log("jQuery is not loaded");
 }
 
-// Force reload on browser back/forward navigation
-if (performance.navigation.type === 2) {
+// ✅ Reload on browser back/forward
+if (performance.navigation.type === 2 || (window.performance.getEntriesByType && window.performance.getEntriesByType("navigation")[0]?.type === "back_forward")) {
     location.reload(true);
 }
 
-if (window.performance && window.performance.getEntriesByType) {
-    const navEntries = window.performance.getEntriesByType("navigation");
-    if (navEntries.length > 0 && navEntries[0].type === "back_forward") {
-        location.reload(true);
-    }
-}
-
-// CSRF setup for AJAX
+// ✅ CSRF setup
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -30,40 +63,11 @@ $.ajaxSetup({
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    // ✅ Function to update selected dishes in modal and form
-    function updateSelectedDishesDisplay() {
-        let total = 0;
-        let modalHtml = '';
-        let formHtml = '';
-
-        for (const dishId in selectedDishes) {
-            const { name, quantity, price } = selectedDishes[dishId];
-            total += quantity * price;
-            modalHtml += `
-                <div class="d-flex justify-content-between align-items-center mb-2 selected-dish-entry" data-dish-id="${dishId}">
-                    <span>${name} - Quantity: ${quantity}</span> 
-                    <button type="button" class="btn btn-sm btn-danger remove-dish-btn" data-dish-id="${dishId}">Remove</button>
-                </div>
-            `;
-            formHtml += `<div>${name} - Quantity: ${quantity}</div>`;
-        }
-
-        $('#total-price').val(total.toFixed(2));
-        $('#selectedDishesListModal').html(modalHtml).attr('readonly', true);
-        $('#selectedDishesListForm').html(formHtml).attr('readonly', true);
-        $('#selectedDishesInput').val(JSON.stringify(selectedDishes));
-
-        if ($('#dishModalExclusive').hasClass('show')) {
-            $('#selectedDishesInputExclusive').val(JSON.stringify(selectedDishes));
-        }
-    }
-
-    // ✅ Handle dish removal
+    // Dish removal
     $(document).on('click', '.remove-dish-btn', function () {
         const dishId = $(this).data('dish-id');
         delete selectedDishes[dishId];
 
-        // Reset quantity display in dish list
         const quantityDisplay = $(`.quantity-control[data-dish-id="${dishId}"] .quantity-display`);
         if (quantityDisplay.length > 0) {
             quantityDisplay.text("0");
@@ -72,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSelectedDishesDisplay();
     });
 
-    // ✅ Load categories into modal
+    // Modal open handlers
     $('#dishModalNormal').on('show.bs.modal', function () {
         loadCategories('normal');
     });
@@ -147,9 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function loadDishes(category, subcategory, modalType) {
         let url = `/get_dishes/${category}/`;
-        if (subcategory) {
-            url += `${subcategory}/`;
-        }
+        if (subcategory) url += `${subcategory}/`;
 
         if (modalType === 'normal') {
             $('#dishes').empty().hide();
@@ -163,9 +165,11 @@ document.addEventListener("DOMContentLoaded", function() {
             success: function(response) {
                 let dishesHtml = '';
                 response.dishes.forEach(function(dish) {
-                    const quantity = selectedDishes[dish.id] ? selectedDishes[dish.id].quantity : 0;
+                    const existing = selectedDishes[dish.id];
+                    const quantity = existing ? existing.quantity : 0;
+
                     dishesHtml += `
-                        <div class="dish-item d-flex align-items-center justify-content-between mb-2">
+                        <div class="dish-item d-flex align-items-center justify-content-between mb-2" data-dish-id="${dish.id}">
                             <div>
                                 <strong class="dish-name">${dish.name}</strong><br>
                                 <span>₱${dish.price}</span>
@@ -186,9 +190,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         });
+
+        updateSelectedDishesDisplay();
     }
 
-    // ✅ Quantity increment
+    // Quantity buttons
     $(document).on('click', '.plus-btn', function () {
         const parent = $(this).closest('.quantity-control');
         const dishId = parent.data('dish-id');
@@ -199,7 +205,6 @@ document.addEventListener("DOMContentLoaded", function() {
         updateDishSelection(dishId, quantity);
     });
 
-    // ✅ Quantity decrement
     $(document).on('click', '.minus-btn', function () {
         const parent = $(this).closest('.quantity-control');
         const dishId = parent.data('dish-id');
@@ -210,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateDishSelection(dishId, quantity);
     });
 
-    // ✅ Update dish selection object
+    // Update dish data in selection
     function updateDishSelection(dishId, quantity) {
         const dishItem = $(`[data-dish-id="${dishId}"]`).closest('.dish-item');
         const dishName = dishItem.find('.dish-name').text().trim();
@@ -226,9 +231,8 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSelectedDishesDisplay();
     }
 
-    // ✅ Save selection button
+    // Save button click
     $('#saveSelection').off('click').on('click', function() {
         updateSelectedDishesDisplay();
     });
-
 });
