@@ -18,9 +18,6 @@
 
 <body style="background-color: #D5CCAB;">
 
-
-
-
 <div style="text-align: center;">
 <h2 class="menu-title" id="recommendation-heading">
   {% if personalized %}
@@ -30,13 +27,18 @@
   {% endif %}
 </h2>
 
+<p class="text-muted" style="font-size: 0.9rem; margin-bottom: 20px;">
+  📸 Some photos are still on the way — our dishes are currently in a photoshoot!
+</p>
+
+
   <div class="container mt-4">
     <div class="row" id="dish-list" data-url-template="{% url 'dish_detail' slug='__slug__' %}">
       {% for dish in dishes %}
         <div class="col-md-4 mb-4">
           <a href="{% url 'dish_detail' slug=dish.slug %}" class="text-decoration-none text-dark">
             <div class="card h-80 shadow-sm">
-              <img src="{% if dish.image %}{% static dish.image %}{% else %}{% static 'images/default_dish.jpg' %}{% endif %}" class="card-img-top" alt="{{ dish.dish_name }}" style="max-height: 250px; object-fit: cover;">
+              <img src="{% if dish.image %}{% static dish.image %}{% else %}{% static 'images/default_dish.jpg' %}{% endif %}" class="card-img-top" alt="{% if dish.image %}{{ dish.dish_name }}{% else %}Image coming soon{% endif %}" style="max-height: 250px; object-fit: cover;">
               <div class="card-body text-center">
                 <h5 class="card-title">{{ dish.dish_name }} - {{ dish.category }}</h5>
                 <h6>&#8369; {{ dish.price|floatformat:2|intcomma }}</h6>
