@@ -99,7 +99,7 @@ class NormalReservationForm(forms.ModelForm):
     
     email = forms.EmailField(
         max_length= 200, 
-        required=True
+        required=False
         )
     
     phone = forms.CharField(
