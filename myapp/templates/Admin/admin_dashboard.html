@@ -105,7 +105,7 @@
           <tbody>
             {% for reservation in page_obj %}
             <tr>
-              <td><a href="{% url 'reservation_record' pk=reservation.id %}">{{ info.id }}</a></td>
+              <td><a href="{% url 'reservation_record' pk=reservation.id %}">{{ reservation.id }}</a></td>
               <td>{{ reservation.fullname }}</td>
               <td>{{ reservation.party_size }}</td>
               <td>{{ reservation.date }}</td>
@@ -212,5 +212,6 @@
 </div>
 
 {% endblock %}
+
 
 
