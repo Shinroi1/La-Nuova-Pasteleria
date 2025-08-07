@@ -67,36 +67,6 @@ input:focus, select:focus, textarea:focus {
   background-color: #157347;
 }
 
-
-/* Make the layout responsive and clean */
-/* .rules-box {
-  border-right: 1px solid #ddd;
-  text-align: center;
-} */
-
-/* .rule-list {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 1rem;
-}
-
-.rule-list li {
-  margin-bottom: 0.5rem;
-  padding-left: 1.2rem;
-  position: relative;
-  color: #333;
-  line-height: 1.6;
-}
-
-.rule-list li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #000;
-  font-size: 1rem;
-  line-height: 1;
-} */
-
 .rules-box {
   background-color: #f9f7f1;
   border-left: 4px solid #8a7f5a;
@@ -138,17 +108,10 @@ input:focus, select:focus, textarea:focus {
     margin-bottom: 20px;
     text-align: center;
   }
-}
 
-/* Optional: More visual polish
-.format h1, .format h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
+  .modal-footer {
+    justify-content: center !important;
+    text-align: center;
+    gap: 10px;
+  }
 }
-
-.format p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #555;
-} */
