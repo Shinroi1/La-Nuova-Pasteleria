@@ -31,6 +31,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['la-nuova-pasteleria-production.up.railway.app', '127.0.0.1', 'localhost']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://la-nuova-pasteleria-production.up.railway.app',
+]
+
 
 # Application definition
 
@@ -167,6 +171,7 @@ SESSION_COOKIE_NAME_ADMIN = 'django_admin_session'
 
 # Enable or disable maintenance mode
 MAINTENANCE_MODE = False  # Change to False to disable
+
 
 
 
