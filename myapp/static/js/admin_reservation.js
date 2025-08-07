@@ -1,24 +1,88 @@
-document.addEventListener("DOMContentLoaded", function() {
-    let selectedDishes = {};
+let selectedDishes = {};
 
-    // Only initialize if on the admin update page
-    const updateForm = document.querySelector('form[action*="update_reservation"]');
-    const hiddenDishesField = document.getElementById('selectedDishesInput');
+// ✅ First define this function early to avoid ReferenceError
+function updateSelectedDishesDisplay() {
+    let total = 0;
+    let modalHtml = '';
+    let formHtml = '';
 
-    if (updateForm && hiddenDishesField) {
-        const existingDishes = hiddenDishesField.value;
-        if (existingDishes) {
-            try {
-                selectedDishes = JSON.parse(existingDishes);
-                updateSelectedDishesDisplay();
-            } catch (e) {
-                console.error("Error parsing existing dish data:", e);
-            }
-        }
+    for (const dishId in selectedDishes) {
+        const { name, quantity, price } = selectedDishes[dishId];
+        total += quantity * price;
+        modalHtml += `
+            <div class="d-flex justify-content-between align-items-center mb-2 selected-dish-entry" data-dish-id="${dishId}">
+                <span>${name} - Quantity: ${quantity}</span> 
+                <button type="button" class="btn btn-sm btn-danger remove-dish-btn" data-dish-id="${dishId}">Remove</button>
+            </div>
+        `;
+        formHtml += `<div>${name} - Quantity: ${quantity}</div>`;
     }
 
+    $('#total-price').val(total.toFixed(2));
+    $('#selectedDishesListModal').html(modalHtml).attr('readonly', true);
+    $('#selectedDishesListForm').html(formHtml).attr('readonly', true);
+    $('#selectedDishesInput').val(JSON.stringify(selectedDishes));
+
+    if ($('#dishModalExclusive').hasClass('show')) {
+        $('#selectedDishesInputExclusive').val(JSON.stringify(selectedDishes));
+    }
+}
+
+// ✅ Safely initialize selectedDishes from hidden input
+const initialSelected = document.getElementById('selectedDishesInput')?.value;
+if (initialSelected) {
+    try {
+        selectedDishes = JSON.parse(initialSelected);
+        document.addEventListener("DOMContentLoaded", updateSelectedDishesDisplay);
+    } catch (e) {
+        console.error("Invalid JSON in selectedDishesInput", e);
+    }
+}
+
+// Debug: check jQuery
+if (window.jQuery) {
+    console.log("jQuery is loaded");
+} else {
+    console.log("jQuery is not loaded");
+}
+
+// ✅ Reload on browser back/forward
+if (performance.navigation.type === 2 || (window.performance.getEntriesByType && window.performance.getEntriesByType("navigation")[0]?.type === "back_forward")) {
+    location.reload(true);
+}
+
+// ✅ CSRF setup
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (!/^GET|HEAD|OPTIONS|TRACE$/i.test(settings.type) && token) {
+            xhr.setRequestHeader("X-CSRFToken", token);
+        }
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Dish removal
+    $(document).on('click', '.remove-dish-btn', function () {
+        const dishId = $(this).data('dish-id');
+        delete selectedDishes[dishId];
+
+        const quantityDisplay = $(`.quantity-control[data-dish-id="${dishId}"] .quantity-display`);
+        if (quantityDisplay.length > 0) {
+            quantityDisplay.text("0");
+        }
+
+        updateSelectedDishesDisplay();
+    });
+
+    // Modal open handlers
     $('#dishModalNormal').on('show.bs.modal', function () {
         loadCategories('normal');
+    });
+
+    $('#dishModalExclusive').on('show.bs.modal', function () {
+        loadCategories('exclusive');
     });
 
     function loadCategories(modalType) {
@@ -30,7 +94,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 response.categories.forEach(function(category) {
                     categoriesHtml += `<button type="button" class="category-btn btn btn-outline-primary" data-category="${category}">${category}</button>`;
                 });
-                $('#categories-normal').html(categoriesHtml);
+
+                if (modalType === 'normal') {
+                    $('#categories-normal').html(categoriesHtml);
+                } else {
+                    $('#categories-exclusive').html(categoriesHtml);
+                }
 
                 $('.category-btn').off('click').on('click', function() {
                     const category = $(this).data('category');
@@ -41,20 +110,33 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function loadSubcategories(category, modalType) {
-        $('#subcategories').empty().hide();
-        $('#dishes').empty().hide();
+        if (modalType === 'normal') {
+            $('#subcategories').empty().hide();
+            $('#dishes').empty().hide();
+        } else {
+            $('#subcategories-exclusive').empty().hide();
+            $('#dishes-exclusive').empty().hide();
+        }
 
         $.ajax({
             url: `/get_subcategories/${category}/`,
             type: 'GET',
             success: function(response) {
-                const validSubcategories = response.subcategories.filter(s => s);
+                let subcategoriesHtml = '';
+                const validSubcategories = response.subcategories.filter(
+                    s => s !== null && s !== '' && String(s).toLowerCase() !== 'none'
+                );
+
                 if (validSubcategories.length > 0) {
-                    let subcategoriesHtml = '';
                     validSubcategories.forEach(function(subcategory) {
                         subcategoriesHtml += `<button type="button" class="subcategory-btn btn btn-secondary" data-subcategory="${subcategory}">${subcategory}</button>`;
                     });
-                    $('#subcategories').html(subcategoriesHtml).show();
+
+                    if (modalType === 'normal') {
+                        $('#subcategories').html(subcategoriesHtml).show();
+                    } else {
+                        $('#subcategories-exclusive').html(subcategoriesHtml).show();
+                    }
 
                     $('.subcategory-btn').off('click').on('click', function() {
                         const subcategory = $(this).data('subcategory');
@@ -71,7 +153,11 @@ document.addEventListener("DOMContentLoaded", function() {
         let url = `/get_dishes/${category}/`;
         if (subcategory) url += `${subcategory}/`;
 
-        $('#dishes').empty().hide();
+        if (modalType === 'normal') {
+            $('#dishes').empty().hide();
+        } else {
+            $('#dishes-exclusive').empty().hide();
+        }
 
         $.ajax({
             url: url,
@@ -79,12 +165,14 @@ document.addEventListener("DOMContentLoaded", function() {
             success: function(response) {
                 let dishesHtml = '';
                 response.dishes.forEach(function(dish) {
-                    const quantity = selectedDishes[dish.id] ? selectedDishes[dish.id].quantity : 0;
+                    const existing = selectedDishes[dish.id];
+                    const quantity = existing ? existing.quantity : 0;
+
                     dishesHtml += `
-                        <div class="dish-item d-flex align-items-center justify-content-between mb-2">
+                        <div class="dish-item d-flex align-items-center justify-content-between mb-2" data-dish-id="${dish.id}">
                             <div>
                                 <strong class="dish-name">${dish.name}</strong><br>
-                                <span>$${dish.price}</span>
+                                <span>₱${dish.price}</span>
                             </div>
                             <div class="quantity-control" data-dish-id="${dish.id}">
                                 <button type="button" class="btn btn-sm btn-outline-secondary minus-btn">−</button>
@@ -94,11 +182,19 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     `;
                 });
-                $('#dishes').html(dishesHtml).show();
+
+                if (modalType === 'normal') {
+                    $('#dishes').html(dishesHtml).show();
+                } else {
+                    $('#dishes-exclusive').html(dishesHtml).show();
+                }
             }
         });
+
+        updateSelectedDishesDisplay();
     }
 
+    // Quantity buttons
     $(document).on('click', '.plus-btn', function () {
         const parent = $(this).closest('.quantity-control');
         const dishId = parent.data('dish-id');
@@ -119,10 +215,11 @@ document.addEventListener("DOMContentLoaded", function() {
         updateDishSelection(dishId, quantity);
     });
 
+    // Update dish data in selection
     function updateDishSelection(dishId, quantity) {
         const dishItem = $(`[data-dish-id="${dishId}"]`).closest('.dish-item');
         const dishName = dishItem.find('.dish-name').text().trim();
-        const priceMatch = dishItem.html().match(/\$([0-9]+(?:\.[0-9]{1,2})?)/);
+        const priceMatch = dishItem.html().match(/₱([0-9]+(?:\.[0-9]{1,2})?)/);
         const price = priceMatch ? parseFloat(priceMatch[1]) : 0;
 
         if (quantity > 0) {
@@ -134,30 +231,8 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSelectedDishesDisplay();
     }
 
-    $('#saveSelection').on('click', function () {
+    // Save button click
+    $('#saveSelection').off('click').on('click', function() {
         updateSelectedDishesDisplay();
     });
-
-    function updateSelectedDishesDisplay() {
-        let total = 0;
-        let modalHtml = '';
-        let formHtml = '';
-
-        for (const dishId in selectedDishes) {
-            const { name, quantity, price } = selectedDishes[dishId];
-            total += quantity * price;
-            modalHtml += `
-            <div class="d-flex justify-content-between align-items-center mb-2 selected-dish-entry" data-dish-id="${dishId}">
-                <span>${name} - Quantity: ${quantity}</span> 
-                <button type="button" class="btn btn-sm btn-danger remove-dish-btn" data-dish-id="${dishId}">Remove</button>
-            </div>
-            `;
-            formHtml += `<div>${name} - Quantity: ${quantity}</div>`;
-        }
-
-        $('#total-price').val(total.toFixed(2));
-        $('#selectedDishesListModal').html(modalHtml);
-        $('#selectedDishesListForm').html(formHtml);
-        $('#selectedDishesInput').val(JSON.stringify(selectedDishes));
-    }
 });
