@@ -17,7 +17,6 @@
     <div class="col-md-8 offset-md-2 bg-light p-4 rounded shadow-sm">
       <h1 class="text-center mb-4">Update Normal Reservation Record</h1>
 
-
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -25,6 +24,13 @@
         {% endfor %}
     </ul>
     {% endif %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
     
     <form method="POST" action="{% url 'update_reservation' current_record.id %}" autocomplete="off" novalidate>
       {% csrf_token %}
@@ -33,23 +39,35 @@
       <div class="form-group mb-3">
         <label for="fullname" class="form-label">Fullname</label>
         <input class="form-control" type="text" id="fullname" name="fullname" value="{{ form.fullname.value|default:'' }}" placeholder="Enter your full name" required>
+        {% if form.fullname.errors %}
+          <div class="text-danger">{{ form.fullname.errors.0 }}</div>
+        {% endif %}
       </div>
 
       <div class="form-group mb-3">
         <label for="email" class="form-label">Email</label>
-        <input class="form-control" type="text" id="email" name="email" placeholder="Enter your email">
+        <input class="form-control" type="text" id="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="Enter your email">
+      {% if form.email.errors %}
+        <div class="text-danger">{{ form.email.errors.0 }}</div>
+      {% endif %}
       </div>
 
       <!-- Phone Number -->
       <div class="form-group mb-3">
         <label for="phone" class="form-label">Phone Number</label>
         <input class="form-control" type="tel" id="phone" name="phone" value="{{ form.phone.value|default:'' }}" maxlength="11" placeholder="Enter your phone number" required>
+      {% if form.phone.errors %}
+        <div class="text-danger">{{ form.phone.errors.0 }}</div>
+      {% endif %}
       </div>
 
       <!-- Party Size -->
       <div class="form-group mb-3">
         <label for="party_size" class="form-label">Party Size</label>
         <input class="form-control" type="number" id="party_size" name="party_size" min="1" max="12" value="{{ form.party_size.value|default:'' }}" required>
+      {% if form.party_size.errors %}
+        <div class="text-danger">{{ form.party_size.errors.0 }}</div>
+      {% endif %}
       </div>
 
       <div class="form-group mb-3">
@@ -125,6 +143,9 @@
       <div class="form-group mb-3">
         <label for="date" class="form-label">Date & Time Reservation</label>
         <input class="form-control" id="date" name="date" type="datetime-local" value="{{ form.date.value|date:'Y-m-d\\TH:i' }}" required>
+      {% if form.date.errors %}
+        <div class="text-danger">{{ form.date.errors.0 }}</div>
+      {% endif %}
       </div>
 
       <!-- Buttons -->
@@ -143,4 +164,3 @@
 </body>
 </html>
 {% endblock %}
-
