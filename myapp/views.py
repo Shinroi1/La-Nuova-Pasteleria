@@ -836,7 +836,11 @@ def error_403 (request, exception):
     return render(request, 'Errors/403.html', status=403)
 
 def admin_profile(request):
-    return render(request, 'Admin/admin_profile.html', {'user':request.user})
+    if request.user.is_authenticated:
+        return render(request, 'Admin/admin_profile.html', {'user':request.user})
+    else:
+        messages.error(request, "You are not logged in!")
+        return redirect('admin_login')
 
 def admin_profile_edit(request):
     if request.method == 'POST':
@@ -1359,5 +1363,6 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 # redeploy trigger
