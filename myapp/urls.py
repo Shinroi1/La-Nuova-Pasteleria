@@ -235,11 +235,12 @@ urlpatterns = [
 
 
     path('Admin/admin_dashboard/', views.admin_dashboard, name="admin_dashboard"), 
-    path('Admin/admin_register/', views.admin_register, name="admin_register"),
-    path('Admin/admin_login/', views.admin_login, name="admin_login"),
+    path('LaNuovaAdmin_register/', views.admin_register, name="admin_register"),
+    path('LaNuovaAdmin_login/', views.admin_login, name="admin_login"),
     path('logout/', views.logout_user,  name ="logout"),
     path('Admin/admin_main/', views.admin_main, name="admin_main"),    
 
     path('check-new-reservations/', views.check_new_reservations, name='check_new_reservations'),
 ]
+
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
