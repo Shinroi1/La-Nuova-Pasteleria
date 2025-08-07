@@ -115,7 +115,7 @@ def recommend_alternatives(request):
     recommended_dishes, is_random = get_collaborative_recommendations(request)
 
     if is_random:
-        heading = "HWe couldn't find your usual favorites — but no worries! Here's something to spark your appetite:"
+        heading = "We couldn't find your usual favorites — but no worries! Here's something to spark your appetite:"
     else:
         heading = "Other customers also ordered these:"
 
@@ -1370,4 +1370,5 @@ def check_new_reservations(request):
 
 
 # redeploy trigger
+
 
