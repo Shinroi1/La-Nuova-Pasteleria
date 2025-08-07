@@ -109,7 +109,12 @@
               <td>{{ reservation.date }}</td>
               <td>
                 {% for dish in reservation.normalreservationorder_set.all %}
-                  {{ dish.dish.dish_name }} (x{{ dish.quantity }}){% if not forloop.last %}, {% endif %}
+                  {% if dish.dish.sub_category and dish.dish.sub_category != "None" %}
+                    {{ dish.dish.sub_category }} - {{ dish.dish.dish_name }} (x{{ dish.quantity }})
+                  {% else %}
+                    {{ dish.dish.category }} - {{ dish.dish.dish_name }} (x{{ dish.quantity }})
+                  {% endif %}
+                  {% if not forloop.last %}, {% endif %}
                 {% endfor %}
               </td>
               <td>{{ reservation.table_status }}</td>
