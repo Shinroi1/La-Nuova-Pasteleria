@@ -197,36 +197,40 @@ def get_similar_dishes(request, limit=6):
 
 # SHOW UP FOR FIRST TIME VISITORS
 def get_global_bestsellers(limit=6):
-    from .models import NormalReservationOrder
 
     dish_counter = Counter()
-
     orders = NormalReservationOrder.objects.select_related('dish')
     print(f"[DEBUG] Found {orders.count()} orders in NormalReservationOrder")
 
     for order in orders:
         if order.dish:
-            print(f"[DEBUG] Counting dish (global_bestsller): {order.dish.id} - {order.dish.dish_name} x {order.quantity}")
+            print(f"[DEBUG] Counting dish: {order.dish.id} - {order.dish.dish_name} x {order.quantity}")
             dish_counter[order.dish.id] += order.quantity
         else:
             print(f"[DEBUG] Skipping order with missing dish: {order}")
 
-    # Filter out dishes with total ordered quantity less than 3
-    filtered_dish_ids = [dish_id for dish_id, total in dish_counter.items() if total >= 3]
-
     if not dish_counter:
-        print("[DEBUG] No dish counts found. Returning random dishes.")
+        print("[DEBUG] No orders found. Returning random dishes.")
         return Menu.objects.order_by('?')[:limit]
 
-    # top_dish_ids = [dish_id for dish_id, _ in dish_counter.most_common(limit)]
+    # Step 1: Dishes ordered 3 or more times
+    top_dish_ids = [dish_id for dish_id, total in dish_counter.items() if total >= 3]
 
-    top_dish_ids = sorted(
-        filtered_dish_ids, key=lambda dish_id: dish_counter[dish_id], reverse=True
-    )
+    if not top_dish_ids:
+        # Step 2: Fallback to dishes ordered at least once (but < 3)
+        top_dish_ids = [dish_id for dish_id, total in dish_counter.items() if total >= 1]
+        print(f"[DEBUG] Fallback to dish_ids with count < 3: {top_dish_ids}")
 
+    if not top_dish_ids:
+        # Step 3: No orders at all — random fallback
+        print("[DEBUG] No bestseller data at all. Returning random dishes.")
+        return Menu.objects.order_by('?')[:limit]
+
+    # Sort selected dish_ids by popularity (highest first)
+    sorted_dish_ids = sorted(top_dish_ids, key=lambda id_: dish_counter[id_], reverse=True)
+    print(f"[DEBUG] Final bestseller dish IDs: {sorted_dish_ids[:limit]}")
     
-    print(f"[DEBUG] Top dish IDs: {top_dish_ids}")
-    return Menu.objects.filter(id__in=top_dish_ids)
+    return Menu.objects.filter(id__in=sorted_dish_ids[:limit])
 
 # USED FOR BESTSELLERS BUTTON
 def get_bestsellers(request):
@@ -1366,3 +1370,4 @@ def check_new_reservations(request):
 
 
 # redeploy trigger
+
