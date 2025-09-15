@@ -235,7 +235,6 @@ urlpatterns = [
 
 
     path('Admin/admin_dashboard/', views.admin_dashboard, name="admin_dashboard"), 
-    path('LaNuovaAdmin_register/', views.admin_register, name="admin_register"),
     path('LaNuovaAdmin_login/', views.admin_login, name="admin_login"),
     path('logout/', views.logout_user,  name ="logout"),
     path('Admin/admin_main/', views.admin_main, name="admin_main"),    
@@ -244,3 +243,4 @@ urlpatterns = [
 ]
 
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
