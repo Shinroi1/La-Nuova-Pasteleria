@@ -11,6 +11,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!-- SEO Meta Tags -->
+    <title>La Nuova Pasteleria – Authentic Italian Cakes & Pastries</title>
+    <meta name="description" content="La Nuova Pasteleria offers authentic Italian cakes, breads, and pastries. Freshly baked daily with quality ingredients. Visit us for a taste of Italy.">
+    <meta name="keywords" content="La Nuova Pasteleria, Italian, cakes, pastries, antipasti, zuppa, pasta, Italian desserts, Italian food">
+    <meta name="author" content="La Nuova Pasteleria">
+
+    <!-- Social Media (Open Graph) -->
+    <meta property="og:title" content="La Nuova Pasteleria – Cakes & Pastries">
+    <meta property="og:description" content="Freshly baked Italian cakes, breads, and pastries made with love.">
+    <meta property="og:image" content="{% static 'images/background.jpg' %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://la-nuova-pasteleria.up.railway.app/">
     <link rel="stylesheet" href="{% static '/CSS/menu.css' %}">
     
     <title>{% block title %} Home Page {% endblock %}</title>
@@ -109,4 +122,5 @@
 </body>
 </html>
 {% endblock %}
+
 
