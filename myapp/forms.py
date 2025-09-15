@@ -7,35 +7,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 # from django_select2.forms import Select2MultipleWidget
-from django.contrib.auth.forms import UserCreationForm
 from . models import Menu, NormalReservationTable, UnavailableDateTime
 import json
-
-class AdminRegisterForm(UserCreationForm):
-
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Enter your email'}))
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Customize or remove help texts
-        self.fields['username'].help_text = None
-        self.fields['password1'].help_text = None
-        self.fields['password2'].help_text = None
-
-        # Optional: Customize labels or widgets
-        self.fields['username'].label = 'Username'
-        self.fields['username'].widget = forms.TextInput(attrs={'placeholder': 'Enter your username'})
-        self.fields['email'].widget = forms.EmailInput(attrs={'placeholder': 'Enter your email'})
-
-        class Meta:
-            model = User
-            fields = ('username', 
-                    'email', 
-                    'first_name', 
-                    'last_name',
-                    'password1', 
-                    'password2'
-                    )
             
 class AdminProfileForm(forms.ModelForm):
     class Meta:
@@ -257,3 +230,4 @@ class UnavailableDateTimeForm(forms.ModelForm):
                 raise forms.ValidationError("Start time must be before end time.")
 
         return cleaned_data
+
