@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', views.home, name = "home"),
+    path('test/', views.test, name="test"),
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name="contact"),
     path('feedback/', views.feedback, name="feedback"),
@@ -242,5 +243,6 @@ urlpatterns = [
 ]
 
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 
