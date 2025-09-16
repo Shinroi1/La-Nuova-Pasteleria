@@ -22,14 +22,6 @@ from django.contrib.auth.views import PasswordChangeView
 from .models import Menu, NormalReservationTable, NormalReservationOrder, SessionDishHistory, UnavailableDateTime
 from .forms import MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
 
-# from django.http import HttpResponse
-# from django.utils.encoding import force_str
-# from django.http import HttpResponseRedirect
-# from django.urls import reverse
-
-def test(request):
-    return render(request, "test.html")
-
 # View to render user navigation bar
 def user_navbar(request):
     
@@ -39,22 +31,34 @@ def chatbot(request):
     # Render the chatbot template
     return render(request, "chatbot.html")
 
+# Function to order queryset by a specific list of IDs
+# This function takes a queryset and a list of IDs, and orders the queryset based on the
+def order_by_ids(queryset, id_list):
+    preserved = Case(
+        *[When (id=pk, then=pos) for pos, pk in enumerate(id_list)],
+        output_field=IntegerField()
+    )
+    
+    return queryset.filter(id__in=id_list).order_by(preserved)
+
 # Render home view with proper recommendations
 def home(request):
+    # Check if the user has accepted cookies
     cookies_accepted = check_cookie_consent(request)
 
     # Step 1: Check for cookie consent
     if cookies_accepted:
         # Step 2: If user has history, show personalized recommendations
-        personalized_recs = get_similar_dishes(request)
+        personalized_recs, is_random = get_collaborative_recommendations(request)
         print(f"Personalized Recommendations:", list(personalized_recs))  # Debugging output
 
-        if personalized_recs.exists():
+        if personalized_recs.exists() and not is_random:
             context = {
                 'dishes': personalized_recs, 
                 'personalized': True,
                 'cookies_accepted': True}
         else:
+            # Step 3: If no personalized dishes found, fallback to global bestsellers
             print("Fallback to bestsellers: No personalized dishes found.")
             top_dishes = get_global_bestsellers()
             context = {
@@ -74,39 +78,46 @@ def home(request):
 # Function to check if the user has given cookie consent
 # This function checks if the 'cookie_consent' cookie is set to 'true'.
 def check_cookie_consent(request):
-    consent = request.COOKIES.get('cookie_consent')
-    return consent == 'true'
+    return (request.COOKIES.get('cookie_consent') or '').lower() == 'true'
 
 # Function to get collaborative recommendations based on session history
 # This function retrieves dishes that similar users have ordered, excluding the user's own history.
-def get_collaborative_recommendations(request):
+def get_collaborative_recommendations(request, limit=6):
     session_key = request.session.session_key
-
     if not session_key:
         print("[Collaborative] No session key, returning random dishes.")
         return Menu.objects.order_by('?')[:6], True  # True = is_random
 
-    user_dish_ids = SessionDishHistory.objects.filter(session_key=session_key).values_list('dish_id', flat=True)
-    if not user_dish_ids.exists():
+    user_dish_ids = list(
+        SessionDishHistory.objects.filter(session_key=session_key)
+        .values_list('dish_id', flat=True)
+    )
+
+    if not user_dish_ids:
         print("[Collaborative] No user dish history found, returning random dishes.")
-        return Menu.objects.order_by('?')[:6], True
+        return Menu.objects.order_by('?')[:limit], True
 
-    similar_sessions = SessionDishHistory.objects.filter(
-        dish_id__in=user_dish_ids
-    ).exclude(session_key=session_key).values_list('session_key', flat=True).distinct()
+ # Find other sessions that overlap with this user's dishes
+    similar_sessions = (
+        SessionDishHistory.objects.filter(dish_id__in=user_dish_ids)
+        .exclude(session_key=session_key)
+        .values_list('session_key', flat=True)
+        .distinct()
+    )
 
-    recommended_dish_ids = SessionDishHistory.objects.filter(
-        session_key__in=similar_sessions
-    ).exclude(dish_id__in=user_dish_ids) \
-     .values('dish_id').annotate(count=Count('dish_id')).order_by('-count')[:6]
+    # Count co-occurring dishes from those sessions
+    cooc = (
+        SessionDishHistory.objects
+        .filter(session_key__in=similar_sessions)
+        .exclude(dish_id__in=user_dish_ids)
+        .values('dish_id')
+        .annotate(score=Count('session_key', distinct=True))
+        .order_by('-score')[:limit]
+    )
 
-    recommended_ids = [d['dish_id'] for d in recommended_dish_ids]
-    if not recommended_ids:
-        print("[Collaborative] No recommendations found, returning random dishes.")
-        return Menu.objects.order_by('?')[:6], True
-
-    print(f"[Collaborative] Recommended Dish IDs: {recommended_ids}")
-    return Menu.objects.filter(id__in=recommended_ids), False  # False = not random
+    top_ids = [row['dish_id'] for row in cooc]
+    if not top_ids:
+        return Menu.objects.order_by('?')[:limit], True
 
 
 # View to recommend alternatives based on collaborative filtering
@@ -137,8 +148,13 @@ def recommend_alternatives(request):
 # Function to store user's dish history in session
 # This function will be called when the user selects dishes.
 def store_user_dish_history(request, selected_dishes):
+    if not check_cookie_consent(request):
+        print("[History] Cookie consent not given, skipping dish history storage.")
+        return
+
     if not request.session.session_key:
         request.session.save()
+        print("[History] Session key created.")
     session_key = request.session.session_key
 
     print(f"Session: {request.session.session_key}")
@@ -157,80 +173,26 @@ def store_user_dish_history(request, selected_dishes):
     # Save to session too (optional, for quick lookup)
     request.session['dish_history'] = selected_dishes
 
-# Function to get similar dishes based on user's dish history
-def get_similar_dishes(request, limit=6):
-    session_key = request.session.session_key
-    if not session_key:
-        return Menu.objects.none()
 
-    # Get user's dish history
-    user_dishes = SessionDishHistory.objects.filter(session_key=session_key).values_list('dish__id', flat=True)
-    user_dish_ids = set(user_dishes)
+# Global bestsellers (improved: DB aggregation + preserved order)
+def get_global_bestsellers(limit=6, min_qty=3):
+    from .models import NormalReservationOrder
 
-    if not user_dish_ids:
-        return get_global_bestsellers(limit=limit)
+    rows = (
+        NormalReservationOrder.objects
+        .values('dish_id')
+        .annotate(total_qty=Sum('quantity'))
+        .filter(total_qty__gte=min_qty)
+        .order_by('-total_qty')[:limit]
+    )
 
-    # Gather all other sessions
-    others = SessionDishHistory.objects.exclude(session_key=session_key)
-    session_map = {}
+    top_ids = [r['dish_id'] for r in rows]
 
-    for entry in others:
-        session_map.setdefault(entry.session_key, []).append(entry.dish.id)
-
-    # Collaborative filtering
-    score_counter = Counter()
-
-    for other_dishes in session_map.values():
-        overlap = user_dish_ids.intersection(other_dishes)
-        score = len(overlap)
-
-        if score > 0:
-            for dish_id in other_dishes:
-                if dish_id not in user_dish_ids:
-                    score_counter[dish_id] += score
-
-    top_ids = [dish_id for dish_id, _ in score_counter.most_common(limit)]
-    recommended_dishes = Menu.objects.filter(id__in=top_ids)
-
-    return recommended_dishes
-
-
-# SHOW UP FOR FIRST TIME VISITORS
-def get_global_bestsellers(limit=6):
-
-    dish_counter = Counter()
-    orders = NormalReservationOrder.objects.select_related('dish')
-    print(f"[DEBUG] Found {orders.count()} orders in NormalReservationOrder")
-
-    for order in orders:
-        if order.dish:
-            print(f"[DEBUG] Counting dish: {order.dish.id} - {order.dish.dish_name} x {order.quantity}")
-            dish_counter[order.dish.id] += order.quantity
-        else:
-            print(f"[DEBUG] Skipping order with missing dish: {order}")
-
-    if not dish_counter:
-        print("[DEBUG] No orders found. Returning random dishes.")
+    if not top_ids:
+        # Fallback to random dishes if nothing found
         return Menu.objects.order_by('?')[:limit]
 
-    # Step 1: Dishes ordered 3 or more times
-    top_dish_ids = [dish_id for dish_id, total in dish_counter.items() if total >= 3]
-
-    if not top_dish_ids:
-        # Step 2: Fallback to dishes ordered at least once (but < 3)
-        top_dish_ids = [dish_id for dish_id, total in dish_counter.items() if total >= 1]
-        print(f"[DEBUG] Fallback to dish_ids with count < 3: {top_dish_ids}")
-
-    if not top_dish_ids:
-        # Step 3: No orders at all — random fallback
-        print("[DEBUG] No bestseller data at all. Returning random dishes.")
-        return Menu.objects.order_by('?')[:limit]
-
-    # Sort selected dish_ids by popularity (highest first)
-    sorted_dish_ids = sorted(top_dish_ids, key=lambda id_: dish_counter[id_], reverse=True)
-    print(f"[DEBUG] Final bestseller dish IDs: {sorted_dish_ids[:limit]}")
-    
-    return Menu.objects.filter(id__in=sorted_dish_ids[:limit])
+    return order_by_ids(Menu.objects.all(), top_ids)
 
 # USED FOR BESTSELLERS BUTTON
 def get_bestsellers(request):
@@ -1343,6 +1305,7 @@ def check_new_reservations(request):
 
 
 # redeploy trigger
+
 
 
 
