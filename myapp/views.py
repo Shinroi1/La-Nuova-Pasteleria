@@ -22,6 +22,9 @@ from django.contrib.auth.views import PasswordChangeView
 from .models import Menu, NormalReservationTable, NormalReservationOrder, SessionDishHistory, UnavailableDateTime
 from .forms import MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
 
+def test(request):
+    return render(request, "test.html")
+    
 # View to render user navigation bar
 def user_navbar(request):
     
@@ -1305,6 +1308,7 @@ def check_new_reservations(request):
 
 
 # redeploy trigger
+
 
 
 
