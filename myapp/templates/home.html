@@ -11,19 +11,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-      <!-- SEO Meta Tags -->
-    <title>La Nuova Pasteleria – Authentic Italian Cakes & Pastries</title>
-    <meta name="description" content="La Nuova Pasteleria offers authentic Italian cakes, breads, and pastries. Freshly baked daily with quality ingredients. Visit us for a taste of Italy.">
-    <meta name="keywords" content="La Nuova Pasteleria, Italian, cakes, pastries, antipasti, zuppa, pasta, Italian desserts, Italian food">
-    <meta name="author" content="La Nuova Pasteleria">
-
-    <!-- Social Media (Open Graph) -->
-    <meta property="og:title" content="La Nuova Pasteleria – Cakes & Pastries">
-    <meta property="og:description" content="Freshly baked Italian cakes, breads, and pastries made with love.">
-    <meta property="og:image" content="{% static 'images/background.jpg' %}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://la-nuova-pasteleria.up.railway.app/">
     <link rel="stylesheet" href="{% static '/CSS/menu.css' %}">
     
     <title>{% block title %} Home Page {% endblock %}</title>
@@ -32,30 +19,35 @@
 <body style="background-color: #D5CCAB;">
 
 <div style="text-align: center;">
-<h2 class="menu-title" id="recommendation-heading">
-  {% if personalized %}
-    Based on your previous orders, we think you'll love these dishes!
-  {% else %}
-    Check out our bestsellers!
-  {% endif %}
-</h2>
+  <h2 class="menu-title" id="recommendation-heading">
+    {% if personalized %}
+      Based on your previous orders, we think you'll love these dishes!
+    {% else %}
+      Check out our bestsellers!
+    {% endif %}
+  </h2>
 
-<p class="text-muted" style="font-size: 0.9rem; margin-bottom: 20px;">
-  📸 Some photos are still on the way — our dishes are currently in a photoshoot!
-</p>
+  <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 20px;">
+    📸 Some photos are still on the way — our dishes are currently in a photoshoot!
+  </p>
 
+  <!-- Scrollable container -->
+  <div class="recommend-scroll-container position-relative">
+    <button class="scroll-btn left" onclick="scrollList(-1)">&#10094;</button>
 
-  <div class="container mt-4">
-    <div class="row" id="dish-list" data-url-template="{% url 'dish_detail' slug='__slug__' %}">
+    <div class="recommend-scroll" 
+         id="dish-list" 
+         data-url-template="{% url 'dish_detail' slug='__slug__' %}">
       {% for dish in dishes %}
-        <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
           <a href="{% url 'dish_detail' slug=dish.slug %}" class="text-decoration-none text-dark">
-            <div class="card h-80 shadow-sm">
-              <img src="{% if dish.image %}{% static dish.image %}{% else %}{% static 'images/default_dish.jpg' %}{% endif %}" class="card-img-top" alt="{% if dish.image %}{{ dish.dish_name }}{% else %}Image coming soon{% endif %}" style="max-height: 250px; object-fit: cover;">
-              <div class="card-body text-center">
-                <h5 class="card-title">{{ dish.dish_name }} - {{ dish.category }}</h5>
-                <h6>&#8369; {{ dish.price|floatformat:2|intcomma }}</h6>
-              </div>
+            <img src="{% if dish.image %}{% static dish.image %}{% else %}{% static 'images/default_dish.jpg' %}{% endif %}" 
+                 class="card-img-top" 
+                 alt="{% if dish.image %}{{ dish.dish_name }}{% else %}Image coming soon{% endif %}" 
+                 style="max-height: 200px; object-fit: cover;">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ dish.dish_name }} - {{ dish.category }}</h5>
+              <h6>&#8369; {{ dish.price|floatformat:2|intcomma }}</h6>
             </div>
           </a>
         </div>
@@ -63,12 +55,17 @@
         <p>No dishes to show.</p>
       {% endfor %}
     </div>
+
+    <button class="scroll-btn right" onclick="scrollList(1)">&#10095;</button>
   </div>
-
-<button id="recommend-more" onclick="getAlternativeRecommendations()"> Suprise Me! </button>
-<button id="show-bestsellers" onclick="showBestsellers()">Show Bestsellers</button>
-
 </div>
+
+<!-- Buttons -->
+<div style="text-align: center; margin-top: 20px;">
+  <button id="recommend-more" onclick="getAlternativeRecommendations()">Surprise Me!</button>
+  <button id="show-bestsellers" onclick="getBestsellers()">Show Bestsellers</button>
+</div>
+
 
 {% include "cookies consent.html" %}
 
@@ -79,7 +76,7 @@
   <div id="carouselExample" class="carousel slide position-relative">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="/static/images/Background front.jpg" class="d-block w-100" alt="...">
+        <img src="/static/images/Background Front.jpg" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
         <img src="/static/images/background.jpg" class="d-block w-100" alt="...">
@@ -122,5 +119,3 @@
 </body>
 </html>
 {% endblock %}
-
-
