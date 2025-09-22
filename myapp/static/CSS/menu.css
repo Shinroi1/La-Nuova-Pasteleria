@@ -124,9 +124,75 @@ h5{
 
 }
 
+/* RECOMMENDER SCROLLABLE SECTION */
+
+.recommend-scroll-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 0.5rem 2rem; /* space for arrows */
+}
+
+.recommend-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.recommend-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.recommend-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.recommend-scroll .card {
+  flex: 0 0 auto;
+  width: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.scroll-btn.left { left: 0; }
+.scroll-btn.right { right: 0; }
+
+#recommend-more, #show-bestsellers {
+  background-color: #C6B98C; 
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 30px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
+}
+
+/***/
+
 /* THIS SECTION IS FOR THE MENU_CATEGORY.HTML */
 
-@media (max-width: 425px) {
+/* @media (max-width: 425px) {
   #dish-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -147,7 +213,7 @@ h5{
 }
 
 #recommend-more, #show-bestsellers {
-  background-color: #C6B98C; /* match your site theme */
+  background-color: #C6B98C; 
   color: white;
   border: none;
   padding: 12px 24px;
@@ -179,7 +245,7 @@ h5{
 
 .menu-title{
   font-family: 'Times New Roman', Times, serif;
-}
+} */
 
 
 /* THIS SECTION IS FOR THE MENU_CATEGORY.HTML  */
