@@ -21,11 +21,16 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 from django.contrib.auth.views import PasswordChangeView
 from .models import Menu, NormalReservationTable, NormalReservationOrder, SessionDishHistory, UnavailableDateTime
-from .forms import MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
+from .forms import AdminRegisterForm, MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
+
+# from django.http import HttpResponse
+# from django.utils.encoding import force_str
+# from django.http import HttpResponseRedirect
+# from django.urls import reverse
 
 def test(request):
     return render(request, "test.html")
-    
+
 # View to render user navigation bar
 def user_navbar(request):
     
@@ -53,7 +58,7 @@ def home(request):
     # Step 1: Check for cookie consent
     if cookies_accepted:
         # Step 2: If user has history, show personalized recommendations
-        personalized_recs, is_random = get_collaborative_recommendations(request)
+        personalized_recs, is_random, _ = get_collaborative_recommendations(request)
         print(f"Personalized Recommendations:", list(personalized_recs))  # Debugging output
 
         if personalized_recs.exists() and not is_random:
@@ -90,7 +95,7 @@ def get_collaborative_recommendations(request, limit=6):
     session_key = request.session.session_key
     if not session_key:
         print("[Collaborative] No session key, returning random dishes.")
-        return Menu.objects.order_by('?')[:6], True  # True = is_random
+        return Menu.objects.order_by('?')[:100], True, None
 
     user_dish_ids = list(
         SessionDishHistory.objects.filter(session_key=session_key)
@@ -99,9 +104,14 @@ def get_collaborative_recommendations(request, limit=6):
 
     if not user_dish_ids:
         print("[Collaborative] No user dish history found, returning random dishes.")
-        return Menu.objects.order_by('?')[:limit], True
+        return Menu.objects.order_by('?')[:limit], True, None
 
- # Find other sessions that overlap with this user's dishes
+    # Pick the most recent dish the user ordered
+    last_dish_entry = SessionDishHistory.objects.filter(
+        session_key=session_key
+    ).order_by('-id').first()
+    anchor_dish = last_dish_entry.dish if last_dish_entry else None
+
     similar_sessions = (
         SessionDishHistory.objects.filter(dish_id__in=user_dish_ids)
         .exclude(session_key=session_key)
@@ -109,7 +119,6 @@ def get_collaborative_recommendations(request, limit=6):
         .distinct()
     )
 
-    # Count co-occurring dishes from those sessions
     cooc = (
         SessionDishHistory.objects
         .filter(session_key__in=similar_sessions)
@@ -121,18 +130,38 @@ def get_collaborative_recommendations(request, limit=6):
 
     top_ids = [row['dish_id'] for row in cooc]
     if not top_ids:
-        return Menu.objects.order_by('?')[:limit], True
+        return Menu.objects.order_by('?')[:limit], True, anchor_dish
+
+    return order_by_ids(Menu.objects.all(), top_ids), False, anchor_dish
+
+
+# View to get past orders for the user for the suprise me button (used on home page)
+def get_user_past_orders(request):
+    session_key = request.session.session_key
+    if not session_key:
+        return JsonResponse({'dish_ids': []})
+
+    dish_ids = list(
+        SessionDishHistory.objects.filter(session_key=session_key)
+        .order_by('id')  # chronological order
+        .values_list('dish_id', flat=True)
+    )
+
+    return JsonResponse({'dish_ids': dish_ids})
 
 
 # View to recommend alternatives based on collaborative filtering
 # This view will be called when the user clicks on the "Recommend Alternatives" button.
 def recommend_alternatives(request):
-    recommended_dishes, is_random = get_collaborative_recommendations(request)
+    recommended_dishes, is_random, anchor_dish = get_collaborative_recommendations(request)
 
     if is_random:
         heading = "We couldn't find your usual favorites — but no worries! Here's something to spark your appetite:"
     else:
-        heading = "Other customers also ordered these:"
+        if anchor_dish:
+            heading = f"Since you ordered <strong>{anchor_dish.dish_name}</strong>, other people also paired it with:"
+        else:
+            heading = "Other customers also ordered these:"
 
     data = [
         {
@@ -146,8 +175,56 @@ def recommend_alternatives(request):
         for dish in recommended_dishes
     ]
 
-    print(f"Recommended Dishes (collaborative): {data}")
     return JsonResponse({'dishes': data, 'heading': heading})
+
+def get_recommendations_for_dish(request, dish_id):
+    session_key = request.session.session_key
+    if not session_key:
+        return JsonResponse({'dishes': [], 'heading': "No session found."})
+
+    try:
+        anchor_dish = Menu.objects.get(id=dish_id)
+    except Menu.DoesNotExist:
+        return JsonResponse({'dishes': [], 'heading': "Dish not found."})
+
+    # Find similar sessions that also ordered this dish
+    similar_sessions = (
+        SessionDishHistory.objects.filter(dish_id=dish_id)
+        .exclude(session_key=session_key)
+        .values_list('session_key', flat=True)
+        .distinct()
+    )
+
+    cooc = (
+        SessionDishHistory.objects
+        .filter(session_key__in=similar_sessions)
+        .exclude(dish_id=dish_id)  # exclude the same dish
+        .values('dish_id')
+        .annotate(score=Count('session_key', distinct=True))
+        .order_by('-score')[:10]
+    )
+
+    top_ids = [row['dish_id'] for row in cooc]
+
+    if not top_ids:
+        return JsonResponse({'dishes': [], 'heading': f"Since you ordered {anchor_dish.dish_name}, others usually stuck with it solo!"})
+
+    dishes = order_by_ids(Menu.objects.all(), top_ids)
+
+    data = [{
+        'name': dish.dish_name,
+        'category': dish.category,
+        'slug': dish.slug,
+        'image_url': static(dish.image) if dish.image else static("images/default.jpg"),
+        'description': dish.ingredients,
+        'price': float(dish.price)
+    } for dish in dishes]
+
+    return JsonResponse({
+        'dishes': data,
+        'heading': f"Since you ordered <strong>{anchor_dish.dish_name}</strong>, other people also paired it with:"
+    })
+
  
 # Function to store user's dish history in session
 # This function will be called when the user selects dishes.
@@ -204,7 +281,7 @@ def get_bestsellers(request):
 
     all_bestsellers = list(get_global_bestsellers(limit=100))  # Larger pool after filter
     random.shuffle(all_bestsellers)  # Shuffle so each click gives new batch
-    bestsellers = all_bestsellers[:6]  # Only send 6 dishes
+    bestsellers = all_bestsellers[:100]  # Only send dishes
     
     data = [
         {
@@ -768,6 +845,33 @@ def admin_login(request):
             messages.error(request, 'Invalid username or password.')
     return render(request, 'Admin/admin_login.html')
 
+# View to register 
+def admin_register(request):
+    if request.method == 'POST':
+        form = AdminRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)  # Don't save to DB yet
+            user.email = form.cleaned_data['email']
+            user.save()  # Now save to DB
+
+            # ✅ Add user to "staff" group
+            staff_group, created = Group.objects.get_or_create(name='Staff')
+            user.groups.add(staff_group)
+
+            # Authenticate and log the user in
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+
+            messages.success(request, 'Registration successful.')
+            return redirect('admin_login')
+    else:
+        form = AdminRegisterForm()
+    return render(request, 'Admin/admin_register.html', {'form': form})
+
+
 # View to handle user logout
 def logout_user(request):
     logout(request)
@@ -784,6 +888,7 @@ def admin_profile(request):
     else:
         messages.error(request, "You are not logged in!")
         return redirect('admin_login')
+    
 
 def admin_profile_edit(request):
     if request.method == 'POST':
@@ -1055,7 +1160,6 @@ def admin_reservation(request):
     })
 
 
-
 @allowed_users(allowed_roles=['Admin', 'Staff'])
 # View to display a specific reservation record
 def reservation_record(request, pk):
@@ -1185,7 +1289,6 @@ def update_reservation(request, pk):
         return redirect('admin_login')
 
 
-
 @allowed_users(allowed_roles=['Admin'])
 # View to delete a specific reservation record
 def delete_reservation(request, pk):
@@ -1307,11 +1410,4 @@ def check_new_reservations(request):
 
     return JsonResponse({'notifications': notifications})
 
-
 # redeploy trigger
-
-
-
-
-
-
