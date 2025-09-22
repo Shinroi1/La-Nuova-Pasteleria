@@ -14,6 +14,8 @@ urlpatterns = [
     path('menu_category/', views.menu_category, name="menu_category"),
     path('footer/', views.footer, name="footer"),
     # path('reservations/', views.reservations, name = "reservations"),      
+    path("get_recommendations_for_dish/<int:dish_id>/", views.get_recommendations_for_dish, name="get_recommendations_for_dish"),
+    path("get_user_past_orders/", views.get_user_past_orders, name="get_user_past_orders"),
     path('recommend_alternatives/', views.recommend_alternatives, name="recommend_alternative"),
     path('get_bestsellers/', views.get_bestsellers, name="get_bestsellers"),
     path('fetch-dishes/', views.fetch_dishes, name='fetch_dishes'),
@@ -235,14 +237,11 @@ urlpatterns = [
 
 
     path('Admin/admin_dashboard/', views.admin_dashboard, name="admin_dashboard"), 
-    path('LaNuovaAdmin_login/', views.admin_login, name="admin_login"),
+    path('Admin/admin_register/', views.admin_register, name="admin_register"),
+    path('Admin/admin_login/', views.admin_login, name="admin_login"),
     path('logout/', views.logout_user,  name ="logout"),
     path('Admin/admin_main/', views.admin_main, name="admin_main"),    
 
     path('check-new-reservations/', views.check_new_reservations, name='check_new_reservations'),
 ]
-
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
