@@ -21,7 +21,7 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 from django.contrib.auth.views import PasswordChangeView
 from .models import Menu, NormalReservationTable, NormalReservationOrder, SessionDishHistory, UnavailableDateTime
-from .forms import AdminRegisterForm, MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
+from .forms import MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
 
 # from django.http import HttpResponse
 # from django.utils.encoding import force_str
@@ -1411,3 +1411,4 @@ def check_new_reservations(request):
     return JsonResponse({'notifications': notifications})
 
 # redeploy trigger
+
