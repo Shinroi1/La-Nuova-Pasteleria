@@ -68,7 +68,6 @@
           <th>Total Price</th>
           <th>Status</th>
           <th>Reserved Date</th>
-          <th>Created Date</th>
           <th colspan="2">Actions</th>
         </tr>
       </thead>
@@ -129,7 +128,6 @@
         <p><strong>Total:</strong> &#8369;{{ info.total_price }}</p>
         <p><strong>Status:</strong> {{ info.table_status }}</p>
         <p><strong>Reserved Date:</strong> {{ info.date }}</p>
-        <p><strong>Created:</strong> {{ info.date_created }}</p>
         <div class="d-flex gap-2">
           <a href="{% url 'update_reservation' info.id %}" class="btn btn-sm btn-success w-100">Update</a>
           <a href="{% url 'delete_reservation' info.id %}" class="btn btn-sm btn-danger w-100" onclick="return confirm('Delete this record?')">Delete</a>
@@ -194,3 +192,4 @@
 </script>
 
 {% endblock %}
+
