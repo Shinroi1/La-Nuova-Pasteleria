@@ -67,10 +67,19 @@ class SessionDishHistory(models.Model):
         return f"{self.session_key} - {self.dish.dish_name}"
 
 class UnavailableDateTime(models.Model):
-    date = models.DateField(unique=True, null=True)
-    start_time = models.TimeField(unique=True, null=True)
-    end_time = models.TimeField(unique=True, null=True)
+    date = models.DateField(null=True)
+    start_time = models.TimeField(null=True)
+    end_time = models.TimeField(null=True)
     reason = models.CharField(max_length=255, null=True, blank=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['date', 'start_time', 'end_time'],
+                name='unique_unavailable_datetime'
+            )
+        ]
+
     def __str__(self):
+
         return f"{self.date} | {self.start_time} to {self.end_time} — {self.reason or 'Unavailable'}"
