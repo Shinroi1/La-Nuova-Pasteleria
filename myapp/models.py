@@ -41,7 +41,7 @@ class NormalReservationTable(models.Model):
     party_size = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(12)])    
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     table_status = models.CharField(max_length=200, null=True, blank=True, choices=TABLESTATUS, default='Reserved')
-    reservation_date = models.DateTimeField(null=True)
+    date = models.DateTimeField(null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     date_updated = models.DateTimeField(auto_now=True, null=True) 
 
@@ -83,4 +83,5 @@ class UnavailableDateTime(models.Model):
     def __str__(self):
 
         return f"{self.date} | {self.start_time} to {self.end_time} — {self.reason or 'Unavailable'}"
+
 
