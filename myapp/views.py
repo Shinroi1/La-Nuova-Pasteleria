@@ -252,7 +252,7 @@ def store_user_dish_history(request, selected_dishes):
 
 
 # Global bestsellers (improved: DB aggregation + preserved order)
-def get_global_bestsellers(limit=6, min_qty=3):
+def get_global_bestsellers(limit=10, min_qty=3):
     from .models import NormalReservationOrder
 
     rows = (
@@ -275,9 +275,9 @@ def get_global_bestsellers(limit=6, min_qty=3):
 def get_bestsellers(request):
     # bestsellers = get_global_bestsellers(limit=6)
 
-    all_bestsellers = list(get_global_bestsellers(limit=100))  # Larger pool after filter
+    all_bestsellers = list(get_global_bestsellers(limit=10))  # Larger pool after filter
     random.shuffle(all_bestsellers)  # Shuffle so each click gives new batch
-    bestsellers = all_bestsellers[:100]  # Only send dishes
+    bestsellers = all_bestsellers[:10]  # Only send dishes
     
     data = [
         {
@@ -301,8 +301,8 @@ MIN_ADVANCE_DAY = 1  # Minimum days in advance for reservations
 def validate_reservation_data(date, party_size):
     now = make_aware(datetime.now())
 
-    # if date < now + timedelta(days=MIN_ADVANCE_DAY):
-    #     return False, f"Reservations must be made at least {MIN_ADVANCE_DAY} day(s) in advance."
+    if date < now + timedelta(days=MIN_ADVANCE_DAY):
+        return False, f"Reservations must be made at least {MIN_ADVANCE_DAY} day(s) in advance."
 
     if date.hour < OPEN_HOUR or date.hour >= CLOSE_HOUR:
         return False, "Reservation must be within operating hours (10 AM to 9 PM)."
@@ -1407,5 +1407,6 @@ def check_new_reservations(request):
     return JsonResponse({'notifications': notifications})
 
 # redeploy trigger
+
 
 
