@@ -23,10 +23,6 @@ from django.contrib.auth.views import PasswordChangeView
 from .models import Menu, NormalReservationTable, NormalReservationOrder, SessionDishHistory, UnavailableDateTime
 from .forms import MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
 
-# from django.http import HttpResponse
-# from django.utils.encoding import force_str
-# from django.http import HttpResponseRedirect
-# from django.urls import reverse
 
 def test(request):
     return render(request, "test.html")
@@ -305,8 +301,8 @@ MIN_ADVANCE_DAY = 1  # Minimum days in advance for reservations
 def validate_reservation_data(date, party_size):
     now = make_aware(datetime.now())
 
-    if date < now + timedelta(days=MIN_ADVANCE_DAY):
-        return False, f"Reservations must be made at least {MIN_ADVANCE_DAY} day(s) in advance."
+    # if date < now + timedelta(days=MIN_ADVANCE_DAY):
+    #     return False, f"Reservations must be made at least {MIN_ADVANCE_DAY} day(s) in advance."
 
     if date.hour < OPEN_HOUR or date.hour >= CLOSE_HOUR:
         return False, "Reservation must be within operating hours (10 AM to 9 PM)."
@@ -1411,4 +1407,5 @@ def check_new_reservations(request):
     return JsonResponse({'notifications': notifications})
 
 # redeploy trigger
+
 
