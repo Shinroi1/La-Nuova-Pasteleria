@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['la-nuova-pasteleria.up.railway.app']
 
@@ -170,7 +170,8 @@ SESSION_COOKIE_NAME = 'my_website_admin_session'
 SESSION_COOKIE_NAME_ADMIN = 'django_admin_session'
 
 # Enable or disable maintenance mode
-MAINTENANCE_MODE = False  # Change to False to disable
+MAINTENANCE_MODE = True  # Change to False to disable
+
 
 
 
