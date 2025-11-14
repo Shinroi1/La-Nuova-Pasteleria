@@ -42,6 +42,8 @@ class NormalReservationTable(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     table_status = models.CharField(max_length=200, null=True, blank=True, choices=TABLESTATUS, default='Reserved')
     date = models.DateTimeField(null=True)
+    date_created = models.DateTimeField(null=True) 
+    date_updated = models.DateTimeField(null=True)
 
     def __str__(self):
         orders = self.normalreservationorder_set.all()
@@ -59,6 +61,7 @@ class NormalReservationOrder(models.Model):
 class SessionDishHistory(models.Model):
     session_key = models.CharField(max_length=255)
     dish = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    timestamp =  models.DateTimeField(null=True) 
 
     def __str__(self):
         return f"{self.session_key} - {self.dish.dish_name}"
@@ -80,6 +83,7 @@ class UnavailableDateTime(models.Model):
     def __str__(self):
 
         return f"{self.date} | {self.start_time} to {self.end_time} — {self.reason or 'Unavailable'}"
+
 
 
 
