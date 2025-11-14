@@ -37,7 +37,6 @@
           {% endif %}
         </p>
         <p><strong>Reservation Date:</strong> {{ reservation_record.date }}</p>
-        <p><strong>Date Created:</strong> {{ reservation_record.date_created }}</p>
       </div>
       <div class="card-footer text-center d-flex justify-content-around flex-wrap">
         <a href="{% url 'admin_reservation' %}" class="btn btn-secondary mb-2">← Back</a>
@@ -48,4 +47,5 @@
   </div>
 </div>
 {% endblock %}
+
 
