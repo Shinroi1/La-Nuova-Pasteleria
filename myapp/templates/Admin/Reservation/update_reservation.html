@@ -148,6 +148,22 @@
       {% endif %}
       </div>
 
+      <div class="form-group mb-3">
+        <label class="form-label">Date Created</label>
+        <input class="form-control" type="datetime-local" value="{{ current_record.date_created }}">
+      {% if form.date.errors %}
+        <div class="text-danger">{{ form.date.errors.0 }}</div>
+      {% endif %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Last Updated</label>
+        <input class="form-control" type="datetime-local" value="{{ current_record.date_updated }}">
+      {% if form.date.errors %}
+        <div class="text-danger">{{ form.date.errors.0 }}</div>
+      {% endif %}
+      </div>
+
       <!-- Buttons -->
       <div class="d-flex justify-content-between">
         <button type="submit" class="btn btn-success">Update Record</button>
@@ -164,3 +180,4 @@
 </body>
 </html>
 {% endblock %}
+
