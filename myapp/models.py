@@ -61,6 +61,7 @@ class NormalReservationOrder(models.Model):
 class SessionDishHistory(models.Model):
     session_key = models.CharField(max_length=255)
     dish = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    timestamp =  models.DateTimeField(null=True) 
 
     def __str__(self):
         return f"{self.session_key} - {self.dish.dish_name}"
@@ -82,6 +83,7 @@ class UnavailableDateTime(models.Model):
     def __str__(self):
 
         return f"{self.date} | {self.start_time} to {self.end_time} — {self.reason or 'Unavailable'}"
+
 
 
 
