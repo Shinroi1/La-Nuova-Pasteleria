@@ -1405,8 +1405,3 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
-
-# redeploy trigger
-
-
-
