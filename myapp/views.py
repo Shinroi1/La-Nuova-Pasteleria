@@ -841,33 +841,6 @@ def admin_login(request):
             messages.error(request, 'Invalid username or password.')
     return render(request, 'Admin/admin_login.html')
 
-# View to register 
-def admin_register(request):
-    if request.method == 'POST':
-        form = AdminRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)  # Don't save to DB yet
-            user.email = form.cleaned_data['email']
-            user.save()  # Now save to DB
-
-            # ✅ Add user to "staff" group
-            staff_group, created = Group.objects.get_or_create(name='Staff')
-            user.groups.add(staff_group)
-
-            # Authenticate and log the user in
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-
-            messages.success(request, 'Registration successful.')
-            return redirect('admin_login')
-    else:
-        form = AdminRegisterForm()
-    return render(request, 'Admin/admin_register.html', {'form': form})
-
-
 # View to handle user logout
 def logout_user(request):
     logout(request)
@@ -1244,6 +1217,10 @@ def update_reservation(request, pk):
         elif request.method == "POST":
             if form.is_valid():
                 reservation = form.save(commit=False)
+
+                reservation.date_created = request.POST.get("date_created")
+                reservation.date_updated = request.POST.get("date_updated")
+
                 reservation.total_price = form.cleaned_data['total_price']
                 reservation.save()
 
@@ -1405,3 +1382,4 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
