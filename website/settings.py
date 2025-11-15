@@ -170,7 +170,8 @@ SESSION_COOKIE_NAME = 'my_website_admin_session'
 SESSION_COOKIE_NAME_ADMIN = 'django_admin_session'
 
 # Enable or disable maintenance mode
-MAINTENANCE_MODE = True  # Change to False to disable
+MAINTENANCE_MODE = False  # Change to False to disable
+
 
 
 
