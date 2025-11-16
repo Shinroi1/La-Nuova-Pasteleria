@@ -434,10 +434,6 @@ def save_dishes(request):
         return JsonResponse({'message': 'Dishes saved successfully!'})
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
-   
-def Calendar(request):
-    return render(request, "Calendar.html")
-
 def menu_category(request):
     return render(request, "menu_category.html")
 
@@ -1382,4 +1378,5 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
