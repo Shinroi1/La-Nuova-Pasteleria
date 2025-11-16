@@ -36,9 +36,6 @@ urlpatterns = [
     # path('cookies consent/', views.cookies_consent, name="cookies consent"),    
     path('cookie-policy/', TemplateView.as_view(template_name="cookie_policy.html"), name="cookie_policy"),
 
-    
-    path('calendar/', views.Calendar, name="Calendar"),
-
     # MENU
     path('Menu/Full Menu/', views.Full_Menu, name = "Full Menu"),    
     
@@ -244,4 +241,5 @@ urlpatterns = [
     path('check-new-reservations/', views.check_new_reservations, name='check_new_reservations'),
 ]
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
