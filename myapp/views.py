@@ -311,7 +311,7 @@ def validate_reservation_data(date, party_size):
         return False, f"Maximum party size is {MAX_PARTY_SIZE}."
 
     if slot_blocked(date):
-        return False, "This time slot is unavailable due to exclusive reservations or admin block."
+        return False, "This time slot is unavailable due to exclusive reservations."
 
     return True, ""
 
@@ -1378,5 +1378,6 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
