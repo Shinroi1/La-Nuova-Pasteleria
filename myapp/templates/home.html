@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/CSS/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/menu.css' %}">
     
     <title>{% block title %} Home Page {% endblock %}</title>
 </head>
@@ -76,31 +76,31 @@
   <div id="carouselExample" class="carousel slide position-relative">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="/static/images/Background Front.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/Background Front.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/background.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/background.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/background2.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/background2.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/background3.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/background3.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/background4.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/background4.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/Lorna Tolentino.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/Lorna Tolentino.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/KC Conception.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/KC Conception.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/John Estrada.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/John Estrada.jpg' %}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="/static/images/Manny Pacquiao.jpg" class="d-block w-100" alt="...">
+        <img src="{% static 'images/Manny Pacquiao.jpg' %}" class="d-block w-100" alt="...">
       </div>
     </div>
     <button class="carousel-control-prev position-absolute" style="left: 5px; top: 50%; transform: translateY(-50%);" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -119,3 +119,4 @@
 </body>
 </html>
 {% endblock %}
+
