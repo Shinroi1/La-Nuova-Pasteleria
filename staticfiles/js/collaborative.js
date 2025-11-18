@@ -148,8 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchUserPastOrders();
 
     // 🔹 Change button text if user has past orders
-    btn.innerText = "Recommend me with my orders";
+    btn.innerText = "Recommend using my orders";
   } else {
     btn.innerText = "Surprise Me!";
   }
 });
+
