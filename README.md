@@ -57,7 +57,7 @@ MAX_PARTY_SIZE = 12
 MIN_ADVANCE_DAY = 1
 ```
 
-🍽️ Collaborative Filtering Menu Recommender — How It Works
+# 🍽️ Collaborative Filtering Menu Recommender — How It Works
 
 This document explains **how our collaborative filtering menu recommender works**, using simple examples, real dish names, and a step-by-step walkthrough of the actual Django code.
 
@@ -175,6 +175,7 @@ Code:
 5. Count the frequency of each remaining dish
 
 6. Recommend the dishes with the highest co-occurrence
+
 
 
 
