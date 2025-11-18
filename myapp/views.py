@@ -58,9 +58,11 @@ def home(request):
         print(f"Personalized Recommendations:", list(personalized_recs))  # Debugging output
 
         if personalized_recs.exists() and not is_random:
+            last_dish_entry = SessionDishHistory.objects.filter(session_key=request.session.session_key).order_by('-id').first()
             context = {
                 'dishes': personalized_recs, 
                 'personalized': True,
+                'last_dish': last_dish_entry.dish if last_dish_entry else None,
                 'cookies_accepted': True}
         else:
             # Step 3: If no personalized dishes found, fallback to global bestsellers
@@ -1376,6 +1378,7 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
 
