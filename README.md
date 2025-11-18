@@ -12,7 +12,7 @@
 
 This system is currently for the La Nuova Pasteleria, a small italian restaurant who doesn't have any website. The feature of this are: web system, chatbot (botpress), reservation form with logic-based and a collaborative menu recommender.
 
-- The admin for this system was based one of these:
+- The admin for this system was based of the following youtube links:
 - https://youtu.be/xv_bwpA_aEA?si=LfZbhpfHiXkpVTgE
 - https://youtu.be/t10QcFx7d5k?si=Y5mp65-1XieEDiBk
 - https://youtu.be/WuyKxdLcw3w?si=oXWD9E5t9GXt1-U5
@@ -24,7 +24,7 @@ This system is currently for the La Nuova Pasteleria, a small italian restaurant
 - AI Assisstant has a feature of storing unanswered questions although the who created it need to manually type an answer.
 - The AI Assistant currently uses GPT 4.1 Mini although it cannot store past messages and questions.
 
-- This is a tutoria for beginners: https://youtu.be/1EVE2jlFgOc?si=giTJwt2U3RZq73k_
+- This is a tutorial for beginners: https://youtu.be/1EVE2jlFgOc?si=giTJwt2U3RZq73k_
 - This AI botpress customer support is created based on the tutorial of this youtube link: https://youtu.be/9B3oZwtzmmk?si=u5RdHSOZwGN2u-CF
 
 # Restaurant Reservation System – Reservation Form Logic
@@ -185,6 +185,7 @@ Code:
 5. Count the frequency of each remaining dish
 
 6. Recommend the dishes with the highest co-occurrence
+
 
 
 
