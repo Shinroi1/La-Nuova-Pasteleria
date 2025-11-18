@@ -134,7 +134,7 @@ The more users who ordered a dish, the stronger the recommendation.
 Frequency counts:
 
 |Dish	        |Count|
-|---------------|     |
+|---------------|-----|
 |Pizza	        |3    |
 |Garlic Bread   |2    |
 |Tiramisu	    |2    |
@@ -177,6 +177,7 @@ Code:
 5. Count the frequency of each remaining dish
 
 6. Recommend the dishes with the highest co-occurrence
+
 
 
 
