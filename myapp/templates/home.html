@@ -62,7 +62,12 @@
 
 <!-- Buttons -->
 <div style="text-align: center; margin-top: 20px;">
-  <button id="recommend-more" onclick="getAlternativeRecommendations()">Surprise Me!</button>
+  <button id="recommend-more"
+          data-personalized="{{ personalized|yesno:'true,false' }}"
+          data-cookies="{{ cookies_accepted|yesno:'true,false' }}"
+          onclick="getAlternativeRecommendations()">
+    Surprise Me!
+  </button>
   <button id="show-bestsellers" onclick="getBestsellers()">Show Bestsellers</button>
 </div>
 
@@ -78,6 +83,7 @@
 </body>
 </html>
 {% endblock %}
+
 
 
 
