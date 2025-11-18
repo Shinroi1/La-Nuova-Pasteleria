@@ -148,18 +148,6 @@
       {% endif %}
       </div>
 
-      <div class="form-group mb-3">
-        <label for="date" class="form-label">Date Created</label>
-      <input class="form-control" type="datetime-local" name="date_created"
-       value="{{ current_record.date_created|date:'Y-m-d\\TH:i' }}" >
-      </div>
-          
-      <div class="form-group mb-3">
-        <label for="date" class="form-label">Date Updated</label>
-       <input class="form-control" type="datetime-local" name="date_updated"
-       value="{{ current_record.date_updated|date:'Y-m-d\\TH:i' }}">
-      </div>
-
       <div class="d-flex justify-content-between">
         <button type="submit" class="btn btn-success">Update Record</button>
         <a href="{% url 'admin_reservation' %}" class="btn btn-secondary">Back</a>
@@ -175,6 +163,7 @@
 </body>
 </html>
 {% endblock %}
+
 
 
 
