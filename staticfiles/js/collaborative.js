@@ -108,31 +108,48 @@ function fetchUserPastOrders() {
     });
 }
 
+// Surpise me button logic
 function getAlternativeRecommendations() {
-  if (userPastOrders.length === 0) {
-    // First time fallback
-    fadeSwapContent("/recommend_alternatives/", "Finding recommendations for you...");
-    fetchUserPastOrders(); // preload for next clicks
-  } else {
-    // Cycle through past orders
+  const btn = document.getElementById("recommend-more");
+  const personalized = btn.dataset.personalized === "true";
+  const cookiesAccepted = btn.dataset.cookies === "true";
+
+  if (personalized && cookiesAccepted && userPastOrders.length > 0) {
+    // Use user's past orders
     const dishId = userPastOrders[currentOrderIndex];
     fadeSwapContent(`/get_recommendations_for_dish/${dishId}/`, `Since you ordered...`);
-
-    // Move to next, loop back at end
     currentOrderIndex = (currentOrderIndex + 1) % userPastOrders.length;
+  } else {
+    // Random / general recommendations
+    fadeSwapContent("/recommend_alternatives/", "Finding something delicious for you...");
   }
 }
 
+// 🔥 Bestsellers button
 function getBestsellers() {
   fadeSwapContent("/get_bestsellers/", "Check out our bestsellers!");
 }
 
-// 🔥 Attach scroll listener for live arrow toggle
+
+// Attach scroll listener for live arrow toggle & button label change
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".recommend-scroll");
   if (container) {
     container.addEventListener("scroll", updateScrollButtons);
     window.addEventListener("resize", updateScrollButtons);
     updateScrollButtons(); // run once
+  }
+
+  const btn = document.getElementById("recommend-more");
+  const personalized = btn.dataset.personalized === "true";
+  const cookiesAccepted = btn.dataset.cookies === "true";
+
+  if (personalized && cookiesAccepted) {
+    fetchUserPastOrders();
+
+    // 🔹 Change button text if user has past orders
+    btn.innerText = "Recommend me with my orders";
+  } else {
+    btn.innerText = "Surprise Me!";
   }
 });
