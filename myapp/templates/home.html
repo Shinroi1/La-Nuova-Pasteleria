@@ -19,13 +19,13 @@
 <body style="background-color: #D5CCAB;">
 
 <div style="text-align: center;">
-  <h2 class="menu-title" id="recommendation-heading">
-    {% if personalized %}
-      Based on your previous orders, we think you'll love these dishes!
-    {% else %}
-      Check out our bestsellers!
-    {% endif %}
-  </h2>
+    <h2 class="menu-title" id="recommendation-heading">
+      {% if personalized and last_dish %}
+        Since you ordered <strong>{{ last_dish.dish_name }}</strong>, we think you'll love these dishes!
+      {% else %}
+        Check out our bestsellers!
+      {% endif %}
+    </h2>
 
   <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 20px;">
     📸 Some photos are still on the way — our dishes are currently in a photoshoot!
@@ -83,6 +83,7 @@
 </body>
 </html>
 {% endblock %}
+
 
 
 
