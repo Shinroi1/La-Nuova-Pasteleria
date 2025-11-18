@@ -203,7 +203,7 @@ def get_recommendations_for_dish(request, dish_id):
     top_ids = [row['dish_id'] for row in cooc]
 
     if not top_ids:
-        return JsonResponse({'dishes': [], 'heading': f"Since you ordered {anchor_dish.dish_name}, others usually stuck with it solo!"})
+        return JsonResponse({'dishes': [], 'heading': f"Your chosen dish, {anchor_dish.dish_name}, currently have no common pairings."})
 
     dishes = order_by_ids(Menu.objects.all(), top_ids)
 
@@ -1376,6 +1376,7 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
 
