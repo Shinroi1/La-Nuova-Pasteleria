@@ -187,7 +187,7 @@ def get_user_past_orders(request):
 
 
 # View to recommend alternatives based on collaborative filtering
-# This view will be called when the user clicks on the "Recommend me with my order" button.
+# This view will be called when the user clicks on the "Recommend based on my orders" button.
 def recommend_alternatives(request):
     recommended_dishes, is_random, anchor_dish = get_collaborative_recommendations(request)
 
@@ -1417,6 +1417,7 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
 
