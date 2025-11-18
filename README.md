@@ -1,6 +1,61 @@
 # INSTALLATION
-1.
+1. Create a folder where will you put the system.
+2. Open it with vs code by going to the VS Code, and then Hold Ctrl + K and O.
+3. Then select the folder you created.
+4. Click the word Terminal and create new Terminal.
+5. Now on the Terminal type: git clone https://github.com/Shinroi1/La-Nuova-Pasteleria.git
+6. Let it download first.
+7. Now type on the terminal: python -m venv .env
+8. Type: .env\scripts\activate
+9. cd La-Nuova-Pasteleria
+10. Confgure the settings.py for you to run it locally on your VS Code. Do not forget to change the DEBUG, ALLOWED_HOSTS, and use your own database. This system currently use postgresql.
 
+This system is currently for the La Nuova Pasteleria, a small italian restaurant who doesn't have any website. The feature of this are: web system, chatbot (botpress), reservation form with logic-based and a collaborative menu recommender.
+
+# AI ASSISTANT CUSTOMER SUPPORT (BOTPRESS)
+- AI Assisstant is multilingual.
+- AI Assisstant is only used for FAQs.
+- AI Assisstant can only answer related to the restaurant and what has been fed to it.
+- AI Assisstant has a feature of storing unanswered questions although the who created it need to manually type an answer.
+- The AI Assistant currently uses GPT 4.1 Mini although it cannot store past messages and questions.
+
+# Restaurant Reservation System – Reservation Form Logic
+
+This module handles reservation creation, validation rules, unavailable slot checking, and dish selection logic for a restaurant website built with Django.
+
+---
+
+## 🚀 Features
+
+- Validates reservation times and dates
+- Prevents bookings during closed hours
+- Enforces minimum advance booking
+- Limits maximum party size
+- Checks if a time slot is blocked (e.g., private events)
+- Saves reservations and selected dishes
+- Stores user dish history (only if cookies are accepted)
+- Prevents duplicate form submission using session flags
+
+---
+
+## 🧠 Reservation Rules
+
+The reservation system follows these business rules:
+
+| Rule                  | Value |
+| Opening hour          | 10 AM |
+| Closing hour          | 9 PM |
+| Max party size        | 12 people |
+| Minimum advance time  | 1 day |
+
+These are defined in:
+
+```
+OPEN_HOUR = 10
+CLOSE_HOUR = 21
+MAX_PARTY_SIZE = 12
+MIN_ADVANCE_DAY = 1
+```
 
 🍽️ Collaborative Filtering Menu Recommender — How It Works
 
@@ -120,5 +175,6 @@ Code:
 5. Count the frequency of each remaining dish
 
 6. Recommend the dishes with the highest co-occurrence
+
 
 
