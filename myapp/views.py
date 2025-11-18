@@ -36,28 +36,43 @@ def chatbot(request):
     # Render the chatbot template
     return render(request, "chatbot.html")
 
-# Function to order queryset by a specific list of IDs
-# This function takes a queryset and a list of IDs, and orders the queryset based on the
+# ---------------------------------------------------------
+# Helper: preserve order of queryset by a given list of IDs
+# ---------------------------------------------------------
 def order_by_ids(queryset, id_list):
+#
+#    Purpose:
+#     - Return the queryset filtered to id_list and ordered in the exact
+#        sequence of IDs in id_list (preserve ranking from the co-occurrence step).
+#
+#    How it works:
+#      - Builds a CASE expression where each id gets an ordinal (position),
+#
+#       then orders by that ordinal so Django returns items in user-specified order.
+#   
     preserved = Case(
         *[When (id=pk, then=pos) for pos, pk in enumerate(id_list)],
         output_field=IntegerField()
     )
-    
+    # Only include those items and order by the CASE expression
     return queryset.filter(id__in=id_list).order_by(preserved)
 
-# Render home view with proper recommendations
+# ---------------------------------------------------------
+# Home view: pick personalized or bestseller list to render
+# ---------------------------------------------------------
 def home(request):
-    # Check if the user has accepted cookies
+    # 1. Check if the user has accepted cookies
     cookies_accepted = check_cookie_consent(request)
 
-    # Step 1: Check for cookie consent
+    # 2. Check for cookie consent
     if cookies_accepted:
-        # Step 2: If user has history, show personalized recommendations
+        #  If user has history, show personalized recommendations
         personalized_recs, is_random, _ = get_collaborative_recommendations(request)
         print(f"Personalized Recommendations:", list(personalized_recs))  # Debugging output
 
+        # 3) If the CF function returned a real personalized queryset (not a random fallback)
         if personalized_recs.exists() and not is_random:
+             # Grab the last saved dish to show context (anchor) in the homepage
             last_dish_entry = SessionDishHistory.objects.filter(session_key=request.session.session_key).order_by('-id').first()
             context = {
                 'dishes': personalized_recs, 
@@ -65,7 +80,7 @@ def home(request):
                 'last_dish': last_dish_entry.dish if last_dish_entry else None,
                 'cookies_accepted': True}
         else:
-            # Step 3: If no personalized dishes found, fallback to global bestsellers
+            # 4) No personalized results available → use global bestsellers as fallback
             print("Fallback to bestsellers: No personalized dishes found.")
             top_dishes = get_global_bestsellers()
             context = {
@@ -74,6 +89,7 @@ def home(request):
                 'cookies_accepted': True}
 
     else:
+        # 5) User did not accept cookies → cannot personalize, show bestsellers
         top_dishes = get_global_bestsellers()
         context = {
             'dishes': top_dishes, 
@@ -85,11 +101,23 @@ def home(request):
 # Function to check if the user has given cookie consent
 # This function checks if the 'cookie_consent' cookie is set to 'true'.
 def check_cookie_consent(request):
+    #  This controls whether we are allowed to store/lookup session history for personalization.
     return (request.COOKIES.get('cookie_consent') or '').lower() == 'true'
 
-# Function to get collaborative recommendations based on session history
-# This function retrieves dishes that similar users have ordered, excluding the user's own history.
+# ---------------------------------------------------------
+# Core: collaborative filtering (co-occurrence) recommender
+# ---------------------------------------------------------
 def get_collaborative_recommendations(request, limit=6):
+    """
+    Steps implemented here:
+    1) Ensure session exists -> if not, return random fallback.
+    2) Load all dish IDs that the current session ordered (user_dish_ids).
+    3) If no user history -> random fallback.
+    4) Find similar sessions (any session that ordered ANY dish in user_dish_ids).
+    5) Among those similar sessions, count which OTHER dishes appear most often (co-occurrence).
+    6) Return top N dish objects ordered in descending co-occurrence score (preserving order).
+    """
+
     session_key = request.session.session_key
     if not session_key:
         print("[Collaborative] No session key, returning random dishes.")
@@ -1378,6 +1406,7 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
 
