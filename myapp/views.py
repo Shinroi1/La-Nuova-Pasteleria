@@ -91,7 +91,7 @@ def get_collaborative_recommendations(request, limit=6):
     session_key = request.session.session_key
     if not session_key:
         print("[Collaborative] No session key, returning random dishes.")
-        return Menu.objects.order_by('?')[:100], True, None
+        return Menu.objects.order_by('?')[:6], True, None
 
     user_dish_ids = list(
         SessionDishHistory.objects.filter(session_key=session_key)
@@ -1378,6 +1378,7 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
 
