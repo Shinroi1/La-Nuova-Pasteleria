@@ -133,8 +133,12 @@
         <p><strong>Status:</strong> {{ info.table_status }}</p>
         <p><strong>Reserved Date:</strong> {{ info.date }}</p>
         <div class="d-flex gap-2">
-          <a href="{% url 'update_reservation' info.id %}" class="btn btn-sm btn-success w-100">Update</a>
-          <a href="{% url 'delete_reservation' info.id %}" class="btn btn-sm btn-danger w-100" onclick="return confirm('Delete this record?')">Delete</a>
+          <td>
+            <a href="{% url 'update_reservation' info.id %}" class="btn btn-sm btn-success w-100">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'delete_reservation' info.id %}" class="btn btn-sm btn-danger w-100" onclick="return confirm('Delete this record?')">Delete</a>
+          </td>
         </div>
       </div>
     </div>
@@ -196,6 +200,7 @@
 </script>
 
 {% endblock %}
+
 
 
 
