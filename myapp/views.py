@@ -108,26 +108,28 @@ def check_cookie_consent(request):
 # Core: collaborative filtering (co-occurrence) recommender
 # ---------------------------------------------------------
 def get_collaborative_recommendations(request, limit=6):
-    """
-    Steps implemented here:
-    1) Ensure session exists -> if not, return random fallback.
-    2) Load all dish IDs that the current session ordered (user_dish_ids).
-    3) If no user history -> random fallback.
-    4) Find similar sessions (any session that ordered ANY dish in user_dish_ids).
-    5) Among those similar sessions, count which OTHER dishes appear most often (co-occurrence).
-    6) Return top N dish objects ordered in descending co-occurrence score (preserving order).
-    """
+#
+#    Steps implemented here:
+#   1) Ensure session exists -> if not, return random fallback.
+#    2) Load all dish IDs that the current session ordered (user_dish_ids).
+#    3) If no user history -> random fallback.
+#    4) Find similar sessions (any session that ordered ANY dish in user_dish_ids).
+#    5) Among those similar sessions, count which OTHER dishes appear most often (co-occurrence).
+#    6) Return top N dish objects ordered in descending co-occurrence score (preserving order).
 
+  # --- Step 1: session check ---
     session_key = request.session.session_key
     if not session_key:
         print("[Collaborative] No session key, returning random dishes.")
         return Menu.objects.order_by('?')[:6], True, None
-
+        
+    # --- Step 2: get all dishes the current session has ordered (implicit feedback)
     user_dish_ids = list(
         SessionDishHistory.objects.filter(session_key=session_key)
         .values_list('dish_id', flat=True)
     )
-
+  
+    # --- Step 3: no user history -> fallback ---
     if not user_dish_ids:
         print("[Collaborative] No user dish history found, returning random dishes.")
         return Menu.objects.order_by('?')[:limit], True, None
@@ -138,30 +140,38 @@ def get_collaborative_recommendations(request, limit=6):
     ).order_by('-id').first()
     anchor_dish = last_dish_entry.dish if last_dish_entry else None
 
+    # --- Step 4: find "similar sessions" (neighbors)
+    # We select any sessions that include ANY of the user's dishes (loose matching)
     similar_sessions = (
-        SessionDishHistory.objects.filter(dish_id__in=user_dish_ids)
-        .exclude(session_key=session_key)
+        SessionDishHistory.objects.filter(dish_id__in=user_dish_ids)   # sessions that ordered at least one of user's dishes
+        .exclude(session_key=session_key)                              # exclude the current session
         .values_list('session_key', flat=True)
         .distinct()
     )
 
+    # --- Step 5: co-occurrence counting (the core predictive logic)
+    # For sessions in similar_sessions, count dishes they ordered excluding the user's own items.
+    # score = number of distinct similar sessions that contain that dish.
     cooc = (
         SessionDishHistory.objects
-        .filter(session_key__in=similar_sessions)
-        .exclude(dish_id__in=user_dish_ids)
+        .filter(session_key__in=similar_sessions)            # consider only similar sessions
+        .exclude(dish_id__in=user_dish_ids)                  # do not recommend items the user already selected
         .values('dish_id')
-        .annotate(score=Count('session_key', distinct=True))
-        .order_by('-score')[:limit]
+        .annotate(score=Count('session_key', distinct=True)) # how many similar sessions had that dish
+        .order_by('-score')[:limit]                          # top-N by co-occurrence score
     )
 
+     # Extract the dish IDs in ranking order
     top_ids = [row['dish_id'] for row in cooc]
     if not top_ids:
         return Menu.objects.order_by('?')[:limit], True, anchor_dish
 
+      # --- Step 6: order Menu queryset by the top_ids ranking
     return order_by_ids(Menu.objects.all(), top_ids), False, anchor_dish
 
 
-# View to get past orders for the user for the suprise me button (used on home page)
+# Utility: return user's past dish IDs (chronological)
+# Used for "Surprise me" or to show history in UI
 def get_user_past_orders(request):
     session_key = request.session.session_key
     if not session_key:
@@ -177,10 +187,11 @@ def get_user_past_orders(request):
 
 
 # View to recommend alternatives based on collaborative filtering
-# This view will be called when the user clicks on the "Recommend Alternatives" button.
+# This view will be called when the user clicks on the "Recommend me with my order" button.
 def recommend_alternatives(request):
     recommended_dishes, is_random, anchor_dish = get_collaborative_recommendations(request)
 
+    # Heading based on whether results were personalized
     if is_random:
         heading = "We couldn't find your usual favorites — but no worries! Here's something to spark your appetite:"
     else:
@@ -1406,6 +1417,7 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
 
