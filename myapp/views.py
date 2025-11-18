@@ -273,9 +273,7 @@ def get_global_bestsellers(limit=10, min_qty=3):
 
 # USED FOR BESTSELLERS BUTTON
 def get_bestsellers(request):
-    # bestsellers = get_global_bestsellers(limit=6)
-
-    all_bestsellers = list(get_global_bestsellers(limit=10))  # Larger pool after filter
+    all_bestsellers = list(get_global_bestsellers(limit=10, min_qty=3))  # Larger pool after filter
     random.shuffle(all_bestsellers)  # Shuffle so each click gives new batch
     bestsellers = all_bestsellers[:10]  # Only send dishes
     
@@ -1378,6 +1376,7 @@ def check_new_reservations(request):
         })
 
     return JsonResponse({'notifications': notifications})
+
 
 
 
