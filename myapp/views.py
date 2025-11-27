@@ -1419,6 +1419,155 @@ def check_new_reservations(request):
     return JsonResponse({'notifications': notifications})
 
 
+# EXPORT COMBINED REPORT PDF
+def export_combined_report_pdf(request):
+    include_reservations = request.GET.get("reservations") == "1"
+    include_popular = request.GET.get("popular") == "1"
+
+    report_type = request.GET.get("type")
+    start = request.GET.get("start_date")
+    end = request.GET.get("end_date")
+
+    today = now().date()
+
+    # -------------------------
+    #  DATE RANGE FIXED
+    # -------------------------
+    if report_type == "today":
+        date_from = today
+        date_to = today
+        label = "Today"
+
+    elif report_type == "this_week":
+        date_from = today - timedelta(days=today.weekday())
+        date_to = today
+        label = "This Week"
+
+    elif report_type == "this_month":
+        date_from = today.replace(day=1)
+        date_to = today
+        label = "This Month"
+
+    elif report_type == "custom" and start and end:
+        date_from = datetime.strptime(start, "%Y-%m-%d").date()
+        date_to = datetime.strptime(end, "%Y-%m-%d").date()
+        label = f"{start} to {end}"
+
+    else:
+        date_from = today
+        date_to = today
+        label = "Today"
+
+    # -------------------------
+    #  RESPONSE
+    # -------------------------
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="report_{label}.pdf"'
+
+    # PDF document with proper margins
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=A4,
+        leftMargin=30,
+        rightMargin=30,
+        topMargin=30,
+        bottomMargin=30,
+    )
+
+    styles = getSampleStyleSheet()
+    elements = []
+
+    # ====================================================================
+    #   SECTION 1 — RESERVATIONS
+    # ====================================================================
+    if include_reservations:
+        reservations = NormalReservationTable.objects.filter(
+            date__range=[date_from, date_to]
+        )
+
+        elements.append(Paragraph(f"Reservation Report — {label}", styles["Title"]))
+        elements.append(Paragraph(
+            f"Total Reservations: {reservations.count()}",
+            styles["Heading3"]
+        ))
+
+        # Table header
+        table_data = [["Customer", "Party", "Date", "Status", "Dishes"]]
+
+        for r in reservations:
+            ordered = NormalReservationOrder.objects.filter(reservation=r)
+
+            dish_text = ", ".join(
+                f"{o.dish.dish_name} (x{o.quantity})" for o in ordered
+            )
+
+            table_data.append([
+                r.fullname,
+                r.party_size,
+                r.date.strftime("%Y-%m-%d %H:%M"),
+                r.table_status,
+                Paragraph(dish_text, styles["BodyText"])
+            ])
+
+        # Auto-fit columns
+        col_widths = [90, 30, 70, 70, None]
+
+        table = Table(table_data, colWidths=col_widths)
+        table.setStyle(TableStyle([
+            ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+            ("GRID", (0,0), (-1,-1), 0.5, colors.black),
+            ("VALIGN", (0,0), (-1,-1), "TOP"),
+            ("FONTSIZE", (0,0), (-1,-1), 8),
+        ]))
+
+        elements.append(table)
+
+        # Add a page break only if also exporting popular dishes
+        if include_popular:
+            elements.append(PageBreak())
+
+    # ====================================================================
+    #   SECTION 2 — POPULAR DISHES
+    # ====================================================================
+    if include_popular:
+        popular = (
+            NormalReservationOrder.objects.filter(
+                reservation__date__range=[date_from, date_to]
+            )
+            .values("dish__dish_name", "dish__category", "dish__sub_category")
+            .annotate(order_count=Sum("quantity"))
+            .order_by("-order_count")
+        )
+
+        elements.append(Paragraph(f"Popular Dishes — {label}", styles["Title"]))
+
+        table_data = [["Dish", "Category", "Subcategory", "Orders"]]
+
+        for p in popular:
+            table_data.append([
+                p["dish__dish_name"],
+                p["dish__category"],
+                p["dish__sub_category"],
+                p["order_count"]
+            ])
+
+        table = Table(
+            table_data,
+            colWidths=[120, 80, 80, 40]
+        )
+        table.setStyle(TableStyle([
+            ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+            ("GRID", (0,0), (-1,-1), 0.5, colors.black),
+            ("FONTSIZE", (0,0), (-1,-1), 9),
+        ]))
+
+        elements.append(table)
+
+    # -------------------------
+    # BUILD PDF
+    # -------------------------
+    doc.build(elements)
+    return response
 
 
 
