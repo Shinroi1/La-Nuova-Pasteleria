@@ -52,7 +52,15 @@
 
 </form>
 
-
+    {% if messages %}
+      <div class="alert alert-info">
+        <ul class="list-unstyled mb-0">
+          {% for message in messages %}
+            <li class="text-center">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
 
   <!-- Table View (Desktop) -->
   <div class="table-responsive d-none d-md-block">
@@ -200,6 +208,7 @@
 </script>
 
 {% endblock %}
+
 
 
 
