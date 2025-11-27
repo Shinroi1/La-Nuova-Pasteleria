@@ -234,6 +234,7 @@ urlpatterns = [
 
 
     path('Admin/admin_dashboard/', views.admin_dashboard, name="admin_dashboard"), 
+    path('admin_dashboard/export/combined/', views.export_combined_report_pdf, name='export_combined_report_pdf'),
     path('Admin/admin_login/', views.admin_login, name="admin_login"),
     path('logout/', views.logout_user,  name ="logout"),
     path('Admin/admin_main/', views.admin_main, name="admin_main"),    
@@ -241,5 +242,6 @@ urlpatterns = [
     path('check-new-reservations/', views.check_new_reservations, name='check_new_reservations'),
 ]
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 
