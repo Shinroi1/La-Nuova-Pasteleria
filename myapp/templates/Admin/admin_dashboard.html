@@ -35,6 +35,41 @@
     </div>
   </div>
 
+<!-- EXPORT REPORTS SECTION -->
+<div class="card p-3 mb-4">
+    <h4>📄 Export Reports</h4>
+
+    <form method="GET" action="{% url 'export_combined_report_pdf' %}">
+
+        <label class="fw-bold">Report Type:</label>
+        <select name="type" class="form-select mb-2" required>
+            <option value="today">Today</option>
+            <option value="this_week">This Week</option>
+            <option value="this_month">This Month</option>
+            <option value="custom">Custom Range</option>
+        </select>
+
+        <div class="row mb-2">
+            <div class="col">
+                <label>Start Date:</label>
+                <input type="date" name="start_date" class="form-control">
+            </div>
+            <div class="col">
+                <label>End Date:</label>
+                <input type="date" name="end_date" class="form-control">
+            </div>
+        </div>
+
+        <label class="fw-bold">Include:</label><br>
+        <input type="checkbox" name="reservations" value="1" checked> Reservations<br>
+        <input type="checkbox" name="popular" value="1" checked> Popular Dishes<br>
+
+        <button class="btn btn-dark mt-3">Download PDF</button>
+    </form>
+</div>
+
+
+
 <!-- Search & Filter Controls -->
 <form method="get" class="row g-3 mb-4 align-items-end">
 
@@ -80,8 +115,6 @@
     </small>
   </div>
 </form>
-
-
 
   <!-- Recent Reservations Table -->
   <div class="card mb-5">
@@ -210,6 +243,38 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  (function () {
+    const rangeSelect = document.getElementById('range_type');
+    const customDates = document.getElementById('customDates');
+    const secAll = document.getElementById('secAll');
+    const checkboxes = document.querySelectorAll('input[name="sections"]');
+
+    rangeSelect.addEventListener('change', (e) => {
+      customDates.style.display = (e.target.value === 'custom') ? 'block' : 'none';
+    });
+
+    // If user checks "Include All Sections", check all other boxes; unchecking will clear others
+    secAll.addEventListener('change', (e) => {
+      checkboxes.forEach(cb => {
+        if (cb !== secAll) cb.checked = e.target.checked;
+      });
+    });
+
+    // If any non-all checkbox is unchecked, uncheck 'all'
+    checkboxes.forEach(cb => {
+      if (cb !== secAll) {
+        cb.addEventListener('change', () => {
+          if (!Array.from(checkboxes).filter(c => c !== secAll).every(c => c.checked)) {
+            secAll.checked = false;
+          }
+        });
+      }
+    });
+  })();
+</script>
 
 {% endblock %}
 
