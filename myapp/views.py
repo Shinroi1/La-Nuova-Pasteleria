@@ -1,27 +1,35 @@
+import io
 import json
 import random
 from collections import Counter
 from django.db.models import Case, When, Sum, Count, IntegerField
 from .decorators import allowed_users
 from datetime import datetime, timezone
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.templatetags.static import static
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate,logout
 from django.utils import timezone
 from datetime import datetime, timedelta, date
-from django.utils.timezone import make_aware
+from django.utils.timezone import make_aware, now, timedelta
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import F, ExpressionWrapper, DurationField
 from django.db.models import Count, Q
+from django.db.models.functions import TruncDate
 from django.contrib.auth.models import Group
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 from django.contrib.auth.views import PasswordChangeView
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, PageBreak, Spacer
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib.units import inch
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib import colors
 from .models import Menu, NormalReservationTable, NormalReservationOrder, SessionDishHistory, UnavailableDateTime
 from .forms import MenuForm, NormalReservationForm, AdminProfileForm, UnavailableDateTimeForm
+
 
 
 def test(request):
@@ -1568,6 +1576,7 @@ def export_combined_report_pdf(request):
     # -------------------------
     doc.build(elements)
     return response
+
 
 
 
